@@ -1,1 +1,1 @@
-export { default } from './views/IdentificatePage.tsx';
+export { default } from './views/IdentificatePage';
