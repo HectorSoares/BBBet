@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
 import PaidIcon from '@mui/icons-material/Paid';
+import Bet from '../../../icons/Bet';
 
 const drawerWidth = 240;
 
@@ -46,7 +47,7 @@ export default function MenuBar(props: Props) {
               <ListItemIcon>
                 {text == 'Inicio' && <HomeIcon />}
                 {text == 'Competição' && <BarChartIcon />}
-                {text == 'Apostar' && <PaidIcon />}
+                {text == 'Apostar' && <Bet />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
