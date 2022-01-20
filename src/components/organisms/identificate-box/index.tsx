@@ -20,13 +20,13 @@ export default function IdentificateBox() {
 
   
   const brothers = [
-    { name: 'Jessiale', id: '1994' },
-    { name: 'Tiago', id: '1972' },
-    { name: 'Eslovenia', id: '1974' },
-    { name: 'Luiz', id: '2008' },
-    { name: 'Marcio', id: '1957' },
-    { name: "Lucas", id: '1993' },
-    { name: 'Amaral', id: '1994' }
+    { name: 'Joao chupa bola', id: '1994' },
+    { name: 'Pombo', id: '1972' },
+    { name: 'Nic', id: '1974' },
+    { name: 'Deleon', id: '2008' },
+    { name: 'Fred', id: '1957' },
+    { name: "Clara", id: '1993' },
+    { name: 'Yuri', id: '1994' }
   ];
 
   return (
