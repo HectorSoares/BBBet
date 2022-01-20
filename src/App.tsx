@@ -1,13 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import IdentificatePage from './components/pages/identificate-page/views/IdentificatePage';
+import Router from './Router';
+import store from './store/index';
 
 
 const App = () => {
 
   return (
-  <IdentificatePage />);
+    <>   
+    <BrowserRouter>    
+      <Provider store = {store}>
+        <Router/>
+      </Provider>  
+      </BrowserRouter> 
+    </>
+  );
 }
 
 export default App;

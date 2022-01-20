@@ -1,11 +1,11 @@
-import React from 'react';
+
+import IdentificateBox from '../../../organisms/identificate-box';
 
 const IdentificatePage = () => {
 
+
   return (
-    <>
-      <p> Quem é você? </p>
-    </>
+    <IdentificateBox/>
   );
 };
 

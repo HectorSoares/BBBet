@@ -1,4 +1,4 @@
-import User from '../../../../domain/model/user/User';
+import User from '../../../../domain/model/User';
 
 export const SET_USER = 'app/user/SET_USER';
 
@@ -7,7 +7,7 @@ export interface UserState {
 }
 
 export const INITIAL_STATE: UserState = {
-  user: {name: "Hector", id: "0000"},
+  user: undefined,
 };
 
 interface SetUserAction {
