@@ -1,31 +1,31 @@
 import { Box, Typography, Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Brother from "../../../../domain/model/Brother";
+import User from "../../../../domain/model/User";
+import { RootState } from "../../../../store/reducers";
 import { questions } from "../../../../util/constants";
 import AutocompleteBet from "../../../atoms/autocomplete";
+import { setBrothers } from "../store/actions";
 
 const BetPage = () => {
 
-     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(leader,
-angel,
-bigPhone,);
-      };
+  const dispatch = useDispatch();
 
-    const [leader, setLeader] = useState<Brother | undefined>(undefined);
-    const [angel, setAngel] = useState<Brother | undefined>(undefined);
-    const [bigPhone, setBigPhone] = useState<Brother | undefined>(undefined);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(leader, angel,bigPhone);
+  };
+const brothers: Brother[] | undefined = useSelector((state: RootState) => state.brothers.brothers );
 
-    const brothers = [
-        { name: 'Jessiale', id: '1994' },
-        { name: 'Tiago', id: '1972' },
-        { name: 'Eslovenia', id: '1974' },
-        { name: 'Luiz', id: '2008' },
-        { name: 'Marcio', id: '1957' },
-        { name: "Lucas", id: '1993' },
-        { name: 'Amaral', id: '1994' }
-    ];
+
+const [leader, setLeader] = useState<Brother | undefined>(undefined);
+const [angel, setAngel] = useState<Brother | undefined>(undefined);
+const [bigPhone, setBigPhone] = useState<Brother | undefined>(undefined);
+    useEffect(() => {
+      dispatch(setBrothers());
+  }, [])
+
 
 
   return (

@@ -1,9 +1,10 @@
 import { Autocomplete, TextField } from "@mui/material";
+import Brother from "../../../domain/model/Brother";
 import User from "../../../domain/model/User";
 
 
 interface AutocompleteBetProps  {
-    items: User[],
+    items?: any,
     label: string,
     onChange: Function
 };
@@ -12,7 +13,7 @@ interface AutocompleteBetProps  {
 const AutocompleteBet = ({items, label, onChange}: AutocompleteBetProps) => {
 
     return (<Autocomplete
-                options={items}
+                options={items || []}
                 fullWidth
                 getOptionLabel={(option: any) => option?.name || option.id || option}
                 renderInput={(params) => <TextField {...params} label = {label} />}
