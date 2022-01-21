@@ -5,35 +5,37 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
-import PaidIcon from '@mui/icons-material/Paid';
 import Bet from '../../../icons/Bet';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Auth } from 'aws-amplify';
 
 const drawerWidth = 240;
 
 interface Props {
   window?: () => Window;
-  signOut: any;
 }
 
 export default function MenuBar(props: Props) {
-  const { window, signOut } = props;
+  const { window  } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     console.log(mobileOpen);
     setMobileOpen(!mobileOpen);
   };
+
+  const handleSignOut = () => {
+    Auth.signOut();
+  }
 
   console.log(mobileOpen);
 
@@ -83,8 +85,16 @@ export default function MenuBar(props: Props) {
           <Typography variant="h6" noWrap component="div">
             BBBet do Chupa Bola
           </Typography>
+          <IconButton
+              color="inherit"
+              edge="end"
+              onClick={handleSignOut}
+               sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <LogoutIcon />
+            </IconButton>
 
-          
+
         </Toolbar>
       </AppBar>
       <Box
