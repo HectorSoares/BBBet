@@ -18,26 +18,40 @@ const authTheme = {
 const signUpConfig = {
   header: 'Sign Up',
     hideAllDefaults: true,
-    signUpFields: [
+    signUpFields: [      
+      {
+        label: 'First Name',
+        key: 'name',
+        required: true,
+        displayOrder: 1,
+        type: 'string'
+      },
+      {
+        label: 'Last Name',
+        key: 'middle_name',
+        required: true,
+        displayOrder: 2,
+        type: 'string'
+      },
       {
         label: 'Email',
         key: 'email',
         required: true,
-        displayOrder: 1,
+        displayOrder: 3,
         type: 'string'
       },
       {
         label: 'Username',
         key: 'username',
         required: true,
-        displayOrder: 2,
+        displayOrder: 4,
         type: 'string'
       },
       {
         label: 'Password',
         key: 'password',
         required: true,
-        displayOrder: 3,
+        displayOrder: 5,
         type: 'password'
       }
     ]
@@ -46,17 +60,17 @@ const signUpConfig = {
 Amplify.configure({
       mandatorySignIn: true,
       region: 'us-east-1',
-      userPoolId: 'us-east-1_1XZuOrkxb',
-      identityPoolId: 'us-east-1:d2bdd298-d5e1-430a-bf44-6503782ceea5',
-      userPoolWebClientId: '6foh6g3r3egj757uf8avh2oodf',
+      userPoolId: 'us-east-1_uLswvAQVZ',
+      identityPoolId: 'us-east-1:42d8b7b6-b929-4c80-949e-ea27af8e6cbb',
+      userPoolWebClientId: 'actqpfaf00m1cg8cvccck1s9k',
       language: "br",
     });
     Auth.configure({
-      mandatorySignIn: true,
+       mandatorySignIn: true,
       region: 'us-east-1',
-      userPoolId: 'us-east-1_1XZuOrkxb',
-      identityPoolId: 'us-east-1:d2bdd298-d5e1-430a-bf44-6503782ceea5',
-      userPoolWebClientId: '6foh6g3r3egj757uf8avh2oodf',
+      userPoolId: 'us-east-1_uLswvAQVZ',
+      identityPoolId: 'us-east-1:42d8b7b6-b929-4c80-949e-ea27af8e6cbb',
+      userPoolWebClientId: 'actqpfaf00m1cg8cvccck1s9k',
       language: "br",
     });
 
