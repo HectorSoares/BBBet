@@ -1,11 +1,11 @@
 
-import IdentificateBox from '../../../organisms/identificate-box';
+import LoginBox from '../../../organisms/login-box';
 
 const IdentificatePage = () => {
 
 
   return (
-    <IdentificateBox/>
+    <LoginBox/>
   );
 };
 

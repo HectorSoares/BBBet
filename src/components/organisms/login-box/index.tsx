@@ -7,14 +7,36 @@ import { useDispatch } from 'react-redux';
 import User from '../../../domain/model/User';
 import { setUser } from '../../pages/identificate-page/store/actions';
 import AutocompleteBet from '../../atoms/autocomplete';
+import {Authenticator} from 'aws-amplify-react';
+import {Amplify, Auth} from 'aws-amplify';
+import { useEffect } from 'react';
+import '@aws-amplify/ui/dist/style.css'
 
 
-export default function IdentificateBox() {
+
+export default function LoginBox() {
   const dispatch = useDispatch();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(setUser(currentUser));
   };
+
+  useEffect(() => {
+    Amplify.configure({
+      mandatorySignIn: true,
+      region: 'us-east-1',
+      userPoolId: 'us-east-1_1XZuOrkxb',
+      identityPoolId: 'us-east-1:d2bdd298-d5e1-430a-bf44-6503782ceea5',
+      userPoolWebClientId: '6foh6g3r3egj757uf8avh2oodf'
+    });
+    Auth.configure({
+      mandatorySignIn: true,
+      region: 'us-east-1',
+      userPoolId: 'us-east-1_1XZuOrkxb',
+      identityPoolId: 'us-east-1:d2bdd298-d5e1-430a-bf44-6503782ceea5',
+      userPoolWebClientId: '6foh6g3r3egj757uf8avh2oodf'
+    });
+  }, []);
 
   const [currentUser, setCurrentUser] = React.useState<User | undefined>(undefined);
 

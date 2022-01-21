@@ -23,10 +23,11 @@ const drawerWidth = 240;
 
 interface Props {
   window?: () => Window;
+  signOut: any;
 }
 
 export default function MenuBar(props: Props) {
-  const { window } = props;
+  const { window, signOut } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -82,6 +83,8 @@ export default function MenuBar(props: Props) {
           <Typography variant="h6" noWrap component="div">
             BBBet do Chupa Bola
           </Typography>
+
+          
         </Toolbar>
       </AppBar>
       <Box
