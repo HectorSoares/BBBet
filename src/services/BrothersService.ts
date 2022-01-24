@@ -7,7 +7,6 @@ const axiosInstance = getAxiosInstance('https://w7qw2u3mnd.execute-api.us-east-1
 class BrothersService {
   async listBrothers(): Promise<AxiosResponse<Brother[]>> {
     var response = await  axiosInstance.get('/');
-    console.log(response.data.body);
     return response
   }
 }

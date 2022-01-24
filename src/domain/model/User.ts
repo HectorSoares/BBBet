@@ -1,5 +1,8 @@
 export default interface User {
-    name: string;
-    nick?: string;
     id: string;
+    lastName: string;
+    totalPoints: number;
+    email: string;
+    firstName: string;
+    bets: object;
 }

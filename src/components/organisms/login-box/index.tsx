@@ -18,7 +18,7 @@ export default function LoginBox() {
   const dispatch = useDispatch();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(setUser(currentUser));
+    //dispatch(setUser(currentUser));
   };
 
   useEffect(() => {

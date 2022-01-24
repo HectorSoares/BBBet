@@ -29,12 +29,13 @@ export default function MenuBar(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    console.log(mobileOpen);
     setMobileOpen(!mobileOpen);
   };
 
   const handleSignOut = () => {
+    console.log('sair');
     Auth.signOut();
+    console.log('sair');
   }
 
   console.log(mobileOpen);
@@ -44,16 +45,20 @@ export default function MenuBar(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {['Inicio', 'Competição', 'Apostar'].map((text, index) => {
+        {['Inicio', 'Competição', 'Apostar', 'Sair'].map((text, index) => {
           return (
+            <>
             <ListItem button key={text}>
               <ListItemIcon>
-                {text == 'Inicio' && <HomeIcon />}
-                {text == 'Competição' && <BarChartIcon />}
-                {text == 'Apostar' && <Bet />}
+                {text === 'Inicio' && <HomeIcon />}
+                {text === 'Competição' && <BarChartIcon />}
+                {text === 'Apostar' && <Bet />}
+                {text === 'Sair' && <IconButton onClick={handleSignOut}><LogoutIcon /></IconButton>}
               </ListItemIcon>
               <ListItemText primary={text} />
+
             </ListItem>
+            </>
           );
         })}
       </List>
@@ -63,12 +68,12 @@ export default function MenuBar(props: Props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { sm: `calc(100% - 180px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
@@ -85,16 +90,6 @@ export default function MenuBar(props: Props) {
           <Typography variant="h6" noWrap component="div">
             BBBet do Chupa Bola
           </Typography>
-          <IconButton
-              color="inherit"
-              edge="end"
-              onClick={handleSignOut}
-               sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <LogoutIcon />
-            </IconButton>
-
-
         </Toolbar>
       </AppBar>
       <Box
@@ -108,7 +103,7 @@ export default function MenuBar(props: Props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, 
+            keepMounted: false, 
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -118,12 +113,16 @@ export default function MenuBar(props: Props) {
           {drawer}
         </Drawer>
         <Drawer
-          variant="temporary"
+          variant="persistent"
+          open
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: false, 
+          }}
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 180 },
           }}
-          open
         >
           {drawer}
         </Drawer>

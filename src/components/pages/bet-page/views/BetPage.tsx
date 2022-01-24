@@ -1,11 +1,12 @@
 import { Box, Typography, Button } from "@mui/material";
+import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Brother from "../../../../domain/model/Brother";
-import User from "../../../../domain/model/User";
 import { RootState } from "../../../../store/reducers";
 import { questions } from "../../../../util/constants";
 import AutocompleteBet from "../../../atoms/autocomplete";
+import { setUser } from "../../identificate-page/store/actions";
 import { setBrothers } from "../store/actions";
 
 const BetPage = () => {
@@ -22,9 +23,14 @@ const brothers: Brother[] | undefined = useSelector((state: RootState) => state.
 const [leader, setLeader] = useState<Brother | undefined>(undefined);
 const [angel, setAngel] = useState<Brother | undefined>(undefined);
 const [bigPhone, setBigPhone] = useState<Brother | undefined>(undefined);
-    useEffect(() => {
-      dispatch(setBrothers());
-  }, [])
+    useEffect(function () {
+        async function setCurrentUser(){
+          dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
+        }
+
+        dispatch(setBrothers());
+        setCurrentUser();
+      }, [dispatch])
 
 
 
