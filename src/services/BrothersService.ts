@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import getAxiosInstance from '../apis/axiosInstance';
 import Brother from '../domain/model/Brother';
 
-const axiosInstance = getAxiosInstance('https://w7qw2u3mnd.execute-api.us-east-1.amazonaws.com/dev');
+const axiosInstance = getAxiosInstance(process.env.BROTHERS_API || '');
 
 class BrothersService {
   async listBrothers(): Promise<AxiosResponse<Brother[]>> {

@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import getAxiosInstance from '../apis/axiosInstance';
 import User from '../domain/model/User';
 
-const axiosInstance = getAxiosInstance('https://zeh4q87pql.execute-api.us-east-1.amazonaws.com/dev');
+const axiosInstance = getAxiosInstance(process.env.USER_API || '');
 
 class UserService {
   async listUser(): Promise<AxiosResponse<User[]>> {
