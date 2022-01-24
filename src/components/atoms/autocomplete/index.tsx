@@ -1,6 +1,4 @@
 import { Autocomplete, TextField } from "@mui/material";
-import Brother from "../../../domain/model/Brother";
-import User from "../../../domain/model/User";
 
 
 interface AutocompleteBetProps  {

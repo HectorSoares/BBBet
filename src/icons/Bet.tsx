@@ -6,7 +6,7 @@ type BetProps = {
 };
 
 const Bet = ({ color, size }: BetProps) => (
-  <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="23" height="23" viewBox="0 0 23 23" color="rgba(0, 0, 0, 0.54)" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 13H8.17157C8.70201 13 9.21071 13.2107 9.58579 13.5858L9.77051 13.7705C9.92251 13.9225 10.049 14.098 10.1451 14.2903L10.5 15" stroke="black" strokeWidth="0.7" strokeLinecap="round"/>
 <path d="M10 3L10.7019 3.35093C10.8954 3.44769 11.0523 3.60461 11.1491 3.79814L11.2764 4.05279C11.4172 4.33431 11.4172 4.66569 11.2764 4.94721L10.0726 7.35485C10.0245 7.45099 9.96125 7.53875 9.88525 7.61475L9.5 8" stroke="black" strokeWidth="0.7" strokeLinecap="round"/>
 <path d="M14 12.5L16.7411 16.6117C16.8869 16.8303 17.177 16.8988 17.4052 16.7684L20.1441 15.2034C20.351 15.0851 20.4457 14.8372 20.3704 14.6111L20.0655 13.6965C20.0236 13.5707 19.9334 13.4667 19.8148 13.4074L15 11" stroke="black" strokeWidth="0.7" strokeLinecap="round"/>

@@ -14,11 +14,15 @@ export default function Router(): JSX.Element {
 
 
     routes = ( <Switch>
-          <Route path={pageRoutes.Bbbet}>
+          <Route path={pageRoutes.bet}>
             <MenuBar />
             <BetPage/>         
           </Route>
-          <Redirect to={pageRoutes.Bbbet} />
+          <Route path={pageRoutes.config}>
+            <MenuBar />
+            <BetPage/>         
+          </Route>
+          <Redirect to={pageRoutes.bet} />
         </Switch>
     )
   

@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import getAxiosInstance from '../apis/axiosInstance';
 import User from '../domain/model/User';
 
-const axiosInstance = getAxiosInstance(process.env.USER_API || '');
+const axiosInstance = getAxiosInstance(process.env.REACT_APP_USER_API || '');
 
 class UserService {
   async listUser(): Promise<AxiosResponse<User[]>> {

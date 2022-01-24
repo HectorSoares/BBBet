@@ -16,7 +16,8 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
 import Bet from '../../../icons/Bet';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Auth } from 'aws-amplify';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 
 const drawerWidth = 240;
 
@@ -32,31 +33,60 @@ export default function MenuBar(props: Props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleSignOut = () => {
-    console.log('sair');
-    Auth.signOut();
-    console.log('sair');
-  }
+  // const handleSignOut = () => {
+  //   console.log('sair');
+  //   //Auth.signOut();
+  //   console.log('sair');
+  // }
 
-  console.log(mobileOpen);
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.REACT_APP_BETRESULTS_API);
+
+  const menuItems = [ {
+      label: "Inicio",
+      icon: <HomeIcon />,
+      handleOnClick: console.log("Inicio")
+    },
+    {
+      label: "Competição",
+      icon: <MilitaryTechOutlinedIcon />,
+      handleOnClick: console.log("Competição")
+    },
+    {
+      label: "Apostar",
+      icon: <Bet />,
+      handleOnClick: console.log("Apostar")
+    },
+    {
+      label: "Gerenciamento",
+      icon: <SettingsOutlinedIcon />,
+      handleOnClick: console.log("Gerenciamento")
+    },
+    {
+      label: "Resultados",
+      icon: <BarChartIcon />,
+      handleOnClick: console.log("Resultados")
+    },
+    {
+      label: "Sair",
+      icon: <LogoutIcon />,
+      handleOnClick: console.log("Sair")
+    }
+]
 
   const drawer = (
     <>
       <Toolbar />
       <Divider />
       <List>
-        {['Inicio', 'Competição', 'Apostar', 'Sair'].map((text, index) => {
+        {menuItems.map((item, index) => {
           return (
             <>
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {text === 'Inicio' && <HomeIcon />}
-                {text === 'Competição' && <BarChartIcon />}
-                {text === 'Apostar' && <Bet />}
-                {text === 'Sair' && <IconButton onClick={handleSignOut}><LogoutIcon /></IconButton>}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-
+            <ListItem button key={item.label} onClick={() => {console.log(item.label)}}>
+                <ListItemIcon >
+                  {item.icon}
+                </ListItemIcon >
+              <ListItemText primary={item.label} />
             </ListItem>
             </>
           );
@@ -73,7 +103,7 @@ export default function MenuBar(props: Props) {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - 180px)` },
+          width: { sm: `calc(100% - 190px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
@@ -121,7 +151,7 @@ export default function MenuBar(props: Props) {
           }}
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 180 },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 190 },
           }}
         >
           {drawer}

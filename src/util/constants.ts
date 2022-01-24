@@ -1,6 +1,7 @@
 export const pageRoutes = {
   Login: '/',
-  Bbbet: '/bbbet',
+  bet: '/bet',
+  config: '/config',
 };
 
 
