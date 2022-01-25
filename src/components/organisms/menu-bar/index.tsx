@@ -18,6 +18,7 @@ import Bet from '../../../icons/Bet';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -45,32 +46,38 @@ export default function MenuBar(props: Props) {
   const menuItems = [ {
       label: "Inicio",
       icon: <HomeIcon />,
-      handleOnClick: console.log("Inicio")
+      handleOnClick: console.log("Inicio"),
+      route: "/home"
     },
     {
       label: "Competição",
       icon: <MilitaryTechOutlinedIcon />,
-      handleOnClick: console.log("Competição")
+      handleOnClick: console.log("Competição"),
+      route: "/rank"
     },
     {
       label: "Apostar",
       icon: <Bet />,
-      handleOnClick: console.log("Apostar")
+      handleOnClick: console.log("Apostar"),
+      route: "/bet"
     },
     {
       label: "Gerenciamento",
       icon: <SettingsOutlinedIcon />,
-      handleOnClick: console.log("Gerenciamento")
+      handleOnClick: console.log("Gerenciamento"),
+      route: "/config"
     },
     {
       label: "Resultados",
       icon: <BarChartIcon />,
-      handleOnClick: console.log("Resultados")
+      handleOnClick: console.log("Resultados"),
+      route: "/results"
     },
     {
       label: "Sair",
       icon: <LogoutIcon />,
-      handleOnClick: console.log("Sair")
+      handleOnClick: console.log("Sair"),
+      route: "/"
     }
 ]
 
@@ -82,12 +89,14 @@ export default function MenuBar(props: Props) {
         {menuItems.map((item, index) => {
           return (
             <>
-            <ListItem button key={item.label} onClick={() => {console.log(item.label)}}>
-                <ListItemIcon >
-                  {item.icon}
-                </ListItemIcon >
-              <ListItemText primary={item.label} />
-            </ListItem>
+            <Link to={item.route}>
+              <ListItem button key={item.label} onClick={() => {console.log(item.label)}}>
+                  <ListItemIcon >
+                    {item.icon}
+                  </ListItemIcon >
+                <ListItemText primary={item.label} />
+              </ListItem>
+            </Link>
             </>
           );
         })}

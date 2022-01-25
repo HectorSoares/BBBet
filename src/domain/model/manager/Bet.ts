@@ -1,8 +1,8 @@
 export default interface Bet {
    active?: boolean,
-   leader: boolean
-   angel: boolean
-   bigPhone: boolean
+   leader?: boolean
+   angel?: boolean
+   bigPhone?: boolean
    firstIndicated?: boolean
    secondIndicated?: boolean
    thirdIndicated?: boolean

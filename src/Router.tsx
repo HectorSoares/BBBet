@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import MenuBar from './components/organisms/menu-bar';
 import BetPage from './components/pages/bet-page/views/BetPage';
+import ManagePage from './components/pages/manage-page';
 import { pageRoutes } from './util/constants';
 
 
@@ -15,12 +15,10 @@ export default function Router(): JSX.Element {
 
     routes = ( <Switch>
           <Route path={pageRoutes.bet}>
-            <MenuBar />
             <BetPage/>         
           </Route>
           <Route path={pageRoutes.config}>
-            <MenuBar />
-            <BetPage/>         
+            <ManagePage/>         
           </Route>
           <Redirect to={pageRoutes.bet} />
         </Switch>

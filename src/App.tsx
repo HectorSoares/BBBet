@@ -7,6 +7,7 @@ import Router from './Router';
 import store from './store/index';
 import { AmplifyTheme } from 'aws-amplify-react';
 import { customTheme } from './customTheme';
+import MenuBar from './components/organisms/menu-bar';
 
 
 const authTheme = {
@@ -81,7 +82,8 @@ const App = () => {
   return (
     <BrowserRouter>    
       <Provider store = {store}>
-        
+            
+            <MenuBar />
             <Router />
                    
       </Provider>  
