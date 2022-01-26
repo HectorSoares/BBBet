@@ -19,6 +19,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import { NavLink  } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 const drawerWidth = 240;
 
@@ -34,11 +35,11 @@ export default function MenuBar(props: Props) {
     setMobileOpen(!mobileOpen);
   };
 
-  // const handleSignOut = () => {
-  //   console.log('sair');
-  //   //Auth.signOut();
-  //   console.log('sair');
-  // }
+  const handleSignOut = () => {
+    
+    Auth.signOut();
+    
+  }
 
   console.log(process.env.NODE_ENV);
   console.log(process.env.REACT_APP_BETRESULTS_API);
@@ -76,7 +77,7 @@ export default function MenuBar(props: Props) {
     {
       label: "Sair",
       icon: <LogoutIcon />,
-      handleOnClick: console.log("Sair"),
+      handleOnClick: handleSignOut,
       route: "/"
     }
 ]
