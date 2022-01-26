@@ -15,6 +15,6 @@ export const questions = {
   fourthIndicated: 'Quem vai ser o quarto indicado ao paredão?',
   fifthIndicated: 'Quem vai ser o quinto indicado ao paredão?',
   eliminatedParticipant: 'Quem vai ser o participante eliminado?',
-  eliminationPercentage: 'Qual vai ser a porcentagem de aliminação? (xx.xx)',
+  eliminationPercentage: 'Qual vai ser a porcentagem de eliminação? (xx.xx)',
 
 };
