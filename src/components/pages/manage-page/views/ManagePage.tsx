@@ -1,5 +1,6 @@
 import { Box, Button, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Switch, Typography } from "@mui/material";
 import React from "react";
+import BetManagerService from "../../../../services/BetManagerService";
 import { questions } from "../../../../util/constants";
 
 const ManagePage = () => {
@@ -25,6 +26,8 @@ const ManagePage = () => {
     thursday: false,
     tuesday: false,
   });
+
+  const [loading, setLoading] = React.useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBet({
@@ -72,6 +75,13 @@ const ManagePage = () => {
         tuesday: event.target.checked,
       })
     };
+
+    const createNewBet = async () => {
+      setLoading(true);
+      await BetManagerService.createBetManager(bet);
+      setLoading(false);
+      
+    }
 
 
   return (
@@ -183,8 +193,9 @@ const ManagePage = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 5, mb: 2 }}
+              onClick={createNewBet}
             >
-              Apostar
+              Abrir aposta
             </Button>
           </Box>
         </Box>
