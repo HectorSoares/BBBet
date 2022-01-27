@@ -1,13 +1,14 @@
-import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Switch, Typography } from "@mui/material";
+import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Paper,  Switch, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BetManagerService from "../../../../services/BetManagerService";
 import { questions } from "../../../../util/constants";
-import { returnActiveBet, returnActiveWeek } from "../../../../util/functions";
+import { returnActiveBet, returnActiveWeek, returnDescriptionBet } from "../../../../util/functions";
 import Week from "../../../../domain/model/manager/Week";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/reducers";
 import Bet from "../../../../domain/model/manager/Bet";
-import CloseBetDialog from "../../../molecules/closeBetDialog";
+import CloseBetDialog from "../../../organisms/closeBetDialog";
+import SimpleBackdrop from "../../../atoms/backdrop";
 
 const ManagePage = () => {
 
@@ -18,16 +19,7 @@ const ManagePage = () => {
   const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
   const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
 
-
-
- 
-
-  useEffect(function () {
-        setActiveWeek(returnActiveWeek(weeks));
-        setActiveBet(returnActiveBet(activeWeek));
-      }, [weeks])
-
-  const [bet, setBet] = React.useState({
+  const defaultBet = {
     leader: false,
     angel: false,
     bigPhone: false,
@@ -37,8 +29,17 @@ const ManagePage = () => {
     fourthIndicated: false,
     fifthIndicated: false,
     eliminatedParticipant: false,
-    eliminationPercentage: false,
-  });
+    eliminationPercentage: false,}
+
+
+ 
+
+  useEffect(function () {
+        setActiveWeek(returnActiveWeek(weeks));
+        setActiveBet(returnActiveBet(activeWeek));
+      }, [weeks])
+
+  const [bet, setBet] = React.useState(defaultBet);
 
   const [defaultOption, setDefaultOption] = React.useState({
     sunday: false,
@@ -99,16 +100,25 @@ const ManagePage = () => {
     const createNewBet = async () => {
       setLoading(true);
       await BetManagerService.createBetManager(bet);
+      setActiveBet(bet);
+      setDefaultOption({sunday: false, thursday: false, tuesday: false});
+      setBet(defaultBet);
       setLoading(false);
       
     }
 
-    const closeBet = async () => {
-      setLoading(true);
-      console.log('opendialog');
+    const openCloseBet =  () => {
       setOpenDialogResult(true);
-      //await BetManagerService.closeBet(bet);
-      setLoading(false);      
+    }
+
+    const cancelCloseBet = () => {
+      setOpenDialogResult(false);
+    }
+
+    const confimCloseBet = () => {
+      setLoading(true);
+      console.log('colse');
+      setLoading(false);
     }
 
     const closeWeek = async () => {
@@ -117,10 +127,10 @@ const ManagePage = () => {
       setLoading(false);
       
     }
-
-
+    
   return (
     <>
+        <SimpleBackdrop open={loading}/>
         <Box
           sx={{
             marginTop: 4,
@@ -130,8 +140,8 @@ const ManagePage = () => {
             width: '100%',
           }}
         >
-          <Typography component="h1" variant="h6">
-            O que será apostado nesse ciclo de apostas da semana {activeWeek?.week}?
+          <Typography component="h6" variant="h6">
+            {returnDescriptionBet(activeWeek)} aposta da semana {activeWeek?.week}
           </Typography>
           <Box component="form" noValidate sx={{ 
               mt: 1, 
@@ -139,87 +149,108 @@ const ManagePage = () => {
 
                 <FormControl component="fieldset" variant="standard">
                   <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Switch checked={defaultOption.thursday} onChange={handleChangeThursday} name="leader" />
-                      }
-                      label="Aposta padrão de Quinta"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={defaultOption.sunday} onChange={handleChangeSunday} name="leader" />
-                      }
-                      label="Aposta padrão de Domingo"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={defaultOption.tuesday} onChange={handleChangeTuesday} name="leader" />
-                      }
-                      label="Aposta padrão de Terça"
-                    />
+                    <Paper elevation={3} sx={{mb: '15px', padding: '15px'}}>
+                      <Typography component="h6" variant="subtitle1">
+                        Aposta padrão
+                      </Typography>
+                      <FormControlLabel
+                        control={
+                          <Switch checked={defaultOption.thursday} onChange={handleChangeThursday} name="leader" />
+                        }
+                        label="Quinta"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Switch checked={defaultOption.sunday} onChange={handleChangeSunday} name="leader" />
+                        }
+                        label="Domingo"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Switch checked={defaultOption.tuesday} onChange={handleChangeTuesday} name="leader" />
+                        }
+                        label="Terça"
+                      />
+                    </Paper>
+
                     <Divider />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.leader} onChange={handleChange} name="leader" />
-                      }
-                      label={questions.leader}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.angel} onChange={handleChange} name="angel" />
-                      }
-                      label={questions.angel}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.bigPhone} onChange={handleChange} name="bigPhone" />
-                      }
-                      label={questions.bigPhone}
-                    />
+
+                    <Paper elevation={3} sx={{mb: '5px', padding: '15px'}}>
+                      <FormControl component="fieldset" variant="standard">
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.leader} onChange={handleChange} name="leader" />
+                          }
+                          label={questions.leader}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.angel} onChange={handleChange} name="angel" />
+                          }
+                          label={questions.angel}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.bigPhone} onChange={handleChange} name="bigPhone" />
+                          }
+                          label={questions.bigPhone}
+                        />
+                      </FormControl>
+                    </Paper>
+
                     <Divider />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.firstIndicated} onChange={handleChange} name="firstIndicated" />
-                      }
-                      label={questions.firstIndicated}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.secondIndicated} onChange={handleChange} name="secondIndicated" />
-                      }
-                      label={questions.secondIndicated}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.thirdIndicated} onChange={handleChange} name="thirdIndicated" />
-                      }
-                      label={questions.thirdIndicated}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.fourthIndicated} onChange={handleChange} name="fourthIndicated" />
-                      }
-                      label={questions.fourthIndicated}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.fifthIndicated} onChange={handleChange} name="fifthIndicated" />
-                      }
-                      label={questions.fifthIndicated}
-                    />
+
+                    <Paper elevation={3} sx={{mb: '5px', padding: '15px'}}>
+                      <FormControl component="fieldset" variant="standard">
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.firstIndicated} onChange={handleChange} name="firstIndicated" />
+                          }
+                          label={questions.firstIndicated}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.secondIndicated} onChange={handleChange} name="secondIndicated" />
+                          }
+                          label={questions.secondIndicated}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.thirdIndicated} onChange={handleChange} name="thirdIndicated" />
+                          }
+                          label={questions.thirdIndicated}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.fourthIndicated} onChange={handleChange} name="fourthIndicated" />
+                          }
+                          label={questions.fourthIndicated}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.fifthIndicated} onChange={handleChange} name="fifthIndicated" />
+                          }
+                          label={questions.fifthIndicated}
+                        />
+                      </FormControl>
+                    </Paper>
                     <Divider />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.eliminatedParticipant} onChange={handleChange} name="eliminatedParticipant" />
-                      }
-                      label={questions.eliminatedParticipant}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch checked={bet.eliminationPercentage} onChange={handleChange} name="eliminationPercentage" />
-                      }
-                      label={questions.eliminationPercentage}
-                    />
+                    <Paper elevation={3} sx={{mb: '5px', padding: '15px'}}>
+                      <FormControl component="fieldset" variant="standard">
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.eliminatedParticipant} onChange={handleChange} name="eliminatedParticipant" />
+                          }
+                          label={questions.eliminatedParticipant}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.eliminationPercentage} onChange={handleChange} name="eliminationPercentage" />
+                          }
+                          label={questions.eliminationPercentage}
+                        />
+                      </FormControl>
+                    </Paper>
                   </FormGroup>
                 </FormControl>
             
@@ -238,7 +269,7 @@ const ManagePage = () => {
                             
               variant="contained"
               sx={{ mt: 4, mb: 1, backgroundColor: '#ff5114', width: '47%', mr: '6%', '&:hover': {backgroundColor: '#db4612'} }}
-              onClick={closeBet}
+              onClick={openCloseBet}
               disabled={!activeBet}
             >
               Fechar aposta
@@ -261,6 +292,8 @@ const ManagePage = () => {
           cancelText={'Cancelar'} 
           submitText={'Fechar aposta'}
           activeBet={activeBet}
+          cancelAction={cancelCloseBet}
+          submitAction={confimCloseBet}
           />
         
         </>

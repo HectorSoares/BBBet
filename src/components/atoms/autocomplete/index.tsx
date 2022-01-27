@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Divider, TextField } from "@mui/material";
 
 
 interface AutocompleteBetProps  {
@@ -14,7 +14,10 @@ const AutocompleteBet = ({items, label, onChange}: AutocompleteBetProps) => {
                 options={items || []}
                 fullWidth
                 getOptionLabel={(option: any) => option?.name || option.id || option}
-                renderInput={(params) => <TextField {...params} label = {label} />}
+                renderInput={(params) => <>                
+                <TextField {...params} label = {label} />
+                <Divider/>
+                </> }
                 onChange={(_, value: any) => onChange(value)}
                 sx={{mt: 1}}
             />)

@@ -17,6 +17,6 @@ export const questions = {
   fourthIndicated: 'Quarto emparedado',
   fifthIndicated: 'Quinto emparedado',
   eliminatedParticipant: 'Participante eliminado',
-  eliminationPercentage: 'Porcentagem de eliminação (xx.xx)',
+  eliminationPercentage: '% de eliminação (xx.xx)',
 
 };

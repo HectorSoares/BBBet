@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
-const header = { };
+const header = {
+ };
 
 const getAxiosInstance = (url: string) : AxiosInstance => {
   

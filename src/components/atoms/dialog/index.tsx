@@ -5,7 +5,9 @@ interface CustomDialogProps  {
     title: string,
     cancelText: string,
     submitText: string,
-    children: any
+    children: any,
+    cancelAction: Function,
+    submitAction: Function,
 };
 
 function PaperComponent(props: PaperProps) {
@@ -15,7 +17,7 @@ function PaperComponent(props: PaperProps) {
 }
 
 
-const CustomDialog = ({open, title, cancelText, submitText, children}: CustomDialogProps) => {
+const CustomDialog = ({open, title, cancelText, submitText, children, cancelAction, submitAction}: CustomDialogProps) => {
 
     return (<Dialog
                 open={open}
@@ -30,10 +32,10 @@ const CustomDialog = ({open, title, cancelText, submitText, children}: CustomDia
                     </DialogContent>
                 <DialogActions>
                     
-                    <Button autoFocus onClick={() => {console.log('cancel')}}>
+                    <Button autoFocus onClick={() => {cancelAction()}}>
                         {cancelText}
                     </Button>
-                    <Button onClick={() => {console.log('subs')}}>
+                    <Button onClick={() => {submitAction()}}>
                         {submitText}
                     </Button>
                 </DialogActions>

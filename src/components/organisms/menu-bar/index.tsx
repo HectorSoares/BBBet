@@ -44,32 +44,25 @@ export default function MenuBar(props: Props) {
     
   // }
 
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.REACT_APP_BETRESULTS_API);
-
   const menuItems = [ {
       label: "Apostar",
-      icon: <Bet />,
-      handleOnClick: console.log("Apostar"),
+      icon: <Bet />,      
       route: "/bet"
     },
     {
       label: "Competição",
-      icon: <MilitaryTechOutlinedIcon />,
-      handleOnClick: console.log("Competição"),
+      icon: <MilitaryTechOutlinedIcon />,      
       route: "/rank"
     },    
     {
       label: "Gerenciamento",
-      icon: <SettingsOutlinedIcon />,
-      handleOnClick: console.log("Gerenciamento"),
+      icon: <SettingsOutlinedIcon />,      
       route: "/config",
       admin: true
     },
     {
       label: "Resultados",
-      icon: <BarChartIcon />,
-      handleOnClick: console.log("Resultados"),
+      icon: <BarChartIcon />,      
       route: "/results"
     }
 ]
@@ -89,7 +82,7 @@ export default function MenuBar(props: Props) {
               textDecoration: 'none',
               color: 'rgba(0, 0, 0, 0.54)'
             }}>
-              <ListItem button key={item.label} onClick={() => item.handleOnClick}>
+              <ListItem button key={item.label}>
                   <ListItemIcon >
                     {item.icon}
                   </ListItemIcon >
@@ -121,7 +114,7 @@ export default function MenuBar(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
