@@ -48,7 +48,7 @@ const ManagePage = () => {
 
   const [openDialogResult, setOpenDialogResult] = React.useState(false);
 
-  //const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBet({
@@ -249,7 +249,7 @@ const ManagePage = () => {
               variant="contained"
               sx={{ mt: 4, mb: 1, backgroundColor: '#f32121', width: '47%', '&:hover': {  backgroundColor: '#d71c1c'} }}
               onClick={closeWeek}
-              disabled={activeWeek && !activeBet}
+              disabled={activeWeek && !!activeBet}
             >
               Fechar semana {activeWeek?.week}
             </Button>           
