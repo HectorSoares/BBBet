@@ -1,12 +1,31 @@
-import { Box, Button, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Switch, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Switch, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import BetManagerService from "../../../../services/BetManagerService";
 import { questions } from "../../../../util/constants";
+import { returnActiveBet, returnActiveWeek } from "../../../../util/functions";
+import Week from "../../../../domain/model/manager/Week";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store/reducers";
+import Bet from "../../../../domain/model/manager/Bet";
+import CloseBetDialog from "../../../molecules/closeBetDialog";
 
 const ManagePage = () => {
 
+  const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
+  // var activeWeek = returnActiveWeek(weeks);
+  // var activeBet = returnActiveBet(activeWeek);
 
-  const handleSubmit = () => console.log('submuit');
+  const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
+  const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
+
+
+
+ 
+
+  useEffect(function () {
+        setActiveWeek(returnActiveWeek(weeks));
+        setActiveBet(returnActiveBet(activeWeek));
+      }, [weeks])
 
   const [bet, setBet] = React.useState({
     leader: false,
@@ -27,7 +46,9 @@ const ManagePage = () => {
     tuesday: false,
   });
 
-  const [loading, setLoading] = React.useState(false);
+  const [openDialogResult, setOpenDialogResult] = React.useState(false);
+
+  //const [loading, setLoading] = React.useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBet({
@@ -63,7 +84,6 @@ const ManagePage = () => {
       })
     };
 
-
     const handleChangeTuesday = (event: React.ChangeEvent<HTMLInputElement>) => {
       setBet({
       ...bet,
@@ -83,12 +103,27 @@ const ManagePage = () => {
       
     }
 
+    const closeBet = async () => {
+      setLoading(true);
+      console.log('opendialog');
+      setOpenDialogResult(true);
+      //await BetManagerService.closeBet(bet);
+      setLoading(false);      
+    }
+
+    const closeWeek = async () => {
+      setLoading(true);
+      //await BetManagerService.closeWeek(bet);
+      setLoading(false);
+      
+    }
+
 
   return (
     <>
         <Box
           sx={{
-            marginTop: 5,
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -96,9 +131,9 @@ const ManagePage = () => {
           }}
         >
           <Typography component="h1" variant="h6">
-            O que será apostado nesse ciclo de apostas?
+            O que será apostado nesse ciclo de apostas da semana {activeWeek?.week}?
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ 
+          <Box component="form" noValidate sx={{ 
               mt: 1, 
               width: '70%' }}>
 
@@ -189,16 +224,45 @@ const ManagePage = () => {
                 </FormControl>
             
             <Button
-              type="submit"
+              
               fullWidth
               variant="contained"
-              sx={{ mt: 5, mb: 2 }}
+              sx={{ mt: 4, mb: 1 }}
               onClick={createNewBet}
+              disabled={!!activeBet}
             >
               Abrir aposta
+            </Button> 
+
+            <Button
+                            
+              variant="contained"
+              sx={{ mt: 4, mb: 1, backgroundColor: '#ff5114', width: '47%', mr: '6%', '&:hover': {backgroundColor: '#db4612'} }}
+              onClick={closeBet}
+              disabled={!activeBet}
+            >
+              Fechar aposta
             </Button>
+
+            <Button
+                            
+              variant="contained"
+              sx={{ mt: 4, mb: 1, backgroundColor: '#f32121', width: '47%', '&:hover': {  backgroundColor: '#d71c1c'} }}
+              onClick={closeWeek}
+              disabled={activeWeek && !activeBet}
+            >
+              Fechar semana {activeWeek?.week}
+            </Button>           
           </Box>
         </Box>
+        <CloseBetDialog 
+          open={openDialogResult}
+          title={'Qual foi o resultado da aposta?'} 
+          cancelText={'Cancelar'} 
+          submitText={'Fechar aposta'}
+          activeBet={activeBet}
+          />
+        
         </>
   );
 };

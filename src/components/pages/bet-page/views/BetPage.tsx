@@ -3,9 +3,11 @@ import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Brother from "../../../../domain/model/Brother";
+import Bet from "../../../../domain/model/manager/Bet";
 import Week from "../../../../domain/model/manager/Week";
 import { RootState } from "../../../../store/reducers";
 import { questions } from "../../../../util/constants";
+import { returnActiveBet, returnActiveWeek } from "../../../../util/functions";
 import AutocompleteBet from "../../../atoms/autocomplete";
 import { setUser } from "../../identificate-page/store/actions";
 import { setBrothers, setListBetManager } from "../store/actions";
@@ -27,12 +29,6 @@ eliminationPercentage);
 const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
 const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
 
-const weekActivated = weeks?.find((w) => w.active);
-
-const betActivated = weekActivated?.bets?.find((b) => b.active);
-
-console.log(betActivated);
-
 
 const [leader, setLeader] = useState<Brother | undefined>(undefined);
 const [angel, setAngel] = useState<Brother | undefined>(undefined);
@@ -45,7 +41,8 @@ const [fifthIndicated,setFifthIndicated] = useState<Brother | undefined>(undefin
 const [eliminatedParticipant,setEliminatedParticipant] = useState<Brother | undefined>(undefined);
 const [eliminationPercentage,setEliminationPercentage] = useState<Brother | undefined>(undefined);
 
-const [activeWeek,setActiveWeek] = useState<Brother | undefined>(undefined);
+const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
+const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
 
     useEffect(function () {
         async function setCurrentUser(){
@@ -54,7 +51,17 @@ const [activeWeek,setActiveWeek] = useState<Brother | undefined>(undefined);
         dispatch(setListBetManager());
         dispatch(setBrothers());
         setCurrentUser();
-      }, [dispatch])
+      }, [dispatch]);
+
+    useEffect(function () {
+        setActiveWeek(returnActiveWeek(weeks));
+        setActiveBet(returnActiveBet(activeWeek));
+      }, [weeks]);
+
+      
+
+       console.log('activeWeek: ', activeWeek);
+  console.log('activeBet: ', activeBet);
 
 
 
@@ -70,69 +77,69 @@ const [activeWeek,setActiveWeek] = useState<Brother | undefined>(undefined);
           }}
         >
           <Typography component="h1" variant="h6">
-            Aposta da semana X
+            Aposta da semana {activeWeek?.week || 'X'}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ 
               mt: 1, 
               width: '70%' }}>
             {
-              betActivated?.leader &&
+              activeBet?.leader &&
               <AutocompleteBet
               items={brothers}
               label={questions.leader}
               onChange={(item: Brother) => {setLeader(item)}}
               />}
             {
-              betActivated?.angel &&
+              activeBet?.angel &&
               <AutocompleteBet
               items={brothers}
               label={questions.angel}
               onChange={(item: Brother) => {setAngel(item)}}
               />}
             {
-              betActivated?.firstIndicated &&
+              activeBet?.firstIndicated &&
               <AutocompleteBet
               items={brothers}
               label={questions.firstIndicated}
               onChange={(item: Brother) => {setFirstIndicated(item)}}
               />}
             {
-            betActivated?.secondIndicated &&
+            activeBet?.secondIndicated &&
              <AutocompleteBet
               items={brothers}
               label={questions.secondIndicated}
               onChange={(item: Brother) => {setSecondIndicated(item)}}
               />}
             {
-            betActivated?.thirdIndicated &&
+            activeBet?.thirdIndicated &&
              <AutocompleteBet
               items={brothers}
               label={questions.thirdIndicated}
               onChange={(item: Brother) => {setThirdIndicated(item)}}
               />}
             {
-            betActivated?.fourthIndicated &&
+            activeBet?.fourthIndicated &&
              <AutocompleteBet
               items={brothers}
               label={questions.fourthIndicated}
               onChange={(item: Brother) => {setFourthIndicated(item)}}
               />}
             {
-            betActivated?.fifthIndicated &&
+            activeBet?.fifthIndicated &&
              <AutocompleteBet
               items={brothers}
               label={questions.fifthIndicated}
               onChange={(item: Brother) => {setFifthIndicated(item)}}
               />}
             {
-            betActivated?.eliminatedParticipant &&
+            activeBet?.eliminatedParticipant &&
              <AutocompleteBet
               items={brothers}
               label={questions.eliminatedParticipant}
               onChange={(item: Brother) => {setEliminatedParticipant(item)}}
               />}
             {
-            betActivated?.eliminationPercentage &&
+            activeBet?.eliminationPercentage &&
              <AutocompleteBet
               items={brothers}
               label={questions.eliminationPercentage}

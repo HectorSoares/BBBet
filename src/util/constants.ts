@@ -2,6 +2,8 @@ export const pageRoutes = {
   login: '/',
   bet: '/bet',
   config: '/config',
+  rank: '/rank',
+  results: '/results',
 };
 
 

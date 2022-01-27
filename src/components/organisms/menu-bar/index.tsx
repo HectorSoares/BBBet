@@ -13,13 +13,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import HomeIcon from '@mui/icons-material/Home';
 import Bet from '../../../icons/Bet';
-import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import { NavLink  } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
+import User from '../../../domain/model/User';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const drawerWidth = 240;
 
@@ -31,54 +32,45 @@ export default function MenuBar(props: Props) {
   const { window  } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const user: User | undefined = useSelector((state: RootState) => state.user.user );
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleSignOut = () => {
+  // const handleSignOut = () => {
+  //   console.log('sair');
+  //   Auth.signOut();
     
-    Auth.signOut();
-    
-  }
+  // }
 
   console.log(process.env.NODE_ENV);
   console.log(process.env.REACT_APP_BETRESULTS_API);
 
   const menuItems = [ {
-      label: "Inicio",
-      icon: <HomeIcon />,
-      handleOnClick: console.log("Inicio"),
-      route: "/home"
-    },
-    {
-      label: "Competição",
-      icon: <MilitaryTechOutlinedIcon />,
-      handleOnClick: console.log("Competição"),
-      route: "/rank"
-    },
-    {
       label: "Apostar",
       icon: <Bet />,
       handleOnClick: console.log("Apostar"),
       route: "/bet"
     },
     {
+      label: "Competição",
+      icon: <MilitaryTechOutlinedIcon />,
+      handleOnClick: console.log("Competição"),
+      route: "/rank"
+    },    
+    {
       label: "Gerenciamento",
       icon: <SettingsOutlinedIcon />,
       handleOnClick: console.log("Gerenciamento"),
-      route: "/config"
+      route: "/config",
+      admin: true
     },
     {
       label: "Resultados",
       icon: <BarChartIcon />,
       handleOnClick: console.log("Resultados"),
       route: "/results"
-    },
-    {
-      label: "Sair",
-      icon: <LogoutIcon />,
-      handleOnClick: handleSignOut,
-      route: "/"
     }
 ]
 
@@ -88,14 +80,16 @@ export default function MenuBar(props: Props) {
       <Divider />
       <List>
         {menuItems.map((item, index) => {
+          
           return (
+            (!item.admin || user?.admin) &&
             <>
             <NavLink  to={item.route} 
              style={{
               textDecoration: 'none',
               color: 'rgba(0, 0, 0, 0.54)'
             }}>
-              <ListItem button key={item.label} onClick={() => {console.log(item.label)}}>
+              <ListItem button key={item.label} onClick={() => item.handleOnClick}>
                   <ListItemIcon >
                     {item.icon}
                   </ListItemIcon >

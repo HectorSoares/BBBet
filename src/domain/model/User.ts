@@ -5,4 +5,5 @@ export default interface User {
     email: string;
     firstName: string;
     bets: object;
+    admin: boolean;
 }
