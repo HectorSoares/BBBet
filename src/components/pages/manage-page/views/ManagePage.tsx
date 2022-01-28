@@ -1,16 +1,21 @@
-import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Paper,  Switch, Typography } from "@mui/material";
+import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Grid,  Paper,  Switch, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BetManagerService from "../../../../services/BetManagerService";
 import { questions } from "../../../../util/constants";
-import { returnActiveBet, returnActiveWeek, returnDescriptionBet } from "../../../../util/functions";
+import { returnActiveBet, returnActiveWeek, returnDescriptionBet, returnLastBet } from "../../../../util/functions";
 import Week from "../../../../domain/model/manager/Week";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/reducers";
 import Bet from "../../../../domain/model/manager/Bet";
 import CloseBetDialog from "../../../organisms/closeBetDialog";
 import SimpleBackdrop from "../../../atoms/backdrop";
+import BetResultsService from "../../../../services/BetResultsService";
+import BetResults from "../../../../domain/model/results/BetResults";
+import { setListBetManager } from "../../bet-page/store/actions";
 
 const ManagePage = () => {
+
+  const dispatch = useDispatch();
 
   const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
   // var activeWeek = returnActiveWeek(weeks);
@@ -18,6 +23,7 @@ const ManagePage = () => {
 
   const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
   const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
+  const [lastBet,setLastBet] = useState<Bet | undefined>(returnLastBet(activeWeek));
 
   const defaultBet = {
     leader: false,
@@ -31,13 +37,17 @@ const ManagePage = () => {
     eliminatedParticipant: false,
     eliminationPercentage: false,}
 
-
- 
+  useEffect(function () {
+      setActiveWeek(returnActiveWeek(weeks));
+    }, [weeks]);
 
   useEffect(function () {
-        setActiveWeek(returnActiveWeek(weeks));
-        setActiveBet(returnActiveBet(activeWeek));
-      }, [weeks])
+      setActiveBet(returnActiveBet(activeWeek));  
+    }, [activeWeek]);
+
+  useEffect(function () {
+      setLastBet(returnLastBet(activeWeek));  
+    }, [activeWeek]);
 
   const [bet, setBet] = React.useState(defaultBet);
 
@@ -105,28 +115,38 @@ const ManagePage = () => {
       setBet(defaultBet);
       setLoading(false);
       
-    }
-
-    const openCloseBet =  () => {
-      setOpenDialogResult(true);
-    }
-
-    const cancelCloseBet = () => {
-      setOpenDialogResult(false);
-    }
-
-    const confimCloseBet = () => {
-      setLoading(true);
-      console.log('colse');
-      setLoading(false);
-    }
+    }    
 
     const closeWeek = async () => {
       setLoading(true);
-      //await BetManagerService.closeWeek(bet);
-      setLoading(false);
+      await BetManagerService.closeWeek(activeWeek?.week);
+      dispatch(await setListBetManager());
+      setLoading(false);      
+    }
+
+    const closeBet = async () => {
+      setLoading(true);
+      await BetManagerService.closeBet(activeWeek?.week);
+      dispatch(await setListBetManager());
+      setLoading(false);   
+         
+    }
+
+    const addResult = async () => {
+      setOpenDialogResult(true);
       
     }
+    const confirmAddResult = async (bet: BetResults) => {
+      setLoading(true);
+      await BetResultsService.addResult(activeWeek, bet);
+      dispatch(await setListBetManager());
+      setOpenDialogResult(false);
+      setLoading(false);
+    }
+
+    const cancelAddResult = () => {
+      setOpenDialogResult(false);
+    }   
     
   return (
     <>
@@ -144,10 +164,12 @@ const ManagePage = () => {
             {returnDescriptionBet(activeWeek)} aposta da semana {activeWeek?.week}
           </Typography>
           <Box component="form" noValidate sx={{ 
-              mt: 1, 
-              width: '70%' }}>
+              display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%', }}>
 
-                <FormControl component="fieldset" variant="standard">
+                <FormControl component="fieldset" variant="standard" disabled={!!activeBet}>
                   <FormGroup>
                     <Paper elevation={3} sx={{mb: '15px', padding: '15px'}}>
                       <Typography component="h6" variant="subtitle1">
@@ -176,7 +198,7 @@ const ManagePage = () => {
                     <Divider />
 
                     <Paper elevation={3} sx={{mb: '5px', padding: '15px'}}>
-                      <FormControl component="fieldset" variant="standard">
+                      <FormControl component="fieldset" variant="standard" disabled={!!activeBet}>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.leader} onChange={handleChange} name="leader" />
@@ -201,7 +223,7 @@ const ManagePage = () => {
                     <Divider />
 
                     <Paper elevation={3} sx={{mb: '5px', padding: '15px'}}>
-                      <FormControl component="fieldset" variant="standard">
+                      <FormControl component="fieldset" variant="standard" disabled={!!activeBet}>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.firstIndicated} onChange={handleChange} name="firstIndicated" />
@@ -236,7 +258,7 @@ const ManagePage = () => {
                     </Paper>
                     <Divider />
                     <Paper elevation={3} sx={{mb: '5px', padding: '15px'}}>
-                      <FormControl component="fieldset" variant="standard">
+                      <FormControl component="fieldset" variant="standard" disabled={!!activeBet}>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.eliminatedParticipant} onChange={handleChange} name="eliminatedParticipant" />
@@ -250,50 +272,57 @@ const ManagePage = () => {
                           label={questions.eliminationPercentage}
                         />
                       </FormControl>
-                    </Paper>
-                  </FormGroup>
-                </FormControl>
-            
-            <Button
-              
-              fullWidth
-              variant="contained"
-              sx={{ mt: 4, mb: 1 }}
-              onClick={createNewBet}
-              disabled={!!activeBet}
-            >
-              Abrir aposta
-            </Button> 
+                    </Paper> 
+                    </FormGroup> 
+                    <Grid container>        
+                      <Button
+                        variant="contained"
+                        sx={{ mt: 3, mb: 1,  width: '46%', mr: '6%',  }}
+                        onClick={createNewBet}
+                        disabled={!!activeBet || !!lastBet}
+                      >
+                        Abrir aposta
+                      </Button> 
 
-            <Button
-                            
-              variant="contained"
-              sx={{ mt: 4, mb: 1, backgroundColor: '#ff5114', width: '47%', mr: '6%', '&:hover': {backgroundColor: '#db4612'} }}
-              onClick={openCloseBet}
-              disabled={!activeBet}
-            >
-              Fechar aposta
-            </Button>
+                      <Button
+                        variant="contained"
+                        sx={{ mt: 3, mb: 1, backgroundColor: '#4ac157',  width: '46%',  '&:hover': {backgroundColor: '#369740'} }}
+                        onClick={addResult}
+                        disabled={(!lastBet || !!activeBet)}
+                      >
+                        Adicionar resultado
+                      </Button> 
+                      <Button                            
+                        variant="contained"
+                        sx={{ mt: 3, mb: 1, backgroundColor: '#ff5114', width: '46%', mr: '6%', '&:hover': {backgroundColor: '#db4612'} }}
+                        onClick={closeBet}
+                        disabled={(!activeBet)}
+                      >
+                        Fechar aposta
+                      </Button>
 
-            <Button
-                            
-              variant="contained"
-              sx={{ mt: 4, mb: 1, backgroundColor: '#f32121', width: '47%', '&:hover': {  backgroundColor: '#d71c1c'} }}
-              onClick={closeWeek}
-              disabled={activeWeek && !!activeBet}
-            >
-              Fechar semana {activeWeek?.week}
-            </Button>           
+                      <Button
+                                      
+                        variant="contained"
+                        sx={{ mt: 3, mb: 1, backgroundColor: '#f32121', width: '46%', '&:hover': {  backgroundColor: '#d71c1c'} }}
+                        onClick={closeWeek}
+                        disabled={!!activeBet || !!lastBet || !activeWeek}
+                      >
+                        Fechar semana {activeWeek?.week}
+                      </Button>
+                    </Grid>                 
+            </FormControl>   
+
           </Box>
         </Box>
         <CloseBetDialog 
           open={openDialogResult}
           title={'Qual foi o resultado da aposta?'} 
           cancelText={'Cancelar'} 
-          submitText={'Fechar aposta'}
-          activeBet={activeBet}
-          cancelAction={cancelCloseBet}
-          submitAction={confimCloseBet}
+          submitText={'Adicionar'}
+          lastBet={lastBet}
+          cancelAction={cancelAddResult}
+          submitAction={confirmAddResult}
           />
         
         </>

@@ -11,15 +11,20 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 interface SelectMultipleProps {
     items: any,
     label: string,
+    onChange: any,
+    betIndex: string,
 }
 
-export default function SelectMultiple({items, label}: SelectMultipleProps) {
+export default function SelectMultiple({items, label, onChange, betIndex}: SelectMultipleProps) {
+
+
   return (
     <Autocomplete
       multiple
       id="checkboxes-tags-demo"
       options={items}
       disableCloseOnSelect
+      onChange={(event: any, newValue: any | null)  => {onChange(newValue, betIndex)}}
       getOptionLabel={(option: any) => option?.name}
       renderOption={(props, option, { selected }) => (
         <li {...props}>
@@ -28,6 +33,7 @@ export default function SelectMultiple({items, label}: SelectMultipleProps) {
             checkedIcon={checkedIcon}
             style={{ marginRight: 8 }}
             checked={selected}
+            
           />
           {option?.name}
         </li>

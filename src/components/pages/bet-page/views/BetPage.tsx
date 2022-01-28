@@ -41,34 +41,31 @@ const BetPage = () => {
   const handleSubmit = () => {
     setLoading(true);
     var bet = {
-      leader,
-      angel,
-      bigPhone,
-      firstIndicated,
-      secondIndicated,
-      thirdIndicated,
-      fourthIndicated,
-      fifthIndicated,
-      eliminatedParticipant,
-      eliminationPercentage,
-      activeWeek,
-      activeBet,
+      leader: leader?.id,
+      angel: angel?.id,
+      bigPhone: bigPhone?.id,
+      firstIndicated: firstIndicated?.id,
+      secondIndicated: secondIndicated?.id,
+      thirdIndicated: thirdIndicated?.id,
+      fourthIndicated: fourthIndicated?.id,
+      fifthIndicated: fifthIndicated?.id,
+      eliminatedParticipant: eliminatedParticipant?.id,
+      eliminationPercentage: eliminationPercentage?.id
     }
-
-    UserService.addBet(user?.id, bet);
+    console.log(bet);
+    UserService.addBet(user?.id, bet, activeWeek?.week);
     setLoading(false);
   };
 
   const [loading,setLoading] = useState<boolean>(false);
 
   useEffect(function () {
-    setLoading(true);
-    console.log('carreando');
+    
       async function setData(){
+        setLoading(true);
         dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
         dispatch(await setListBetManager());
         dispatch(await setBrothers());
-        await setListBetManager()
         setLoading(false);
         console.log('parou');
       }
@@ -102,7 +99,7 @@ const BetPage = () => {
           <Typography component="h1" variant="h6">
             {returnDescriptionBet(activeWeek)} aposta da semana {activeWeek?.week}
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ 
+          <Box component="form" noValidate sx={{ 
               mt: 1, 
               width: '70%' }}>
             {
@@ -181,6 +178,7 @@ const BetPage = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 5, mb: 2 }}
+              onClick={handleSubmit}
             >
               Apostar
             </Button>         

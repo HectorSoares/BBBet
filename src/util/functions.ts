@@ -5,6 +5,8 @@ export const returnActiveWeek: any = (weeks: Week[] | undefined) => weeks?.find(
 
 export const returnActiveBet: any = (week: Week | undefined) =>  week?.bets?.find((b) => b.active);
 
+export const returnLastBet: any = (week: Week | undefined) =>  week?.bets?.find((b) => b.last);
+
 export const returnDescriptionBet = (week?: Week) => {
       switch(week?.bets?.length){
         case 0: return 'Primeira';

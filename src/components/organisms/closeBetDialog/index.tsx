@@ -4,6 +4,7 @@ import ResultsForm from "../../molecules/results-form";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/reducers";
 import Brother from "../../../domain/model/Brother";
+import React from "react";
 
 
 interface CloseBetDialogProps  {
@@ -11,16 +12,18 @@ interface CloseBetDialogProps  {
     title: string,
     cancelText: string,
     submitText: string,
-    activeBet?: Bet,
+    lastBet?: Bet,
     cancelAction: any,
     submitAction: any,
 };
 
 
 
-const CloseBetDialog = ({open, title, cancelText, submitText, activeBet, submitAction, cancelAction}: CloseBetDialogProps) => {
+const CloseBetDialog = ({open, title, cancelText, submitText, lastBet, submitAction, cancelAction}: CloseBetDialogProps) => {
 
     const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
+
+    const [bet, setBet] = React.useState(undefined);
 
     return (<CustomDialog
                 open={open}
@@ -29,8 +32,9 @@ const CloseBetDialog = ({open, title, cancelText, submitText, activeBet, submitA
                 submitText={submitText}
                 submitAction={ submitAction}
                 cancelAction={ cancelAction}
+                bet={bet}
                 >
-               <ResultsForm activeBet={activeBet} brothers={brothers}/>
+               <ResultsForm lastBet={lastBet} brothers={brothers} setBet={setBet}/>
             </CustomDialog>
             )
 

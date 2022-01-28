@@ -8,6 +8,7 @@ import store from './store/index';
 import { AmplifyTheme } from 'aws-amplify-react';
 import { customTheme } from './customTheme';
 import MenuBar from './components/organisms/menu-bar';
+import { amplifyConfigure } from './aws_credencials';
 
 
 const authTheme = {
@@ -58,22 +59,7 @@ const signUpConfig = {
     ]
 }
 
-Amplify.configure({
-      mandatorySignIn: true,
-      region: 'us-east-1',
-      userPoolId: 'us-east-1_uLswvAQVZ',
-      identityPoolId: 'us-east-1:42d8b7b6-b929-4c80-949e-ea27af8e6cbb',
-      userPoolWebClientId: 'actqpfaf00m1cg8cvccck1s9k',
-      language: "br",
-    });
-    Auth.configure({
-       mandatorySignIn: true,
-      region: 'us-east-1',
-      userPoolId: 'us-east-1_uLswvAQVZ',
-      identityPoolId: 'us-east-1:42d8b7b6-b929-4c80-949e-ea27af8e6cbb',
-      userPoolWebClientId: 'actqpfaf00m1cg8cvccck1s9k',
-      language: "br",
-    });
+Amplify.configure(amplifyConfigure);
 
 
 const App = () => {

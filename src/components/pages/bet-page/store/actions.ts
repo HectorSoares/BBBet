@@ -38,7 +38,6 @@ export const setListBetManager = async (): Promise<AppThunk> => async (dispatch)
   var weeks: Week[] = [];
   try {
     var response: AxiosResponse = (await BetManagerService.listBetManager());
-    console.log('terminou execução');
     weeks = response.data.body.Items;
     
   } catch (e) {

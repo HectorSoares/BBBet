@@ -10,10 +10,6 @@ import { pageRoutes } from './util/constants';
 export default function Router(): JSX.Element {
   let routes: JSX.Element;
 
-  Auth.currentAuthenticatedUser().then(user => console.log(user));
-
-
-
     routes = ( <Switch>
           <Route path={pageRoutes.bet}>
             <BetPage/>         

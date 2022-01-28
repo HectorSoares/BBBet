@@ -21,6 +21,8 @@ import { Auth } from 'aws-amplify';
 import User from '../../../domain/model/User';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Grid } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -37,12 +39,6 @@ export default function MenuBar(props: Props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  // const handleSignOut = () => {
-  //   console.log('sair');
-  //   Auth.signOut();
-    
-  // }
 
   const menuItems = [ {
       label: "Apostar",
@@ -108,7 +104,7 @@ export default function MenuBar(props: Props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{width: '100%'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -118,9 +114,28 @@ export default function MenuBar(props: Props) {
           >
             <MenuIcon />
           </IconButton>
+          
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
           <Typography variant="h6" noWrap component="div">
             BBBet do Chupa Bola
           </Typography>
+          
+          <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => Auth.signOut()}
+                color="inherit"
+              >
+            <LogoutIcon />
+          </IconButton>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Box
@@ -162,7 +177,8 @@ export default function MenuBar(props: Props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Toolbar />
+        <Toolbar >
+        </Toolbar>
       </Box>
     </Box>
   );

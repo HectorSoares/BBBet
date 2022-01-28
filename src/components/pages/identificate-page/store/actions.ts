@@ -16,7 +16,7 @@ export const setUser = (id?: string): AppThunk => async (dispatch) => {
   try {
     user = (await UserService.getUser(id)).data.body;
   } catch (e) {
-    console.log('erro');
+    console.log('erro so buscar usuario');
     //dispatch(showNotification(errorNotificationMessages.defaultError, notificationIcons.error));
   }
   dispatch(internalSetUser(user));

@@ -1,94 +1,134 @@
-import { Box} from "@material-ui/core";
+import { Box, TextField} from "@material-ui/core";
 import Brother from "../../../domain/model/Brother";
 import Bet from "../../../domain/model/manager/Bet";
+import BetResults from "../../../domain/model/results/BetResults";
 import { questions } from "../../../util/constants";
 import SelectMultiple from "../../atoms/select-multiple";
-
+import InputMask from 'react-input-mask'
 
 interface ResultsFormProps  {
-    activeBet?: Bet,
-    brothers?: Brother[]
+    lastBet?: Bet,
+    brothers?: Brother[],
+    setBet?: any,
 };
 
+const defaultBetResult = {
+    leader: undefined,
+    angel: undefined,
+    bigPhone: undefined,
+    firstIndicated: undefined,
+    secondIndicated: undefined,
+    thirdIndicated: undefined,
+    fourthIndicated: undefined,
+    fifthIndicated: undefined,
+    eliminatedParticipant: undefined,
+    eliminationPercentage: undefined  
+}
 
+const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
 
+  var bet: BetResults = defaultBetResult;
 
-const ResultsForm = ({activeBet, brothers}: ResultsFormProps) => (    
+  const onChangeEliminationPercentage = (prop:any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    bet.eliminationPercentage = parseFloat(event.target.value.replace(',', '.'));
+    setBet(bet);
+  }
+
+  
+  const onChangeHandle = (value: any, 
+    betIndex: 'leader'|'angel'|'bigPhone'|'firstIndicated'|'secondIndicated'|'thirdIndicated'|'fourthIndicated'|'fifthIndicated'|'eliminatedParticipant'|'eliminationPercentage') => {    
+     
+    bet[betIndex] = value.map((m: Brother) => m.id);
+    setBet(bet);
+  }
+  
+  return (    
   
             <Box component="form" onSubmit={() => {}}  sx={{ 
               mt: 1, 
               width: '100%' }}>
             {
-              activeBet?.leader &&
+              lastBet?.leader &&
               <SelectMultiple
               items={brothers}
               label={questions.leader}
-              //onChange={(item: Brother) => {setLeader(item)}}
+              onChange={onChangeHandle}
+              betIndex={'leader'}
               />}
             {
-              activeBet?.angel &&
+              lastBet?.angel &&
               <SelectMultiple
               items={brothers}
               label={questions.angel}
-              //onChange={(item: Brother) => {setAngel(item)}}
+              onChange={onChangeHandle}
+              betIndex={'angel'}
               />}
             {
-              activeBet?.bigPhone &&
+              lastBet?.bigPhone &&
               <SelectMultiple
               items={brothers}
               label={questions.bigPhone}
-              //onChange={(item: Brother) => {setBigPhone(item)}}
+              onChange={onChangeHandle}
+              betIndex={'bigPhone'}
               />}
             {
-              activeBet?.firstIndicated &&
+              lastBet?.firstIndicated &&
               <SelectMultiple
               items={brothers}
               label={questions.firstIndicated}
-              //onChange={(item: Brother) => {setFirstIndicated(item)}}
+              onChange={onChangeHandle}
+              betIndex={'firstIndicated'}
               />}
             {
-            activeBet?.secondIndicated &&
+            lastBet?.secondIndicated &&
              <SelectMultiple
               items={brothers}
               label={questions.secondIndicated}
-              //onChange={(item: Brother) => {setSecondIndicated(item)}}
+              onChange={onChangeHandle}
+              betIndex={'secondIndicated'}
               />}
             {
-            activeBet?.thirdIndicated &&
+            lastBet?.thirdIndicated &&
              <SelectMultiple
               items={brothers}
               label={questions.thirdIndicated}
-              //onChange={(item: Brother) => {setThirdIndicated(item)}}
+              onChange={onChangeHandle}
+              betIndex={'thirdIndicated'}
               />}
             {
-            activeBet?.fourthIndicated &&
+            lastBet?.fourthIndicated &&
              <SelectMultiple
               items={brothers}
               label={questions.fourthIndicated}
-              //onChange={(item: Brother) => {setFourthIndicated(item)}}
+              onChange={onChangeHandle}
+              betIndex={'fourthIndicated'}
               />}
             {
-            activeBet?.fifthIndicated &&
+            lastBet?.fifthIndicated &&
              <SelectMultiple
               items={brothers}
               label={questions.fifthIndicated}
-              //onChange={(item: Brother) => {setFifthIndicated(item)}}
+              onChange={onChangeHandle}
+              betIndex={'fifthIndicated'}
               />}
             {
-            activeBet?.eliminatedParticipant &&
+            lastBet?.eliminatedParticipant &&
              <SelectMultiple
               items={brothers}
               label={questions.eliminatedParticipant}
-              //onChange={(item: Brother) => {setEliminatedParticipant(item)}}
+              onChange={onChangeHandle}
+              betIndex={'eliminatedParticipant'}
               />}
             {
-            activeBet?.eliminationPercentage &&
-             <SelectMultiple
-              items={brothers}
-              label={questions.eliminationPercentage}
-              //onChange={(item: Brother) => {setEliminationPercentage(item)}}
-              />}
+            lastBet?.eliminationPercentage &&
+              <TextField  
+                label={questions.eliminationPercentage} 
+                variant="outlined"
+                onChange={onChangeEliminationPercentage('eliminationPercentage')}
+                 >
+                 </TextField>
+              }
             </Box>
-)
+)}
 
 export default ResultsForm;
