@@ -93,6 +93,9 @@ const BetPage = () => {
             width: '100%',
           }}
         >
+          <Typography component="h4" variant="h6">
+            {user?.firstName}, sua pontuação total é: {user?.totalPoints}
+          </Typography>
           {activeBet ?
           <>
           <SimpleBackdrop open ={loading}/>
