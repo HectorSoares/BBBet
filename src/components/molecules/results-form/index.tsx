@@ -4,7 +4,6 @@ import Bet from "../../../domain/model/manager/Bet";
 import BetResults from "../../../domain/model/results/BetResults";
 import { questions } from "../../../util/constants";
 import SelectMultiple from "../../atoms/select-multiple";
-import InputMask from 'react-input-mask'
 
 interface ResultsFormProps  {
     lastBet?: Bet,

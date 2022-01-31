@@ -16,14 +16,14 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import Bet from '../../../icons/Bet';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
-import { Link, NavLink  } from 'react-router-dom';
+import {  NavLink  } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import User from '../../../domain/model/User';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Button, Grid } from '@material-ui/core';
 import EggOutlinedIcon from '@mui/icons-material/EggOutlined';
+import { Grid } from '@material-ui/core';
 
 const drawerWidth = 240;
 
