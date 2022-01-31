@@ -7,7 +7,8 @@ const axiosInstance = getAxiosInstance(process.env.REACT_APP_USER_API || '');
 
 class UserService {
   async listUser(): Promise<AxiosResponse<User[]>> {
-    var response = await  axiosInstance.get('/');
+    var response = await  axiosInstance.get('/listuser');
+    console.log(response);
     return response
   }
 

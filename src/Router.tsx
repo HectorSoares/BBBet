@@ -4,6 +4,7 @@ import MantenancePage from './components/pages/maintenance-page';
 import BetPage from './components/pages/bet-page/views/BetPage';
 import ManagePage from './components/pages/manage-page';
 import { pageRoutes } from './util/constants';
+import CompetitionPage from './components/pages/competition-page';
 
 
 
@@ -18,7 +19,7 @@ export default function Router(): JSX.Element {
             <ManagePage/>         
           </Route>
           <Route path={pageRoutes.rank}>
-            <MantenancePage/>         
+            <CompetitionPage/>         
           </Route>
            <Route path={pageRoutes.results}>
             <MantenancePage/>         
