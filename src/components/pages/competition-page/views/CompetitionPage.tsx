@@ -55,7 +55,7 @@ const CompetitionPage = () => {
               justifyContent="space-between"
               alignItems="center">
                   <Typography> {index+1}°  </Typography>
-                  <Typography> {item.firstName.toUpperCase() || item.id.toUpperCase()} </Typography>
+                  <Typography> {(item.firstName || item.id || 'sem nome').toUpperCase()} </Typography>
                   <Typography> {item.totalPoints}  </Typography>
               </Grid>
               
