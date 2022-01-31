@@ -29,6 +29,8 @@ const ManagePage = () => {
     leader: false,
     angel: false,
     bigPhone: false,
+    backForth: false,
+    angelImmunized: false,
     firstIndicated: false,
     secondIndicated: false,
     thirdIndicated: false,
@@ -226,6 +228,12 @@ const ManagePage = () => {
                       <FormControl component="fieldset" variant="standard" disabled={!!activeBet}>
                         <FormControlLabel
                           control={
+                            <Switch checked={bet.angelImmunized} onChange={handleChange} name="angelImmunized" />
+                          }
+                          label={questions.angelImmunized}
+                        />
+                        <FormControlLabel
+                          control={
                             <Switch checked={bet.firstIndicated} onChange={handleChange} name="firstIndicated" />
                           }
                           label={questions.firstIndicated}
@@ -253,6 +261,12 @@ const ManagePage = () => {
                             <Switch checked={bet.fifthIndicated} onChange={handleChange} name="fifthIndicated" />
                           }
                           label={questions.fifthIndicated}
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch checked={bet.backForth} onChange={handleChange} name="backForth" />
+                          }
+                          label={questions.backForth}
                         />
                       </FormControl>
                     </Paper>

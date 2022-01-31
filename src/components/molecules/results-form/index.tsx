@@ -15,11 +15,13 @@ const defaultBetResult = {
     leader: undefined,
     angel: undefined,
     bigPhone: undefined,
+    angelImmunized: undefined,
     firstIndicated: undefined,
     secondIndicated: undefined,
     thirdIndicated: undefined,
     fourthIndicated: undefined,
     fifthIndicated: undefined,
+    backForth: undefined,
     eliminatedParticipant: undefined,
     eliminationPercentage: undefined  
 }
@@ -71,6 +73,14 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
               betIndex={'bigPhone'}
               />}
             {
+              lastBet?.angelImmunized &&
+              <SelectMultiple
+              items={brothers}
+              label={questions.angelImmunized}
+              onChange={onChangeHandle}
+              betIndex={'angelImmunized'}
+              />}
+            {
               lastBet?.firstIndicated &&
               <SelectMultiple
               items={brothers}
@@ -109,6 +119,14 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
               label={questions.fifthIndicated}
               onChange={onChangeHandle}
               betIndex={'fifthIndicated'}
+              />}
+            {
+              lastBet?.backForth &&
+              <SelectMultiple
+              items={brothers}
+              label={questions.backForth}
+              onChange={onChangeHandle}
+              betIndex={'backForth'}
               />}
             {
             lastBet?.eliminatedParticipant &&

@@ -28,11 +28,13 @@ const BetPage = () => {
   const [leader,setLeader] = useState<Brother | undefined>(undefined);
   const [angel,setAngel] = useState<Brother | undefined>(undefined);
   const [bigPhone,setBigPhone] = useState<Brother | undefined>(undefined);
+  const [angelImmunized,setAngelImmunized] = useState<Brother | undefined>(undefined);
   const [firstIndicated,setFirstIndicated] = useState<Brother | undefined>(undefined);
   const [secondIndicated,setSecondIndicated] = useState<Brother | undefined>(undefined);
   const [thirdIndicated,setThirdIndicated] = useState<Brother | undefined>(undefined);
   const [fourthIndicated,setFourthIndicated] = useState<Brother | undefined>(undefined);
   const [fifthIndicated,setFifthIndicated] = useState<Brother | undefined>(undefined);
+  const [backForth,setBackForth] = useState<Brother | undefined>(undefined);
   const [eliminatedParticipant,setEliminatedParticipant] = useState<Brother | undefined>(undefined);
   const [eliminationPercentage,setEliminationPercentage] = useState<number | undefined>(undefined);
   const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
@@ -44,6 +46,8 @@ const BetPage = () => {
       leader: leader?.id,
       angel: angel?.id,
       bigPhone: bigPhone?.id,
+      backForth: backForth?.id,
+      angelImmunized: angelImmunized?.id,
       firstIndicated: firstIndicated?.id,
       secondIndicated: secondIndicated?.id,
       thirdIndicated: thirdIndicated?.id,
@@ -131,6 +135,13 @@ const BetPage = () => {
               onChange={(item: Brother) => {setBigPhone(item)}}
               />}
             {
+              activeBet?.angelImmunized &&
+             <AutocompleteBet
+              items={brothers}
+              label={questions.angelImmunized}
+              onChange={(item: Brother) => {setAngelImmunized(item)}}
+              />}            
+            {
               activeBet?.firstIndicated &&
               <AutocompleteBet
               items={brothers}
@@ -164,6 +175,13 @@ const BetPage = () => {
               items={brothers}
               label={questions.fifthIndicated}
               onChange={(item: Brother) => {setFifthIndicated(item)}}
+              />}
+            {
+            activeBet?.backForth &&
+             <AutocompleteBet
+              items={brothers}
+              label={questions.backForth}
+              onChange={(item: Brother) => {setBackForth(item)}}
               />}
             {
             activeBet?.eliminatedParticipant &&
