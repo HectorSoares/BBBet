@@ -58,8 +58,8 @@ export const customTheme = {
   },
   "button:hover": { opacity: 0.8 },
   toast: {
-    maxWidth: "60%",
-    height: "40px",
+    maxWidth: "460px",
+    height: "60px",
     margin: "auto",
     backgroundColor: "#c33",
     color: "#fff",
@@ -69,8 +69,9 @@ export const customTheme = {
     zIndex: 1,
     left: "0",
     right: "0",
-    bottom: "30px",
+    bottom: "0px",
     fontSize: "17px",
     whiteSpace: "nowrap"
   },
+  
 }

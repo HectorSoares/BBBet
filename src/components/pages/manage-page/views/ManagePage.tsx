@@ -138,9 +138,9 @@ const ManagePage = () => {
     }
     const confirmAddResult = async (bet: BetResults) => {
       setLoading(true);
-      await BetResultsService.addResult(activeWeek, bet);
-      dispatch(await setListBetManager());
       setOpenDialogResult(false);
+      await BetResultsService.addResult(activeWeek, bet);
+      dispatch(await setListBetManager());            
       setLoading(false);
     }
 

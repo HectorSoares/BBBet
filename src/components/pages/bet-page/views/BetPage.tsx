@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, TextField } from "@mui/material";
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +34,7 @@ const BetPage = () => {
   const [fourthIndicated,setFourthIndicated] = useState<Brother | undefined>(undefined);
   const [fifthIndicated,setFifthIndicated] = useState<Brother | undefined>(undefined);
   const [eliminatedParticipant,setEliminatedParticipant] = useState<Brother | undefined>(undefined);
-  const [eliminationPercentage,setEliminationPercentage] = useState<Brother | undefined>(undefined);
+  const [eliminationPercentage,setEliminationPercentage] = useState<number | undefined>(undefined);
   const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
   const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
 
@@ -50,7 +50,7 @@ const BetPage = () => {
       fourthIndicated: fourthIndicated?.id,
       fifthIndicated: fifthIndicated?.id,
       eliminatedParticipant: eliminatedParticipant?.id,
-      eliminationPercentage: eliminationPercentage?.id
+      eliminationPercentage: eliminationPercentage
     }
     console.log(bet);
     UserService.addBet(user?.id, bet, activeWeek?.week);
@@ -80,6 +80,10 @@ const BetPage = () => {
   useEffect(function () {
       setActiveBet(returnActiveBet(activeWeek));  
     }, [activeWeek]);
+
+  const onChangeEliminationPercentage = () => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEliminationPercentage(parseFloat(event.target.value.replace(',', '.')));
+  }
 
   return (
     <>
@@ -170,14 +174,15 @@ const BetPage = () => {
               />}
             {
             activeBet?.eliminationPercentage &&
-             <AutocompleteBet
-              items={brothers}
-              label={questions.eliminationPercentage}
-              onChange={(item: Brother) => {setEliminationPercentage(item)}}
-              />}
+              <TextField  
+                label={questions.eliminationPercentage} 
+                variant="outlined"
+                onChange={onChangeEliminationPercentage()}
+                 >
+                 </TextField>
+              }
             
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 5, mb: 2 }}

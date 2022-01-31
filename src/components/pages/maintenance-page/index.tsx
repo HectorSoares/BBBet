@@ -1,6 +1,6 @@
 
 import '@aws-amplify/ui/dist/style.css'
-import { Box,  CssBaseline, Typography, } from '@mui/material';
+import { Box,  CssBaseline, Paper, Typography, } from '@mui/material';
 
 
 
@@ -22,7 +22,9 @@ export default function MantenancePage() {
           <Typography component="h1" variant="h5">
             Página em manutenção!!!
           </Typography> 
-          <img src="./image.png" alt="joaoChupaBola.png"/> 
+          <Paper variant="outlined">
+            <img src={require("./image.png")} alt="joaoChupaBola.png" />
+          </Paper>
         </Box>
     </div>
   );

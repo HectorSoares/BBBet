@@ -16,13 +16,14 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import Bet from '../../../icons/Bet';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
-import { NavLink  } from 'react-router-dom';
+import { Link, NavLink  } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import User from '../../../domain/model/User';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
+import EggOutlinedIcon from '@mui/icons-material/EggOutlined';
 
 const drawerWidth = 240;
 
@@ -65,7 +66,17 @@ export default function MenuBar(props: Props) {
 
   const drawer = (
     <>
-      <Toolbar />
+      <Toolbar >
+        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank">
+        <EggOutlinedIcon 
+        fontSize='small'
+        style={{
+                textDecoration: 'none',
+                marginBottom: 0,
+                color: 'rgba(0, 0, 0, 0.54)'
+              }}/>
+        </IconButton>
+        </Toolbar >
       <Divider />
       <List>
         {menuItems.map((item, index) => {

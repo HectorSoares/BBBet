@@ -29,7 +29,7 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
 
   var bet: BetResults = defaultBetResult;
 
-  const onChangeEliminationPercentage = (prop:any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeEliminationPercentage = () => (event: React.ChangeEvent<HTMLInputElement>) => {
     bet.eliminationPercentage = parseFloat(event.target.value.replace(',', '.'));
     setBet(bet);
   }
@@ -124,7 +124,7 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
               <TextField  
                 label={questions.eliminationPercentage} 
                 variant="outlined"
-                onChange={onChangeEliminationPercentage('eliminationPercentage')}
+                onChange={onChangeEliminationPercentage()}
                  >
                  </TextField>
               }
