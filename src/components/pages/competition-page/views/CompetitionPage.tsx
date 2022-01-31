@@ -44,7 +44,11 @@ const CompetitionPage = () => {
           }}
         >
 
-          {users?.sort((u) => u.totalPoints).map((item, index) => {
+          {users?.sort(function compare(a, b) {
+                  if (a.totalPoints < b.totalPoints) return 1;
+                  if (a.totalPoints > b.totalPoints) return -1;
+                  return 0;
+              }).map((item, index) => {
           
           return (
             <>
