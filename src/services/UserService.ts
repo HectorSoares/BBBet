@@ -12,6 +12,11 @@ class UserService {
     return response
   }
 
+  async easterEgg(userId: any): Promise<AxiosResponse<any>> {
+    var response = await  axiosInstance.post(`/easteregg`, {id: userId});
+    return response
+  }
+
   async getUser(id?: string): Promise<AxiosResponse<any>> {
     var response = await  axiosInstance.get(`getuser2/?id=${id}`);
     return response

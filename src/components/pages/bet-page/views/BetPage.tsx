@@ -12,6 +12,7 @@ import { questions } from "../../../../util/constants";
 import { returnActiveBet, returnActiveWeek, returnDescriptionBet } from "../../../../util/functions";
 import AutocompleteBet from "../../../atoms/autocomplete";
 import SimpleBackdrop from "../../../atoms/backdrop";
+import { setListUser } from "../../competition-page/store/actions";
 import { setUser } from "../../identificate-page/store/actions";
 import { setBrothers, setListBetManager } from "../store/actions";
 
@@ -23,6 +24,7 @@ const BetPage = () => {
   const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
   const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
   const user: User | undefined = useSelector((state: RootState) => state.user.user );
+  const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
 
 
   const [leader,setLeader] = useState<Brother | undefined>(undefined);
@@ -67,11 +69,13 @@ const BetPage = () => {
     
       async function setData(){
         setLoading(true);
-        dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
-        dispatch(await setListBetManager());
-        dispatch(await setBrothers());
-        setLoading(false);
-        console.log('parou');
+        if(!users || !user || !brothers || !weeks){
+          dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
+          dispatch(await setListBetManager());
+          dispatch(await setBrothers());
+          dispatch(await setListUser());
+          setLoading(false);
+        }
       }
       setData();
     

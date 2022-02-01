@@ -22,8 +22,9 @@ import User from '../../../domain/model/User';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import LogoutIcon from '@mui/icons-material/Logout';
-import EggOutlinedIcon from '@mui/icons-material/EggOutlined';
 import { Grid } from '@material-ui/core';
+import EasterEgg from '../../../icons/EasterEgg';
+import UserService from '../../../services/UserService';
 
 const drawerWidth = 240;
 
@@ -40,6 +41,10 @@ export default function MenuBar(props: Props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleOnClickEaster = () => {
+    UserService.easterEgg(user?.id);
+  }
 
   const menuItems = [ {
       label: "Apostar",
@@ -67,14 +72,8 @@ export default function MenuBar(props: Props) {
   const drawer = (
     <>
       <Toolbar >
-        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank">
-        <EggOutlinedIcon 
-        fontSize='small'
-        style={{
-                textDecoration: 'none',
-                marginBottom: 0,
-                color: 'rgba(0, 0, 0, 0.54)'
-              }}/>
+        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank" onClick={handleOnClickEaster}>
+        <EasterEgg/>
         </IconButton>
         </Toolbar >
       <Divider />

@@ -1,12 +1,14 @@
 import { Box } from "@material-ui/core";
 import { Grid,   Typography } from "@mui/material";
 import { Paper } from "@mui/material";
+import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import User from "../../../../domain/model/User";
 import Crown from "../../../../icons/Crown";
 import { RootState } from "../../../../store/reducers";
 import SimpleBackdrop from "../../../atoms/backdrop";
+import { setUser } from "../../identificate-page/store/actions";
 import { setListUser } from "../store/actions";
 
 
@@ -24,7 +26,10 @@ const CompetitionPage = () => {
     
       async function setData(){
         setLoading(true);
-        dispatch(await setListUser());
+        if(!users || !user){
+          dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
+          dispatch(await setListUser());
+        }
         setLoading(false);
       }
       setData();
@@ -58,7 +63,8 @@ const CompetitionPage = () => {
               alignItems: 'center',
               backgroundColor: index <= 2 ? '#e5fdedb0' : '#fff',
               border: item.id === user?.id ? '#00f8ff4d' : 'none',
-              borderStyle: item.id === user?.id ?'solid' : 'none'}}>
+              borderStyle: item.id === user?.id ?'solid' : 'none',
+              borderWidth: '1px'}}>
 
               <Grid container
 

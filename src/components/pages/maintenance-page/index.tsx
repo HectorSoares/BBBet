@@ -8,7 +8,6 @@ export default function MantenancePage() {
 
   return (
       <div>
-          <img src="./image.png" alt="MISSING JPG"/> 
         <CssBaseline />
         <Box
           sx={{
