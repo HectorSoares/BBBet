@@ -1,9 +1,10 @@
 import { Box } from "@material-ui/core";
-import { Grid, Typography } from "@mui/material";
+import { Grid,   Typography } from "@mui/material";
 import { Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import User from "../../../../domain/model/User";
+import Crown from "../../../../icons/Crown";
 import { RootState } from "../../../../store/reducers";
 import SimpleBackdrop from "../../../atoms/backdrop";
 import { setListUser } from "../store/actions";
@@ -15,6 +16,7 @@ const CompetitionPage = () => {
 
 
   const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
+  const user: User | undefined = useSelector((state: RootState) => state.user.user );
   const [loading,setLoading] = useState<boolean>(false);
 
 
@@ -49,24 +51,26 @@ const CompetitionPage = () => {
                   if (a.totalPoints > b.totalPoints) return -1;
                   return 0;
               }).map((item, index) => {
-          
           return (
-            <>
-            <Paper elevation={3} sx={{mb: '5px', padding: '15px', width: '300px', alignItems: 'center', backgroundColor: index <= 2 ? '#e5fded' : '#fff' }}>
+            <Paper key={index} elevation={3} sx={{mb: '5px',
+             padding: '15px',
+              width: '350px',
+              alignItems: 'center',
+              backgroundColor: index <= 2 ? '#e5fdedb0' : '#fff',
+              border: item.id === user?.id ? '#00f8ff4d' : 'none',
+              borderStyle: item.id === user?.id ?'solid' : 'none'}}>
 
               <Grid container
+
               direction="row"
               justifyContent="space-between"
               alignItems="center">
                   <Typography> {index+1}°  </Typography>
-                  <Typography> {(item.firstName || item.id || 'sem nome').toUpperCase()} </Typography>
+                  <Typography> {(item.firstName + ' ' + item.lastName || item.id || 'sem nome').toUpperCase()} {index === 0 && <Crown/>} </Typography>
                   <Typography> {item.totalPoints}  </Typography>
               </Grid>
               
             </Paper>
-
-
-            </>
           );
         })}
 
