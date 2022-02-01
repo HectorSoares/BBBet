@@ -223,6 +223,7 @@ const BetPage = () => {
             {
             activeBet?.eliminationPercentage &&
               <TextField  
+                sx={{mt: 1}}
                 label={questions.eliminationPercentage} 
                 variant="outlined"
                 onChange={onChangeEliminationPercentage()}
