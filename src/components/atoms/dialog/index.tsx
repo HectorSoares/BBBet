@@ -1,4 +1,4 @@
-import {  Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, PaperProps} from "@mui/material";
+import {  Button, ClickAwayListener, Dialog, DialogActions, DialogContent, DialogTitle, Paper, PaperProps} from "@mui/material";
 
 interface CustomDialogProps  {
     open: boolean,
@@ -20,7 +20,8 @@ function PaperComponent(props: PaperProps) {
 
 const CustomDialog = ({open, title, cancelText, submitText, children, cancelAction, submitAction, bet}: CustomDialogProps) => {
 
-    return (<Dialog
+    return (
+            <Dialog
                 open={open}
                 PaperComponent={PaperComponent}
                 aria-labelledby="draggable-dialog-title"
@@ -40,7 +41,8 @@ const CustomDialog = ({open, title, cancelText, submitText, children, cancelActi
                         {submitText}
                     </Button>
                 </DialogActions>
-            </Dialog>)
+            </Dialog>
+            )
 
 
 }

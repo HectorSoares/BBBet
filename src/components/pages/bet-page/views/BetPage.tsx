@@ -12,6 +12,7 @@ import { questions } from "../../../../util/constants";
 import { returnActiveBet, returnActiveWeek, returnDescriptionBet } from "../../../../util/functions";
 import AutocompleteBet from "../../../atoms/autocomplete";
 import SimpleBackdrop from "../../../atoms/backdrop";
+import BetConclusionModal from "../../../molecules/bet-conclusion-modal";
 import { setListUser } from "../../competition-page/store/actions";
 import { setUser } from "../../identificate-page/store/actions";
 import { setBrothers, setListBetManager } from "../store/actions";
@@ -42,7 +43,23 @@ const BetPage = () => {
   const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
   const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
 
-  const handleSubmit = () => {
+
+  const clearFields = () => {
+    setLeader(undefined);
+    setAngel(undefined);
+    setBigPhone(undefined);
+    setAngelImmunized(undefined);
+    setFirstIndicated(undefined);
+    setSecondIndicated(undefined);
+    setThirdIndicated(undefined);
+    setFourthIndicated(undefined);
+    setFifthIndicated(undefined);
+    setBackForth(undefined);
+    setEliminatedParticipant(undefined);
+    setEliminationPercentage(undefined);
+  }
+
+  const handleSubmit = async () => {
     setLoading(true);
     var bet = {
       leader: leader?.id,
@@ -59,17 +76,22 @@ const BetPage = () => {
       eliminationPercentage: eliminationPercentage
     }
     console.log(bet);
-    UserService.addBet(user?.id, bet, activeWeek?.week);
+    await UserService.addBet(user?.id, bet, activeWeek?.week);    
     setLoading(false);
+    setOpenModal(true);
+    clearFields();
+
   };
 
   const [loading,setLoading] = useState<boolean>(false);
+  const [openModal,setOpenModal] = useState<boolean>(false);
 
   useEffect(function () {
     
       async function setData(){
-        setLoading(true);
+        
         if(!users || !user || !brothers || !weeks){
+          setLoading(true);
           dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
           dispatch(await setListBetManager());
           dispatch(await setBrothers());
@@ -93,9 +115,13 @@ const BetPage = () => {
     setEliminationPercentage(parseFloat(event.target.value.replace(',', '.')));
   }
 
+  const closeModalHandler = (_?: any) => {
+    setOpenModal(false);
+  }
+
   return (
     <>
-        
+        <BetConclusionModal open={openModal} closeModal={closeModalHandler}/>
         <Box
           sx={{
             marginTop: 5,

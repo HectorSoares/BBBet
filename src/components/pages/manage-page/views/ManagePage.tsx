@@ -18,12 +18,12 @@ const ManagePage = () => {
   const dispatch = useDispatch();
 
   const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
-  // var activeWeek = returnActiveWeek(weeks);
-  // var activeBet = returnActiveBet(activeWeek);
 
   const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
   const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
   const [lastBet,setLastBet] = useState<Bet | undefined>(returnLastBet(activeWeek));
+
+  const [hasBetOptionChecked,setHasBetOptionChecked] = useState<boolean>(false);
 
   const defaultBet = {
     leader: false,
@@ -49,9 +49,13 @@ const ManagePage = () => {
 
   useEffect(function () {
       setLastBet(returnLastBet(activeWeek));  
-    }, [activeWeek]);
+    }, [activeWeek]);  
 
   const [bet, setBet] = React.useState(defaultBet);
+
+  useEffect(function () {
+      setHasBetOptionChecked(Object.keys(bet).some((key: string) => (bet[key] === true)));
+    }, [bet]);
 
   const [defaultOption, setDefaultOption] = React.useState({
     sunday: false,
@@ -72,11 +76,13 @@ const ManagePage = () => {
     const handleChangeSunday = (event: React.ChangeEvent<HTMLInputElement>) => {
       setBet({
       ...bet,
+      angelImmunized:  event.target.checked,
       firstIndicated:  event.target.checked,
       secondIndicated:  event.target.checked,
       thirdIndicated:  event.target.checked,
       fourthIndicated:  event.target.checked,
       fifthIndicated:  event.target.checked,
+      backForth: event.target.checked,
       });
       setDefaultOption({
         ...defaultOption,
@@ -114,6 +120,7 @@ const ManagePage = () => {
       await BetManagerService.createBetManager(bet);
       setActiveBet(bet);
       setDefaultOption({sunday: false, thursday: false, tuesday: false});
+      dispatch(await setListBetManager());
       setBet(defaultBet);
       setLoading(false);
       
@@ -151,7 +158,7 @@ const ManagePage = () => {
     }   
     
   return (
-    <>
+    <>    
         <SimpleBackdrop open={loading}/>
         <Box
           sx={{
@@ -293,7 +300,7 @@ const ManagePage = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 1,  width: '46%', mr: '6%',  }}
                         onClick={createNewBet}
-                        disabled={!!activeBet || !!lastBet}
+                        disabled={!!activeBet || !!lastBet || !hasBetOptionChecked}
                       >
                         Abrir aposta
                       </Button> 

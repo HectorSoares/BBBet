@@ -82,8 +82,8 @@ export default function MenuBar(props: Props) {
           
           return (
             (!item.admin || user?.admin) &&
-            <>
             <NavLink  to={item.route} 
+            key={index}
              style={{
               textDecoration: 'none',
               color: 'rgba(0, 0, 0, 0.54)'
@@ -95,7 +95,6 @@ export default function MenuBar(props: Props) {
                 <ListItemText primary={item.label} />
               </ListItem>
             </NavLink >
-            </>
           );
         })}
       </List>
