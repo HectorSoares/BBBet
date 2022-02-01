@@ -72,8 +72,8 @@ export default function MenuBar(props: Props) {
   const drawer = (
     <>
       <Toolbar >
-        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank" onClick={handleOnClickEaster}>
-        <EasterEgg/>
+        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank" onClick={handleOnClickEaster} sx={{backgroundColor:'rgb(30,30,200,0.1)'}}>
+          <EasterEgg/>
         </IconButton>
         </Toolbar >
       <Divider />
