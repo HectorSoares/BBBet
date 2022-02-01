@@ -12,7 +12,7 @@ const BetConclusionModal = ({open, closeModal}: BetConclusionModalProps) => {
   return (    
             <CustomDialog open={open} title={'Aposta concluída'} cancelText={''} submitText={'OK'} cancelAction={closeModal} submitAction={closeModal} >
                 
-                    <img src={require("./JoaoChupaBola-bet.jpeg")} alt="JoaoChupaBola-bet.jpeg" width="300" height="300" />
+                    <img src={require("./JoaoChupaBola-bet.png")} alt="JoaoChupaBola-bet.png" width="300" height="300" />
                 
             </CustomDialog>
 )}
