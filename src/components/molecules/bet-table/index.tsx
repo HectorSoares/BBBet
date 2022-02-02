@@ -39,7 +39,7 @@ interface BetsTableProps {
     week: string;
 }
 
-export default function BetsTable({week}: BetsTableProps) {
+export default function BetTable({week}: BetsTableProps) {
     const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
     const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
 
@@ -52,8 +52,8 @@ export default function BetsTable({week}: BetsTableProps) {
     }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ width: '100px' }} aria-label="customized table">
+    <TableContainer component={Paper} sx={{ maxHeight: 440, maxWidth: '100%' }}>
+      <Table stickyHeader sx={{ width: '1200px' }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
@@ -74,7 +74,7 @@ export default function BetsTable({week}: BetsTableProps) {
           {users?.map((row) => (
              <> 
             <StyledTableRow key={row.firstName}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell style={{ zIndex: 900 }} component="th" scope="row">
                 {row.id}
               </StyledTableCell>
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.leader)}</StyledTableCell>
@@ -87,7 +87,7 @@ export default function BetsTable({week}: BetsTableProps) {
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.fourthIndicated)}</StyledTableCell>
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.fifthIndicated)}</StyledTableCell>
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.eliminatedParticipant)}</StyledTableCell>
-                <StyledTableCell align="right">{row?.bets[week]?.eliminationPercentage || '-'}</StyledTableCell>
+                <StyledTableCell align="right">{ (row?.bets[week]?.eliminationPercentage == 101 && '-' ) || row?.bets[week]?.eliminationPercentage || '-'}</StyledTableCell>
             </StyledTableRow>
             </>
           ))}
