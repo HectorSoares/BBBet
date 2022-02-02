@@ -4,6 +4,6 @@ export default interface User {
     totalPoints: number;
     email: string;
     firstName: string;
-    bets: object;
+    bets: any;
     admin: boolean;
 }
