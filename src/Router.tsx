@@ -1,6 +1,4 @@
-import { Auth } from 'aws-amplify';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import MantenancePage from './components/pages/maintenance-page';
 import BetPage from './components/pages/bet-page/views/BetPage';
 import ManagePage from './components/pages/manage-page';
 import { pageRoutes } from './util/constants';

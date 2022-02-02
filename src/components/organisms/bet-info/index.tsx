@@ -5,7 +5,6 @@ import User from '../../../domain/model/User';
 import CustomRadialChart from '../../atoms/custom-radial-chart';
 import Brother from '../../../domain/model/Brother';
 import { questions } from '../../../util/constants';
-import { Grid } from '@material-ui/core';
 import { useState } from 'react';
 
 
@@ -37,14 +36,14 @@ export default function BetInfo({week}: BetInfoProps) {
 
     
 
-    const getBrotherNameById = (id:string) => { var brother = brothers?.find((b) => b.id == id); return brother?.nickname || brother?.name };
+    const getBrotherNameById = (id:string) => { var brother = brothers?.find((b) => b.id === id); return brother?.nickname || brother?.name };
     
 
     const addData = (id:any, data:any) => {
       
       if(id){
         if(data){
-          var uei =  data.find((d: DataProps) => d.id == id );
+          var uei =  data.find((d: DataProps) => d.id === id );
           if(uei){
             uei.angle+=1;
           } else {

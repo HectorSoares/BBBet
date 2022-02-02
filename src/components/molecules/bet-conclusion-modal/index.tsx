@@ -1,5 +1,3 @@
-
-import { Paper } from "@material-ui/core";
 import CustomDialog from "../../atoms/dialog";
 
 interface BetConclusionModalProps  {

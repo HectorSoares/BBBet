@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import getAxiosInstance from '../apis/axiosInstance';
-import BetResults from '../domain/model/results/BetResults';
 import User from '../domain/model/User';
 
 const axiosInstance = getAxiosInstance(process.env.REACT_APP_USER_API || '');

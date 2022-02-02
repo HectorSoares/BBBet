@@ -1,5 +1,3 @@
-
-import '@aws-amplify/ui/dist/style.css'
 import { Box,  CssBaseline, Grid,  Tab, Tabs,  } from '@mui/material';
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff';
 import TocIcon from '@mui/icons-material/Toc';
@@ -90,10 +88,10 @@ export default function ResultsPage() {
             </Tabs>            
             </Box>
             <TabPanel value={value} index={0}>
-               <BetTable week={week}/>
+               <BetTable week={week || '1'}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <BetInfo week={week}/>
+                <BetInfo week={week || '1'}/>
             </TabPanel>
         </Box>
     </div>

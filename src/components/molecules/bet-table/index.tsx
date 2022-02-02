@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -47,7 +46,7 @@ export default function BetTable({week}: BetsTableProps) {
         if(!id || !brothers){
             return '-';
         }
-        var brother = brothers.find((b) => b.id == id);
+        var brother = brothers.find((b) => b.id === id);
         return brother?.name || '-';
     }
 
@@ -87,7 +86,7 @@ export default function BetTable({week}: BetsTableProps) {
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.fourthIndicated)}</StyledTableCell>
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.fifthIndicated)}</StyledTableCell>
                 <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.eliminatedParticipant)}</StyledTableCell>
-                <StyledTableCell align="right">{ (row?.bets[week]?.eliminationPercentage == 101 && '-' ) || row?.bets[week]?.eliminationPercentage || '-'}</StyledTableCell>
+                <StyledTableCell align="right">{ (row?.bets[week]?.eliminationPercentage === 101 && '-' ) || row?.bets[week]?.eliminationPercentage || '-'}</StyledTableCell>
             </StyledTableRow>
             </>
           ))}

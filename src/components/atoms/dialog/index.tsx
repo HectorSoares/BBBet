@@ -1,4 +1,4 @@
-import {  Button, ClickAwayListener, Dialog, DialogActions, DialogContent, DialogTitle, Paper, PaperProps} from "@mui/material";
+import {  Button,  Dialog, DialogActions, DialogContent, DialogTitle, Paper, PaperProps} from "@mui/material";
 
 interface CustomDialogProps  {
     open: boolean,
