@@ -43,7 +43,7 @@ interface BetsTableProps {
 }
 
 export default function BetTable({week}: BetsTableProps) {
-    var weekId = week.week;
+    var weekId = week?.week;
     var activeBet = returnActiveBet(week);
     const user: User | undefined = useSelector((state: RootState) => state.user.user );
 

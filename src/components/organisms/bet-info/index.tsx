@@ -33,7 +33,7 @@ var currentDataEliminatedParticipant: any = [];
 
 
 export default function BetInfo({week}: BetInfoProps) {
-  var weekId = week.week;
+  var weekId = week?.week;
   var activeBet = returnActiveBet(week);
     const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
     const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
@@ -126,15 +126,15 @@ export default function BetInfo({week}: BetInfoProps) {
   return (
       <>
 
-        {(!activeBet.leader || user?.admin) && (dataLeader && dataLeader?.length > 0 ) && <CustomRadialChart data={currentDataLeader} label={questions.leader}/>}
-        {(!activeBet.angel || user?.admin) && (dataAngel && dataAngel?.length > 0 ) && <CustomRadialChart data={currentDataAngel} label={questions.angel}/>}
-        {(!activeBet.bigPhone || user?.admin) && (dataBigPhone && dataBigPhone?.length > 0 ) && <CustomRadialChart data={currentDataBigPhone} label={questions.bigPhone}/>}
-        {(!activeBet.firstIndicated || user?.admin) && (dataFirstIndicated && dataFirstIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFirstIndicated} label={questions.firstIndicated}/>}
-        {(!activeBet.secondIndicated || user?.admin) && (dataSecondIndicated && dataSecondIndicated?.length > 0 ) && <CustomRadialChart data={currentDataSecondIndicated} label={questions.secondIndicated}/>}
-        {(!activeBet.thirdIndicated || user?.admin) && (dataThirdIndicated && dataThirdIndicated?.length > 0 ) && <CustomRadialChart data={currentDataThirdIndicated} label={questions.thirdIndicated}/>}
-        {(!activeBet.fourthIndicated || user?.admin) && (dataFourthIndicated && dataFourthIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFourthIndicated} label={questions.fourthIndicated}/>}
-        {(!activeBet.fifthIndicated || user?.admin) && (dataFifthIndicated && dataFifthIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFifthIndicated} label={questions.fifthIndicated}/>}
-        {(!activeBet.eliminatedParticipant || user?.admin) && (dataEliminatedParticipant && dataEliminatedParticipant?.length > 0 ) && <CustomRadialChart data={currentDataEliminatedParticipant} label={questions.eliminatedParticipant}/>}
+        {(!activeBet?.leader || user?.admin) && (dataLeader && dataLeader?.length > 0 ) && <CustomRadialChart data={currentDataLeader} label={questions.leader}/>}
+        {(!activeBet?.angel || user?.admin) && (dataAngel && dataAngel?.length > 0 ) && <CustomRadialChart data={currentDataAngel} label={questions.angel}/>}
+        {(!activeBet?.bigPhone || user?.admin) && (dataBigPhone && dataBigPhone?.length > 0 ) && <CustomRadialChart data={currentDataBigPhone} label={questions.bigPhone}/>}
+        {(!activeBet?.firstIndicated || user?.admin) && (dataFirstIndicated && dataFirstIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFirstIndicated} label={questions.firstIndicated}/>}
+        {(!activeBet?.secondIndicated || user?.admin) && (dataSecondIndicated && dataSecondIndicated?.length > 0 ) && <CustomRadialChart data={currentDataSecondIndicated} label={questions.secondIndicated}/>}
+        {(!activeBet?.thirdIndicated || user?.admin) && (dataThirdIndicated && dataThirdIndicated?.length > 0 ) && <CustomRadialChart data={currentDataThirdIndicated} label={questions.thirdIndicated}/>}
+        {(!activeBet?.fourthIndicated || user?.admin) && (dataFourthIndicated && dataFourthIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFourthIndicated} label={questions.fourthIndicated}/>}
+        {(!activeBet?.fifthIndicated || user?.admin) && (dataFifthIndicated && dataFifthIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFifthIndicated} label={questions.fifthIndicated}/>}
+        {(!activeBet?.eliminatedParticipant || user?.admin) && (dataEliminatedParticipant && dataEliminatedParticipant?.length > 0 ) && <CustomRadialChart data={currentDataEliminatedParticipant} label={questions.eliminatedParticipant}/>}
        
       </>
   );
