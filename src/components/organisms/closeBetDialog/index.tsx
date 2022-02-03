@@ -21,7 +21,7 @@ interface CloseBetDialogProps  {
 
 const CloseBetDialog = ({open, title, cancelText, submitText, lastBet, submitAction, cancelAction}: CloseBetDialogProps) => {
 
-    const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
+    const brothers: Brother[] | undefined = (useSelector((state: RootState) => state.betPage.brothers))?.filter(b => !b.eliminated);
 
     const [bet, setBet] = React.useState(undefined);
 
