@@ -70,7 +70,7 @@ export default function ResultsPage() {
           }}
         >
             <Grid sx={{width: '200px'}}>
-                <AutocompleteBet items={['1','2','3','4']} label={'Semana'} onChange={setWeek}/>
+                <AutocompleteBet items={['1','2','3']} label={'Semana'} onChange={setWeek}/>
             </Grid>            
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider',display: 'flex',

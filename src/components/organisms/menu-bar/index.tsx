@@ -63,7 +63,7 @@ export default function MenuBar(props: Props) {
       admin: true
     },
     {
-      label: "Resultados",
+      label: "Estatística",
       icon: <BarChartIcon />,      
       route: "/results"
     }
@@ -72,7 +72,7 @@ export default function MenuBar(props: Props) {
   const drawer = (
     <>
       <Toolbar >
-        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank" onClick={handleOnClickEaster} sx={{backgroundColor:'rgb(30,30,200,0.1)'}}>
+        <IconButton href="https://youtu.be/ky6VyDwze9c" target="_blank" onClick={handleOnClickEaster}>
           <EasterEgg/>
         </IconButton>
         </Toolbar >
