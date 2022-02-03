@@ -8,6 +8,7 @@ import { questions } from '../../../util/constants';
 import { useEffect, useState } from 'react';
 import { returnActiveBet, returnActiveWeek } from '../../../util/functions';
 import Week from '../../../domain/model/manager/Week';
+import { Grid } from '@material-ui/core';
 
 
 interface BetInfoProps {
@@ -124,8 +125,11 @@ export default function BetInfo({week}: BetInfoProps) {
 
 
   return (
-      <>
-
+      <Grid container
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    >
         {(!activeBet?.leader || user?.admin) && (dataLeader && dataLeader?.length > 0 ) && <CustomRadialChart data={currentDataLeader} label={questions.leader}/>}
         {(!activeBet?.angel || user?.admin) && (dataAngel && dataAngel?.length > 0 ) && <CustomRadialChart data={currentDataAngel} label={questions.angel}/>}
         {(!activeBet?.bigPhone || user?.admin) && (dataBigPhone && dataBigPhone?.length > 0 ) && <CustomRadialChart data={currentDataBigPhone} label={questions.bigPhone}/>}
@@ -135,7 +139,6 @@ export default function BetInfo({week}: BetInfoProps) {
         {(!activeBet?.fourthIndicated || user?.admin) && (dataFourthIndicated && dataFourthIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFourthIndicated} label={questions.fourthIndicated}/>}
         {(!activeBet?.fifthIndicated || user?.admin) && (dataFifthIndicated && dataFifthIndicated?.length > 0 ) && <CustomRadialChart data={currentDataFifthIndicated} label={questions.fifthIndicated}/>}
         {(!activeBet?.eliminatedParticipant || user?.admin) && (dataEliminatedParticipant && dataEliminatedParticipant?.length > 0 ) && <CustomRadialChart data={currentDataEliminatedParticipant} label={questions.eliminatedParticipant}/>}
-       
-      </>
+       </Grid>
   );
 }
