@@ -90,14 +90,12 @@ const BetPage = () => {
   
     async function setData(){
       
-      if(!users || !user || !brothers || !weeks){
         setLoading(true);
         dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
         dispatch(await setListBetManager());
         dispatch(await setBrothers());
         dispatch(await setListUser());
         setLoading(false);
-      }
     }
     setData();
   

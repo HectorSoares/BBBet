@@ -15,7 +15,7 @@ export default function CustomRadialChart({data, label}: CustomRadialChartProps)
 
   return (
       <>
-    <Typography>{label}</Typography>
+    <Typography variant="overline">{label}</Typography>
     <RadialChart
         data={data}
         animation={{ damping: 20, stiffness: 300 }}
@@ -28,7 +28,7 @@ export default function CustomRadialChart({data, label}: CustomRadialChartProps)
         width={220}
         height={220}
         padAngle={() => 0.02} >
-        {value && <Hint value={value} orientation={'bottomright'} />}
+        {value && <Hint  orientation={'bottomright'} />}
         </RadialChart>
         </>
   );

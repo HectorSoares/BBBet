@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import User from '../../../domain/model/User';
 import Brother from '../../../domain/model/Brother';
+import { Box } from '@material-ui/core';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,8 +52,20 @@ export default function BetTable({week}: BetsTableProps) {
     }
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 440, maxWidth: '100%' }}>
-      <Table stickyHeader sx={{ width: '1200px' }} aria-label="customized table">
+    <Box
+          sx={{
+            marginTop: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+    <TableContainer component={Paper} sx={{ 
+      maxHeight: 500,
+      maxWidth: '100%',
+       }}>
+      <Table stickyHeader sx={{ width: '100%' }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
@@ -91,5 +104,6 @@ export default function BetTable({week}: BetsTableProps) {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
   );
 }
