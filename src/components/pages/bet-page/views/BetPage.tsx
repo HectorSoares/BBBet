@@ -87,21 +87,19 @@ const BetPage = () => {
   const [openModal,setOpenModal] = useState<boolean>(false);
 
   useEffect(function () {
-    
-      async function setData(){
-        
-        if(!users || !user || !brothers || !weeks){
-          setLoading(true);
-          dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
-          dispatch(await setListBetManager());
-          dispatch(await setBrothers());
-          dispatch(await setListUser());
-          setLoading(false);
-        }
-      }
-      setData();
-    
-    }, [dispatch]);
+  
+    async function setData(){
+      
+        setLoading(true);
+        dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
+        dispatch(await setListBetManager());
+        dispatch(await setBrothers());
+        dispatch(await setListUser());
+        setLoading(false);
+    }
+    setData();
+  
+  }, [dispatch]);
 
   useEffect(function () {
       setActiveWeek(returnActiveWeek(weeks));

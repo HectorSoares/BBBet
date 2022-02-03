@@ -1,11 +1,11 @@
 import Bet from "../domain/model/manager/Bet";
 import Week from "../domain/model/manager/Week";
 
-export const returnActiveWeek: any = (weeks: Week[] | undefined) => weeks?.find((w) => w.active);
+export const returnActiveWeek: any = (weeks: Week[] | undefined) => weeks?.find((w: Week) => w.active);
 
-export const returnActiveBet: any = (week: Week | undefined) =>  week?.bets?.find((b) => b.active);
+export const returnActiveBet: any = (week: Week | undefined) =>  week?.bets?.find((b: Bet) => b.active);
 
-export const returnLastBet: any = (week: Week | undefined) =>  week?.bets?.find((b) => b.last);
+export const returnLastBet: any = (week: Week | undefined) =>  week?.bets?.find((b: Bet) => b.last);
 
 export const returnDescriptionBet = (week?: Week) => {
       switch(week?.bets?.length){

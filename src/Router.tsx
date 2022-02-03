@@ -1,10 +1,10 @@
-import { Auth } from 'aws-amplify';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import MantenancePage from './components/pages/maintenance-page';
 import BetPage from './components/pages/bet-page/views/BetPage';
 import ManagePage from './components/pages/manage-page';
 import { pageRoutes } from './util/constants';
 import CompetitionPage from './components/pages/competition-page';
+import ResultsPage from './components/pages/results-page';
+import MaintenancePage from './components/pages/maintenance-page';
 
 
 
@@ -22,7 +22,7 @@ export default function Router(): JSX.Element {
             <CompetitionPage/>         
           </Route>
            <Route path={pageRoutes.results}>
-            <MantenancePage/>         
+            <MaintenancePage/>         
           </Route>
           <Redirect to={pageRoutes.bet} />
         </Switch>

@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import Brother from "../../../../domain/model/Brother";
-import BetManager from "../../../../domain/model/manager/BetManager";
 import Week from "../../../../domain/model/manager/Week";
 import BetManagerService from "../../../../services/BetManagerService";
 import BrothersService from "../../../../services/BrothersService";
