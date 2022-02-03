@@ -75,7 +75,6 @@ const BetPage = () => {
       eliminatedParticipant: eliminatedParticipant?.id,
       eliminationPercentage: eliminationPercentage
     }
-    console.log(bet);
     await UserService.addBet(user?.id, bet, activeWeek?.week);    
     setLoading(false);
     setOpenModal(true);
