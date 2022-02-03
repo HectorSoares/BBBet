@@ -97,13 +97,14 @@ export default function ResultsPage() {
                 <Tab icon={<DataSaverOffIcon />} aria-label="graphs" />            
             </Tabs>            
             </Box>
+            </Box>
             <TabPanel value={value} index={0}>
                <BetTable week={currentWeek}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <BetInfo week={currentWeek}/>
             </TabPanel>
-        </Box>
+        
     </div>
   );
 }

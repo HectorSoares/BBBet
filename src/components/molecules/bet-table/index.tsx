@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import User from '../../../domain/model/User';
 import Brother from '../../../domain/model/Brother';
-import { Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Week from '../../../domain/model/manager/Week';
 import BetResults from '../../../domain/model/results/BetResults';
 import { returnActiveBet } from '../../../util/functions';
@@ -64,58 +64,57 @@ export default function BetTable({week}: BetsTableProps) {
   }
 
   return (
-    <Box
-          sx={{
-            marginTop: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
-    <TableContainer component={Paper} sx={{ 
-      maxHeight: 500,
-      maxWidth: '100%',
-       }}>
-      <Table stickyHeader sx={{ width: '100%' }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Nome</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.leader}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.angel}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.bigPhone}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.angelImmunized}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.firstIndicated}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.secondIndicated}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.thirdIndicated}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.fourthIndicated}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.fifthIndicated}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.eliminatedParticipant}</StyledTableCell>
-            <StyledTableCell align="left">{simpleQuestions.eliminationPercentage}</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users?.map((row) => (
-            <StyledTableRow key={row.firstName}>
-              <StyledTableCell style={{ zIndex: 900 }} component="th" scope="row">
-                {row.id}
-              </StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.leader, 'leader')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.angel, 'angel')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.bigPhone, 'bigPhone')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.angelImmunized, 'angelImmunized')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.firstIndicated, 'firstIndicated')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.secondIndicated, 'secondIndicated')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.thirdIndicated, 'thirdIndicated')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.fourthIndicated, 'fourthIndicated')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.fifthIndicated, 'fifthIndicated')}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.eliminatedParticipant, 'eliminatedParticipant')}</StyledTableCell>
-                <StyledTableCell align="right">{returnEliminationPercentage(row?.bets[weekId])}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </Box>
+    <Grid container
+    direction="row"
+    justifyContent="center"
+    alignItems="center"
+    >
+    <Paper sx={{ 
+      width: '70%',
+     overflow: 'hidden',
+     
+      }}>
+      <TableContainer component={Paper} sx={{maxHeight: 500, width: '100%' }}>
+        <Table stickyHeader sx={{ width: '100%' }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Nome</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.leader}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.angel}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.bigPhone}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.angelImmunized}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.firstIndicated}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.secondIndicated}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.thirdIndicated}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.fourthIndicated}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.fifthIndicated}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.eliminatedParticipant}</StyledTableCell>
+              <StyledTableCell align="left">{simpleQuestions.eliminationPercentage}</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users?.map((row) => (
+              <StyledTableRow key={row.firstName}>
+                <StyledTableCell style={{ zIndex: 900 }} component="th" scope="row">
+                  {row.id}
+                </StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.leader, 'leader')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.angel, 'angel')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.bigPhone, 'bigPhone')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.angelImmunized, 'angelImmunized')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.firstIndicated, 'firstIndicated')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.secondIndicated, 'secondIndicated')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.thirdIndicated, 'thirdIndicated')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.fourthIndicated, 'fourthIndicated')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.fifthIndicated, 'fifthIndicated')}</StyledTableCell>
+                  <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.eliminatedParticipant, 'eliminatedParticipant')}</StyledTableCell>
+                  <StyledTableCell align="right">{returnEliminationPercentage(row?.bets[weekId])}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
+    </Grid>
   );
 }
