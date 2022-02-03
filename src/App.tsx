@@ -9,6 +9,7 @@ import { AmplifyTheme } from 'aws-amplify-react';
 import { customTheme } from './customTheme';
 import MenuBar from './components/organisms/menu-bar';
 import { amplifyConfigure } from './aws_credencials';
+import '@aws-amplify/ui/dist/style.css'
 
 
 const authTheme = {
