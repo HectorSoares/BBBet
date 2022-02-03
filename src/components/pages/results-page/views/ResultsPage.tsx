@@ -97,7 +97,4 @@ export default function ResultsPage() {
     </div>
   );
 }
-function setActiveWeek(arg0: any) {
-  throw new Error('Function not implemented.');
-}
 

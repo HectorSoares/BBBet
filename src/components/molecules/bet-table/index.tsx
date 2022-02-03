@@ -56,39 +56,37 @@ export default function BetTable({week}: BetsTableProps) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.leader}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.angel}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.bigPhone}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.angelImmunized}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.firstIndicated}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.secondIndicated}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.thirdIndicated}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.fourthIndicated}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.fifthIndicated}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.eliminatedParticipant}</StyledTableCell>
-            <StyledTableCell align="right">{simpleQuestions.eliminationPercentage}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.leader}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.angel}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.bigPhone}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.angelImmunized}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.firstIndicated}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.secondIndicated}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.thirdIndicated}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.fourthIndicated}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.fifthIndicated}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.eliminatedParticipant}</StyledTableCell>
+            <StyledTableCell align="left">{simpleQuestions.eliminationPercentage}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {users?.map((row) => (
-             <> 
             <StyledTableRow key={row.firstName}>
               <StyledTableCell style={{ zIndex: 900 }} component="th" scope="row">
                 {row.id}
               </StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.leader)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.angel)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.bigPhone)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.angelImmunized)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.firstIndicated)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.secondIndicated)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.thirdIndicated)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.fourthIndicated)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.fifthIndicated)}</StyledTableCell>
-                <StyledTableCell align="right">{returnBrotherName(row?.bets[week]?.eliminatedParticipant)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.leader)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.angel)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.bigPhone)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.angelImmunized)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.firstIndicated)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.secondIndicated)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.thirdIndicated)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.fourthIndicated)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.fifthIndicated)}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.eliminatedParticipant)}</StyledTableCell>
                 <StyledTableCell align="right">{ (row?.bets[week]?.eliminationPercentage === 101 && '-' ) || row?.bets[week]?.eliminationPercentage || '-'}</StyledTableCell>
             </StyledTableRow>
-            </>
           ))}
         </TableBody>
       </Table>

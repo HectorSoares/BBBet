@@ -22,10 +22,7 @@ export default function CustomRadialChart({data, label}: CustomRadialChartProps)
         showLabels
         style={{ stroke: "#fff" }}
         labelsStyle={{fontSize:'0.8rem'}}
-        onValueMouseOver={(v:any) => setValue(v)}
-        onSeriesMouseOut={(v:any) => setValue(false)}
         labelsAboveChildren={true}
-        getLabel={d => d.name}
         colorRange={['#9D695A','#4ECDC4','#734B5E', '#3943B7','#ED9390', '#FF8600', '#7B7554']}
         radius={100}
         width={220}

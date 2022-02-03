@@ -5,7 +5,7 @@ import User from '../../../domain/model/User';
 import CustomRadialChart from '../../atoms/custom-radial-chart';
 import Brother from '../../../domain/model/Brother';
 import { questions } from '../../../util/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 interface BetInfoProps {
@@ -17,6 +17,16 @@ interface DataProps {
   label: string,
   id: number
 }
+
+var currentDataLeader: any = [];
+var currentDataAngel: any = [];
+var currentDataBigPhone: any = [];
+var currentDataFirstIndicated: any = [];
+var currentDataSecondIndicated: any = [];
+var currentDataThirdIndicated: any = [];
+var currentDataFourthIndicated: any = [];
+var currentDataFifthIndicated: any = [];
+var currentDataEliminatedParticipant: any = [];
 
 
 
@@ -57,32 +67,61 @@ export default function BetInfo({week}: BetInfoProps) {
       
     }
 
-    users?.forEach((user) => {
-      setDataLeader(addData(user.bets[week]?.leader, dataLeader));
-      setDataAngel(addData(user.bets[week]?.angel, dataAngel));
-      setDataBigPhone(addData(user.bets[week]?.bigPhone, dataBigPhone));
-      setDataFirstIndicated(addData(user.bets[week]?.firstIndicated, dataFirstIndicated));
-      setDataSecondIndicated(addData(user.bets[week]?.secondIndicated, dataSecondIndicated));
-      setDataThirdIndicated(addData(user.bets[week]?.thirdIndicated, dataThirdIndicated));
-      setDataFourthIndicated(addData(user.bets[week]?.fourthIndicated, dataFourthIndicated));
-      setDataFifthIndicated(addData(user.bets[week]?.fifthIndicated, dataFifthIndicated));
-      setDataEliminatedParticipant(addData(user.bets[week]?.eliminatedParticipant, dataEliminatedParticipant));
+  useEffect(function () {
+  
+    async function setData(){
+
+      setDataLeader(undefined);
+    setDataAngel(undefined);
+    setDataBigPhone(undefined);
+    setDataFirstIndicated(undefined);
+    setDataSecondIndicated(undefined);
+    setDataThirdIndicated(undefined);
+    setDataFourthIndicated(undefined);
+    setDataFifthIndicated(undefined);
+    setDataEliminatedParticipant(undefined);
+
+      users?.forEach((user) => {
+      currentDataLeader = (addData(user.bets[week]?.leader, currentDataLeader));
+      currentDataAngel = (addData(user.bets[week]?.angel, currentDataAngel));
+      currentDataBigPhone = (addData(user.bets[week]?.bigPhone, currentDataBigPhone));
+      currentDataFirstIndicated = (addData(user.bets[week]?.firstIndicated, currentDataFirstIndicated));
+      currentDataSecondIndicated = (addData(user.bets[week]?.secondIndicated, currentDataSecondIndicated));
+      currentDataThirdIndicated = (addData(user.bets[week]?.thirdIndicated, currentDataThirdIndicated));
+      currentDataFourthIndicated = (addData(user.bets[week]?.fourthIndicated, currentDataFourthIndicated));
+      currentDataFifthIndicated = (addData(user.bets[week]?.fifthIndicated, currentDataFifthIndicated));
+      currentDataEliminatedParticipant = (addData(user.bets[week]?.eliminatedParticipant, currentDataEliminatedParticipant));
       
     });
+    console.log(currentDataLeader, dataLeader);
+    setDataLeader(currentDataLeader);
+    setDataAngel(currentDataAngel);
+    setDataBigPhone(currentDataBigPhone);
+    setDataFirstIndicated(currentDataFirstIndicated);
+    setDataSecondIndicated(currentDataSecondIndicated);
+    setDataThirdIndicated(currentDataThirdIndicated);
+    setDataFourthIndicated(currentDataFourthIndicated);
+    setDataFifthIndicated(currentDataFifthIndicated);
+    setDataEliminatedParticipant(currentDataEliminatedParticipant);
+    }
+    setData();
+    console.log(week, dataLeader?.length);
+  }, [week]);
+    
 
 
   return (
       <>
 
-        {(dataLeader?.length ) && <CustomRadialChart data={dataLeader} label={questions.leader}/>}
-        {(dataAngel?.length ) && <CustomRadialChart data={dataAngel} label={questions.angel}/>}
-        {(dataBigPhone?.length ) && <CustomRadialChart data={dataBigPhone} label={questions.bigPhone}/>}
-        {(dataFirstIndicated?.length ) && <CustomRadialChart data={dataFirstIndicated} label={questions.firstIndicated}/>}
-        {(dataSecondIndicated?.length ) && <CustomRadialChart data={dataSecondIndicated} label={questions.secondIndicated}/>}
-        {(dataThirdIndicated?.length ) && <CustomRadialChart data={dataThirdIndicated} label={questions.thirdIndicated}/>}
-        {(dataFourthIndicated?.length ) && <CustomRadialChart data={dataFourthIndicated} label={questions.fourthIndicated}/>}
-        {(dataFifthIndicated?.length ) && <CustomRadialChart data={dataFifthIndicated} label={questions.fifthIndicated}/>}
-        {(dataEliminatedParticipant?.length ) && <CustomRadialChart data={dataEliminatedParticipant} label={questions.eliminatedParticipant}/>}
+        {(dataLeader?.length != 0 ) && <CustomRadialChart data={currentDataLeader} label={questions.leader}/>}
+        {(dataAngel?.length != 0 ) && <CustomRadialChart data={currentDataAngel} label={questions.angel}/>}
+        {(dataBigPhone?.length != 0 ) && <CustomRadialChart data={currentDataBigPhone} label={questions.bigPhone}/>}
+        {(dataFirstIndicated?.length != 0 ) && <CustomRadialChart data={currentDataFirstIndicated} label={questions.firstIndicated}/>}
+        {(dataSecondIndicated?.length != 0 ) && <CustomRadialChart data={currentDataSecondIndicated} label={questions.secondIndicated}/>}
+        {(dataThirdIndicated?.length != 0 ) && <CustomRadialChart data={currentDataThirdIndicated} label={questions.thirdIndicated}/>}
+        {(dataFourthIndicated?.length != 0 ) && <CustomRadialChart data={currentDataFourthIndicated} label={questions.fourthIndicated}/>}
+        {(dataFifthIndicated?.length != 0 ) && <CustomRadialChart data={currentDataFifthIndicated} label={questions.fifthIndicated}/>}
+        {(dataEliminatedParticipant?.length != 0 ) && <CustomRadialChart data={currentDataEliminatedParticipant} label={questions.eliminatedParticipant}/>}
        
       </>
   );
