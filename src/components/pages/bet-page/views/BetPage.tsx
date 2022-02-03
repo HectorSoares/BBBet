@@ -22,10 +22,10 @@ const BetPage = () => {
   const dispatch = useDispatch();
 
   
-  const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
+  const brothers: Brother[] | undefined = (useSelector((state: RootState) => state.betPage.brothers ))?.filter(b => !b.eliminated);
   const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
   const user: User | undefined = useSelector((state: RootState) => state.user.user );
-  const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
+  //const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
 
 
   const [leader,setLeader] = useState<Brother | undefined>(undefined);
@@ -75,7 +75,6 @@ const BetPage = () => {
       eliminatedParticipant: eliminatedParticipant?.id,
       eliminationPercentage: eliminationPercentage
     }
-    console.log(bet);
     await UserService.addBet(user?.id, bet, activeWeek?.week);    
     setLoading(false);
     setOpenModal(true);

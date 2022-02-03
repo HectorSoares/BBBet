@@ -12,6 +12,9 @@ import { RootState } from '../../../store/reducers';
 import User from '../../../domain/model/User';
 import Brother from '../../../domain/model/Brother';
 import { Box } from '@material-ui/core';
+import Week from '../../../domain/model/manager/Week';
+import BetResults from '../../../domain/model/results/BetResults';
+import { returnActiveBet } from '../../../util/functions';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,20 +39,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 interface BetsTableProps {
-    week: string;
+    week: Week;
 }
 
 export default function BetTable({week}: BetsTableProps) {
+    var weekId = week.week;
+    var activeBet = returnActiveBet(week);
+    const user: User | undefined = useSelector((state: RootState) => state.user.user );
+
     const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
     const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
 
-    const returnBrotherName = (id: any) => {
-        if(!id || !brothers){
-            return '-';
-        }
+    const returnBrotherName = (id: any, betIndex: string) => {
+        if(!id || !brothers) return '-';    
+        if(activeBet && activeBet[betIndex] && !user?.admin ) return '?';
         var brother = brothers.find((b) => b.id === id);
         return brother?.name || '-';
     }
+
+  const returnEliminationPercentage = (bet: BetResults) => {
+    if(activeBet?.eliminationPercentage && !user?.admin) return '?';
+    if(!bet?.eliminationPercentage || bet?.eliminationPercentage === 101) return '-';
+    return bet?.eliminationPercentage;
+  }
 
   return (
     <Box
@@ -88,17 +100,17 @@ export default function BetTable({week}: BetsTableProps) {
               <StyledTableCell style={{ zIndex: 900 }} component="th" scope="row">
                 {row.id}
               </StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.leader)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.angel)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.bigPhone)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.angelImmunized)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.firstIndicated)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.secondIndicated)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.thirdIndicated)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.fourthIndicated)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.fifthIndicated)}</StyledTableCell>
-                <StyledTableCell align="left">{returnBrotherName(row?.bets[week]?.eliminatedParticipant)}</StyledTableCell>
-                <StyledTableCell align="right">{ (row?.bets[week]?.eliminationPercentage === 101 && '-' ) || row?.bets[week]?.eliminationPercentage || '-'}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.leader, 'leader')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.angel, 'angel')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.bigPhone, 'bigPhone')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.angelImmunized, 'angelImmunized')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.firstIndicated, 'firstIndicated')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.secondIndicated, 'secondIndicated')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.thirdIndicated, 'thirdIndicated')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.fourthIndicated, 'fourthIndicated')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.fifthIndicated, 'fifthIndicated')}</StyledTableCell>
+                <StyledTableCell align="left">{returnBrotherName(row?.bets[weekId]?.eliminatedParticipant, 'eliminatedParticipant')}</StyledTableCell>
+                <StyledTableCell align="right">{returnEliminationPercentage(row?.bets[weekId])}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

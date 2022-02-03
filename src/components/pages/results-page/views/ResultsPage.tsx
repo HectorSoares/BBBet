@@ -32,11 +32,17 @@ export default function ResultsPage() {
     const [loading,setLoading] = useState<boolean>(false);
     const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
 
-    const [week, setWeek] = useState<string | undefined>(activeWeek?.week);
+    const [currentWeek,setCurrentWeek] = useState<Week | undefined>(activeWeek);
+
+    const [weekId, setWeek] = useState<string | undefined>(activeWeek?.week);
 
     useEffect(function () {
       setActiveWeek(returnActiveWeek(weeks));
     }, [weeks]);
+
+    useEffect(function () {
+      setCurrentWeek(weeks?.find(w => w?.week == weekId));
+    }, [weekId]);
 
     useEffect(function () {
   
@@ -51,6 +57,13 @@ export default function ResultsPage() {
     setData();
   
   }, [dispatch]);
+
+  const returnWeeks = (weeks?: Week[]) =>  {
+    if(!weeks) return [];
+    var weeksId = weeks.map(week =>  week.week );
+    return weeksId.sort();
+
+  }
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -70,7 +83,7 @@ export default function ResultsPage() {
           }}
         >
             <Grid sx={{width: '200px'}}>
-                <AutocompleteBet items={['1','2','3']} label={'Semana'} onChange={setWeek}/>
+                <AutocompleteBet items={returnWeeks(weeks)} label={'Semana'} onChange={setWeek}/>
             </Grid>            
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider',display: 'flex',
@@ -85,10 +98,10 @@ export default function ResultsPage() {
             </Tabs>            
             </Box>
             <TabPanel value={value} index={0}>
-               <BetTable week={week || '1'}/>
+               <BetTable week={currentWeek}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <BetInfo week={week || '1'}/>
+                <BetInfo week={currentWeek}/>
             </TabPanel>
         </Box>
     </div>

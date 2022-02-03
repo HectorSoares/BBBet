@@ -4,7 +4,6 @@ import ManagePage from './components/pages/manage-page';
 import { pageRoutes } from './util/constants';
 import CompetitionPage from './components/pages/competition-page';
 import ResultsPage from './components/pages/results-page';
-import MaintenancePage from './components/pages/maintenance-page';
 
 
 
@@ -22,7 +21,7 @@ export default function Router(): JSX.Element {
             <CompetitionPage/>         
           </Route>
            <Route path={pageRoutes.results}>
-            <MaintenancePage/>         
+            <ResultsPage/>         
           </Route>
           <Redirect to={pageRoutes.bet} />
         </Switch>

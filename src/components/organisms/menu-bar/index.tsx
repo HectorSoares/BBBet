@@ -63,7 +63,7 @@ export default function MenuBar(props: Props) {
       admin: true
     },
     {
-      label: "Estatística",
+      label: "Estatísticas",
       icon: <BarChartIcon />,      
       route: "/results"
     }
