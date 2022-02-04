@@ -16,10 +16,20 @@ const CompetitionPage = () => {
 
   const dispatch = useDispatch();
 
-
   const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
   const user: User | undefined = useSelector((state: RootState) => state.user.user );
   const [loading,setLoading] = useState<boolean>(false);
+
+  const returnRelationPositionPoints = () => {
+    var points = users?.map(u => u.totalPoints);
+    var uniquePoints = points?.filter(function(item, pos) {
+      return points?.indexOf(item) == pos;
+      }).sort();
+      return uniquePoints?.reverse().map((p, i) => {return {i,p}});
+      
+  }
+
+  var relationPositionPoints: Array<{i:number, p:number}> = returnRelationPositionPoints() || [];
 
 
     useEffect(function () {
@@ -71,7 +81,7 @@ const CompetitionPage = () => {
               direction="row"
               justifyContent="space-between"
               alignItems="center">
-                  <Typography> {index+1}°  </Typography>
+                  <Typography> {(relationPositionPoints?.find(r => r.p == item.totalPoints)).i + 1 }°  </Typography>
                   <Typography> {(item.firstName + ' ' + item.lastName || item.id || 'sem nome').toUpperCase()} {index === 0 && <Crown/>} </Typography>
                   <Typography> {item.totalPoints}  </Typography>
               </Grid>
