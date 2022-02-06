@@ -1,5 +1,5 @@
 
-import { Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import {Hint, RadialChart} from 'react-vis';
 
@@ -11,11 +11,21 @@ interface CustomRadialChartProps {
 
 export default function CustomRadialChart({data, label}: CustomRadialChartProps) {
 
-    const [value, setValue] = useState(false);
+    var sum = data.reduce((partialSum:number, a:any) => partialSum + a.angle, 0);
+    var percentage = 100/sum;
 
   return (
+    <>
+    <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+        >
     <Paper elevation={4} sx={{margin:'3px', padding:'10px'}}>
+      
       <Typography variant="overline">{label}</Typography>
+      
       <RadialChart
           data={data}
           animation={{ damping: 20, stiffness: 300 }}
@@ -23,13 +33,30 @@ export default function CustomRadialChart({data, label}: CustomRadialChartProps)
           style={{ stroke: "#fff" }}
           labelsStyle={{fontSize:'0.8rem'}}
           labelsAboveChildren={true}
-          colorRange={['#9D695A','#4ECDC4','#734B5E', '#3943B7','#ED9390', '#FF8600', '#7B7554']}
-          radius={100}
-          width={220}
-          height={220}
-          padAngle={() => 0.02} >
-          {value && <Hint  orientation={'bottomright'} />}
+          colorRange={['red', 'blue', 'green', 'yellow', 'orange', 'purple','#9D695A','#4ECDC4','#734B5E', '#3943B7','#ED9390', '#FF8600', '#7B7554', ]}
+          radius={110}
+          width={250}
+          height={250}
+          padAngle={() => 0.025} >
           </RadialChart>
+      
+
     </Paper>
+    <Paper elevation={4} sx={{margin:'3px', padding:'10px'}}>
+        <Grid item
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="flex-end"
+        >
+      {data.map( (d:any) => {
+        console.log(`${d.label} - ${((percentage*d.angle).toFixed(2))}%`)
+        return (<Typography variant="caption text">{d.label} - {(percentage*d.angle).toFixed(2)}%</Typography>)
+      })}
+      </Grid>
+    </Paper>
+    </Grid>
+    
+    </>
   );
 }
