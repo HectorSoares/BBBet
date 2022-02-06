@@ -49,7 +49,11 @@ export default function CustomRadialChart({data, label}: CustomRadialChartProps)
           justifyContent="center"
           alignItems="flex-end"
         >
-      {data.map( (d:any) => {
+      {data.sort(function compare(a, b) {
+                  if (a.angle < b.angle) return 1;
+                  if (a.angle > b.angle) return -1;
+                  return 0;
+              }).map( (d:any) => {
         console.log(`${d.label} - ${((percentage*d.angle).toFixed(2))}%`)
         return (<Typography variant="caption text">{d.label} - {(percentage*d.angle).toFixed(2)}%</Typography>)
       })}
