@@ -18,6 +18,7 @@ interface BetInfoProps {
 interface DataProps {
   angle: number,
   label: string,
+  percent: number,
   id: number
 }
 

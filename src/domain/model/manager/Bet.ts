@@ -5,7 +5,7 @@ export default interface Bet {
    angel?: boolean,
    bigPhone?: boolean,
    backForth?: boolean,
-   angelImmunized: boolean,
+   angelImmunized?: boolean,
    firstIndicated?: boolean,
    secondIndicated?: boolean,
    thirdIndicated?: boolean,
