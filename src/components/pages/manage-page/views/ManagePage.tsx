@@ -1,4 +1,4 @@
-import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Grid,  Paper,  Switch, Typography } from "@mui/material";
+import { Box, Button, Divider,  FormControl, FormControlLabel, FormGroup,  Grid,  Paper,  Switch, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BetManagerService from "../../../../services/BetManagerService";
 import { questions } from "../../../../util/constants";
@@ -31,11 +31,15 @@ const ManagePage = () => {
     bigPhone: false,
     backForth: false,
     angelImmunized: false,
-    firstIndicated: false,
+    firstIndicated: false,    
     secondIndicated: false,
+    secondIndicatedText: questions.secondIndicated,
     thirdIndicated: false,
+    thirdIndicatedText: questions.thirdIndicated,
     fourthIndicated: false,
+    fourthIndicatedText: questions.fourthIndicated,
     fifthIndicated: false,
+    fifthIndicatedText: questions.fifthIndicated,
     eliminatedParticipant: false,
     eliminationPercentage: false,}
 
@@ -251,24 +255,28 @@ const ManagePage = () => {
                           }
                           label={questions.secondIndicated}
                         />
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.secondIndicated} value={bet.secondIndicatedText} disabled={!!activeBet}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.thirdIndicated} onChange={handleChange} name="thirdIndicated" />
                           }
                           label={questions.thirdIndicated}
                         />
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.thirdIndicated} disabled={!!activeBet}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.fourthIndicated} onChange={handleChange} name="fourthIndicated" />
                           }
                           label={questions.fourthIndicated}
                         />
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fourthIndicated} disabled={!!activeBet}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.fifthIndicated} onChange={handleChange} name="fifthIndicated" />
                           }
                           label={questions.fifthIndicated}
                         />
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fifthIndicated} disabled={!!activeBet}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.backForth} onChange={handleChange} name="backForth" />

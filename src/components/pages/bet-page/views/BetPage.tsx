@@ -158,7 +158,7 @@ const BetPage = () => {
               activeBet?.bigPhone &&
               <AutocompleteBet
               items={brothers}
-              label={questions.bigPhone}
+              label={activeBet?.bigPhoneText || questions.bigPhone }
               onChange={(item: Brother) => {setBigPhone(item)}}
               />}
             {
@@ -179,28 +179,28 @@ const BetPage = () => {
             activeBet?.secondIndicated &&
              <AutocompleteBet
               items={brothers}
-              label={questions.secondIndicated}
+              label={activeBet?.secondIndicatedText || questions.secondIndicated}
               onChange={(item: Brother) => {setSecondIndicated(item)}}
               />}
             {
             activeBet?.thirdIndicated &&
              <AutocompleteBet
               items={brothers}
-              label={questions.thirdIndicated}
+              label={activeBet?.thirdIndicatedText || questions.thirdIndicated}
               onChange={(item: Brother) => {setThirdIndicated(item)}}
               />}
             {
             activeBet?.fourthIndicated &&
              <AutocompleteBet
               items={brothers}
-              label={questions.fourthIndicated}
+              label={activeBet?.fourthIndicatedText || questions.fourthIndicated}
               onChange={(item: Brother) => {setFourthIndicated(item)}}
               />}
             {
             activeBet?.fifthIndicated &&
              <AutocompleteBet
               items={brothers}
-              label={questions.fifthIndicated}
+              label={activeBet?.fifthIndicatedText || questions.fifthIndicated}
               onChange={(item: Brother) => {setFifthIndicated(item)}}
               />}
             {
