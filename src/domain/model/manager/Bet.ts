@@ -4,13 +4,18 @@ export default interface Bet {
    leader?: boolean,
    angel?: boolean,
    bigPhone?: boolean,
+   bigPhoneText?: string,
    backForth?: boolean,
    angelImmunized?: boolean,
    firstIndicated?: boolean,
    secondIndicated?: boolean,
+   secondIndicatedText?: string,
    thirdIndicated?: boolean,
+   thirdIndicatedText?: string,
    fourthIndicated?: boolean,
+   fourthIndicatedText?: string,
    fifthIndicated?: boolean,
+   fifthIndicatedText?: string,
    eliminatedParticipant?: boolean,
    eliminationPercentage?: boolean
 }

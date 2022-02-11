@@ -79,7 +79,7 @@ export default function BetTable({week}: BetsTableProps) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Nome</StyledTableCell>
-              <StyledTableCell align="left">{simpleQuestions.leader}</StyledTableCell>
+              <StyledTableCell align="left" sx={{backgroundColor: 'red'}}>{simpleQuestions.leader}</StyledTableCell>
               <StyledTableCell align="left">{simpleQuestions.angel}</StyledTableCell>
               <StyledTableCell align="left">{simpleQuestions.bigPhone}</StyledTableCell>
               <StyledTableCell align="left">{simpleQuestions.angelImmunized}</StyledTableCell>

@@ -54,7 +54,6 @@ export default function CustomRadialChart({data, label}: CustomRadialChartProps)
                   if (a.angle > b.angle) return -1;
                   return 0;
               }).map( (d:any) => {
-        console.log(`${d.label} - ${((percentage*d.angle).toFixed(2))}%`)
         return (<Typography variant="caption text">{d.label} - {(percentage*d.angle).toFixed(2)}%</Typography>)
       })}
       </Grid>

@@ -1,6 +1,7 @@
 import { Box,  CssBaseline, Grid,  Tab, Tabs,  } from '@mui/material';
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff';
 import TocIcon from '@mui/icons-material/Toc';
+import TimelineIcon from '@mui/icons-material/Timeline';
 import { useEffect, useState } from 'react';
 import AutocompleteBet from '../../../atoms/autocomplete';
 import TabPanel from '../../../organisms/tab-panel';
@@ -17,6 +18,7 @@ import { setListUser } from '../../competition-page/store/actions';
 import { Auth } from 'aws-amplify';
 import { returnActiveWeek } from '../../../../util/functions';
 import SimpleBackdrop from '../../../atoms/backdrop';
+import Timeline from '../../../molecules/timeline';
 
 
 
@@ -94,7 +96,8 @@ export default function ResultsPage() {
             
             <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">            
                 <Tab icon={<TocIcon />} aria-label="table" />
-                <Tab icon={<DataSaverOffIcon />} aria-label="graphs" />            
+                <Tab icon={<DataSaverOffIcon />} aria-label="graphs" />
+                <Tab icon={<TimelineIcon />} aria-label="timeline" />            
             </Tabs>            
             </Box>
             </Box>
@@ -103,6 +106,9 @@ export default function ResultsPage() {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <BetInfo week={currentWeek}/>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <Timeline/>
             </TabPanel>
         
     </div>
