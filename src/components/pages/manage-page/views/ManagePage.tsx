@@ -255,28 +255,28 @@ const ManagePage = () => {
                           }
                           label={questions.secondIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.secondIndicated} value={bet.secondIndicatedText} disabled={!!activeBet}/>
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.secondIndicated} disabled={!bet.secondIndicated}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.thirdIndicated} onChange={handleChange} name="thirdIndicated" />
                           }
                           label={questions.thirdIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.thirdIndicated} disabled={!!activeBet}/>
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.thirdIndicated} disabled={!bet.thirdIndicated}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.fourthIndicated} onChange={handleChange} name="fourthIndicated" />
                           }
                           label={questions.fourthIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fourthIndicated} disabled={!!activeBet}/>
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fourthIndicated} disabled={!bet.fourthIndicated}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.fifthIndicated} onChange={handleChange} name="fifthIndicated" />
                           }
                           label={questions.fifthIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fifthIndicated} disabled={!!activeBet}/>
+                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fifthIndicated} disabled={!bet.fifthIndicated}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.backForth} onChange={handleChange} name="backForth" />

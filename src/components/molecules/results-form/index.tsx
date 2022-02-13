@@ -92,7 +92,7 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
             lastBet?.secondIndicated &&
              <SelectMultiple
               items={brothers}
-              label={questions.secondIndicated}
+              label={lastBet.secondIndicatedText || questions.secondIndicated}
               onChange={onChangeHandle}
               betIndex={'secondIndicated'}
               />}
@@ -100,7 +100,7 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
             lastBet?.thirdIndicated &&
              <SelectMultiple
               items={brothers}
-              label={questions.thirdIndicated}
+              label={lastBet.thirdIndicatedText || questions.thirdIndicated}
               onChange={onChangeHandle}
               betIndex={'thirdIndicated'}
               />}
@@ -108,7 +108,7 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
             lastBet?.fourthIndicated &&
              <SelectMultiple
               items={brothers}
-              label={questions.fourthIndicated}
+              label={lastBet.fourthIndicatedText || questions.fourthIndicated}
               onChange={onChangeHandle}
               betIndex={'fourthIndicated'}
               />}
@@ -116,7 +116,7 @@ const ResultsForm = ({lastBet, brothers, setBet}: ResultsFormProps) => {
             lastBet?.fifthIndicated &&
              <SelectMultiple
               items={brothers}
-              label={questions.fifthIndicated}
+              label={lastBet.fifthIndicatedText || questions.fifthIndicated}
               onChange={onChangeHandle}
               betIndex={'fifthIndicated'}
               />}
