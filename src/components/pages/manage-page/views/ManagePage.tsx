@@ -77,6 +77,12 @@ const ManagePage = () => {
       [event.target.name]: event.target.checked,
     })};
 
+     const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBet({
+      ...bet,
+      [event.target.name]: event.target.value,
+    })};    
+
     const handleChangeSunday = (event: React.ChangeEvent<HTMLInputElement>) => {
       setBet({
       ...bet,
@@ -255,28 +261,44 @@ const ManagePage = () => {
                           }
                           label={questions.secondIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.secondIndicated} disabled={!bet.secondIndicated}/>
+                        <TextField  size="small"  
+                                    variant="outlined" 
+                                    defaultValue={questions.secondIndicated} disabled={!bet.secondIndicated} value={bet.secondIndicatedText}
+                                    name="secondIndicatedText"
+                                    onChange={handleChangeText}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.thirdIndicated} onChange={handleChange} name="thirdIndicated" />
                           }
                           label={questions.thirdIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.thirdIndicated} disabled={!bet.thirdIndicated}/>
+                        <TextField  size="small"  
+                                    variant="outlined" 
+                                    defaultValue={questions.thirdIndicated} disabled={!bet.thirdIndicated} value={bet.thirdIndicatedText}
+                                    name="thirdIndicatedText"
+                                    onChange={handleChangeText}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.fourthIndicated} onChange={handleChange} name="fourthIndicated" />
                           }
                           label={questions.fourthIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fourthIndicated} disabled={!bet.fourthIndicated}/>
+                        <TextField  size="small"  
+                                    variant="outlined" 
+                                    defaultValue={questions.fourthIndicated} disabled={!bet.fourthIndicated} value={bet.fourthIndicatedText}
+                                    name="fourthIndicatedText"
+                                    onChange={handleChangeText}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.fifthIndicated} onChange={handleChange} name="fifthIndicated" />
                           }
                           label={questions.fifthIndicated}
                         />
-                        <TextField id="outlined-basic" size="small"  variant="outlined" defaultValue={questions.fifthIndicated} disabled={!bet.fifthIndicated}/>
+                        <TextField  size="small"  
+                                    variant="outlined" 
+                                    defaultValue={questions.fifthIndicated} disabled={!bet.fifthIndicated} value={bet.fifthIndicatedText}
+                                    name="fifthIndicatedText"
+                                    onChange={handleChangeText}/>
                         <FormControlLabel
                           control={
                             <Switch checked={bet.backForth} onChange={handleChange} name="backForth" />
