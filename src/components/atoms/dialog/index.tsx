@@ -14,8 +14,8 @@ interface CustomDialogProps {
   cancelText: string;
   submitText: string;
   children: any;
-  cancelAction: () => void;
-  submitAction: () => void;
+  cancelAction: any;
+  submitAction: any;
   bet?: any;
 }
 

@@ -11,8 +11,8 @@ const internalSetListUser = (users?: User[]): CompetitionPageActions => ({
 });
 
 export const setListUser = (): AppThunk => async (dispatch) => {
-  var users;
-  
+  let users;
+
   try {
     users = (await UserService.listUser()).data.body.Items;
   } catch (e) {

@@ -10,7 +10,7 @@ import Week from "../../../domain/model/manager/Week";
 import { Grid } from "@material-ui/core";
 
 interface BetInfoProps {
-  week: Week;
+  week?: Week;
 }
 
 interface DataProps {
@@ -114,45 +114,46 @@ export default function BetInfo({ week }: BetInfoProps) {
         setDataFourthIndicated(undefined);
         setDataFifthIndicated(undefined);
         setDataEliminatedParticipant(undefined);
-
-        users?.forEach((user) => {
-          currentDataLeader = addData(
-            user.bets[weekId]?.leader,
-            currentDataLeader
-          );
-          currentDataAngel = addData(
-            user.bets[weekId]?.angel,
-            currentDataAngel
-          );
-          currentDataBigPhone = addData(
-            user.bets[weekId]?.bigPhone,
-            currentDataBigPhone
-          );
-          currentDataFirstIndicated = addData(
-            user.bets[weekId]?.firstIndicated,
-            currentDataFirstIndicated
-          );
-          currentDataSecondIndicated = addData(
-            user.bets[weekId]?.secondIndicated,
-            currentDataSecondIndicated
-          );
-          currentDataThirdIndicated = addData(
-            user.bets[weekId]?.thirdIndicated,
-            currentDataThirdIndicated
-          );
-          currentDataFourthIndicated = addData(
-            user.bets[weekId]?.fourthIndicated,
-            currentDataFourthIndicated
-          );
-          currentDataFifthIndicated = addData(
-            user.bets[weekId]?.fifthIndicated,
-            currentDataFifthIndicated
-          );
-          currentDataEliminatedParticipant = addData(
-            user.bets[weekId]?.eliminatedParticipant,
-            currentDataEliminatedParticipant
-          );
-        });
+        if (weekId) {
+          users?.forEach((user) => {
+            currentDataLeader = addData(
+              user.bets[weekId]?.leader,
+              currentDataLeader
+            );
+            currentDataAngel = addData(
+              user.bets[weekId]?.angel,
+              currentDataAngel
+            );
+            currentDataBigPhone = addData(
+              user.bets[weekId]?.bigPhone,
+              currentDataBigPhone
+            );
+            currentDataFirstIndicated = addData(
+              user.bets[weekId]?.firstIndicated,
+              currentDataFirstIndicated
+            );
+            currentDataSecondIndicated = addData(
+              user.bets[weekId]?.secondIndicated,
+              currentDataSecondIndicated
+            );
+            currentDataThirdIndicated = addData(
+              user.bets[weekId]?.thirdIndicated,
+              currentDataThirdIndicated
+            );
+            currentDataFourthIndicated = addData(
+              user.bets[weekId]?.fourthIndicated,
+              currentDataFourthIndicated
+            );
+            currentDataFifthIndicated = addData(
+              user.bets[weekId]?.fifthIndicated,
+              currentDataFifthIndicated
+            );
+            currentDataEliminatedParticipant = addData(
+              user.bets[weekId]?.eliminatedParticipant,
+              currentDataEliminatedParticipant
+            );
+          });
+        }
         setDataLeader(currentDataLeader);
         setDataAngel(currentDataAngel);
         setDataBigPhone(currentDataBigPhone);

@@ -2,7 +2,7 @@ import CustomDialog from "../../atoms/dialog";
 
 interface BetConclusionModalProps {
   open: boolean;
-  closeModal: () => void;
+  closeModal: any;
 }
 
 const BetConclusionModal = ({ open, closeModal }: BetConclusionModalProps) => {

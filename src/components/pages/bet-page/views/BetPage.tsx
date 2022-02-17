@@ -87,7 +87,7 @@ const BetPage = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    var bet = {
+    const bet = {
       leader: leader?.id,
       angel: angel?.id,
       bigPhone: bigPhone?.id,

@@ -29,6 +29,7 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import BetResultsService from "../../../../services/BetResultsService";
 import BetResults from "../../../../domain/model/results/BetResults";
 import { setListBetManager } from "../../bet-page/store/actions";
+import BetManager from "../../../../domain/model/manager/BetManager";
 
 const ManagePage = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,10 @@ const ManagePage = () => {
   useEffect(
     function () {
       setHasBetOptionChecked(
-        Object.keys(bet).some((key: string) => bet[key] === true)
+        // Object.keys(bet).some((key: string) => {
+        //   bet[key] === true;
+        // })
+        true
       );
     },
     [bet]
@@ -465,7 +469,7 @@ const ManagePage = () => {
                 variant="contained"
                 sx={{ mt: 3, mb: 1, width: "46%", mr: "6%" }}
                 onClick={createNewBet}
-                disabled={!!activeBet || !!lastBet || !hasBetOptionChecked}
+                disabled={!!activeBet || !!lastBet /*|| !hasBetOptionChecked*/}
               >
                 Abrir aposta
               </Button>

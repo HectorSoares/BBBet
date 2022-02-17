@@ -3,7 +3,7 @@ import { Autocomplete, Divider, TextField } from "@mui/material";
 interface AutocompleteBetProps {
   items?: any;
   label: string;
-  onChange: () => void;
+  onChange: (value: any) => void;
 }
 
 const AutocompleteBet = ({ items, label, onChange }: AutocompleteBetProps) => {

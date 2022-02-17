@@ -11,7 +11,7 @@ const internalSetUser = (user?: User): IdentificationPageActions => ({
 });
 
 export const setUser = (id?: string): AppThunk => async (dispatch) => {
-  var user;
+  let user;
 
   try {
     user = (await UserService.getUser(id)).data.body;

@@ -149,7 +149,7 @@ export default function Timeline() {
           </Table>
         </TableContainer>
       </Paper>
-      <CustomLineMarkChart label={"teste"} data={graphData} />
+      <CustomLineMarkChart label={"Pontuação por semana"} data={graphData} />
     </Grid>
   );
 }
