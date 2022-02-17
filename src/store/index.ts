@@ -1,10 +1,10 @@
 import {
   createStore, applyMiddleware, compose, Middleware, Action,
-} from 'redux';
-import { routerMiddleware } from 'connected-react-router';
-import thunk, { ThunkAction } from 'redux-thunk';
-import history from './history';
-import reducers, { RootState } from './reducers';
+} from "redux";
+import { routerMiddleware } from "connected-react-router";
+import thunk, { ThunkAction } from "redux-thunk";
+import history from "./history";
+import reducers, { RootState } from "./reducers";
 
 const middlewares: Middleware[] = [
   routerMiddleware(history),

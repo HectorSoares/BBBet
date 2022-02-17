@@ -25,10 +25,7 @@ import Timeline from '../../../molecules/timeline';
 export default function ResultsPage() {
   const dispatch = useDispatch();
 
-    const brothers: Brother[] | undefined = useSelector((state: RootState) => state.betPage.brothers );
     const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
-    const user: User | undefined = useSelector((state: RootState) => state.user.user );
-    const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
 
     const [value, setValue] = useState<number>(0);
     const [loading,setLoading] = useState<boolean>(false);
