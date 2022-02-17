@@ -9,7 +9,11 @@ import User from "../../../../domain/model/User";
 import UserService from "../../../../services/UserService";
 import { RootState } from "../../../../store/reducers";
 import { questions } from "../../../../util/constants";
-import { returnActiveBet, returnActiveWeek, returnDescriptionBet } from "../../../../util/functions";
+import {
+  returnActiveBet,
+  returnActiveWeek,
+  returnDescriptionBet,
+} from "../../../../util/functions";
 import AutocompleteBet from "../../../atoms/autocomplete";
 import SimpleBackdrop from "../../../atoms/backdrop";
 import BetConclusionModal from "../../../molecules/bet-conclusion-modal";
@@ -18,31 +22,53 @@ import { setUser } from "../../identificate-page/store/actions";
 import { setBrothers, setListBetManager } from "../store/actions";
 
 const BetPage = () => {
-
   const dispatch = useDispatch();
 
-  
-  const brothers: Brother[] | undefined = (useSelector((state: RootState) => state.betPage.brothers ))?.filter(b => !b.eliminated);
-  const weeks: Week[] | undefined = useSelector((state: RootState) => state.betPage.weeks );
-  const user: User | undefined = useSelector((state: RootState) => state.user.user );
+  const brothers: Brother[] | undefined = useSelector(
+    (state: RootState) => state.betPage.brothers
+  )?.filter((b) => !b.eliminated);
+  const weeks: Week[] | undefined = useSelector(
+    (state: RootState) => state.betPage.weeks
+  );
+  const user: User | undefined = useSelector(
+    (state: RootState) => state.user.user
+  );
   //const users: User[] | undefined = useSelector((state: RootState) => state.listUser.users );
 
-
-  const [leader,setLeader] = useState<Brother | undefined>(undefined);
-  const [angel,setAngel] = useState<Brother | undefined>(undefined);
-  const [bigPhone,setBigPhone] = useState<Brother | undefined>(undefined);
-  const [angelImmunized,setAngelImmunized] = useState<Brother | undefined>(undefined);
-  const [firstIndicated,setFirstIndicated] = useState<Brother | undefined>(undefined);
-  const [secondIndicated,setSecondIndicated] = useState<Brother | undefined>(undefined);
-  const [thirdIndicated,setThirdIndicated] = useState<Brother | undefined>(undefined);
-  const [fourthIndicated,setFourthIndicated] = useState<Brother | undefined>(undefined);
-  const [fifthIndicated,setFifthIndicated] = useState<Brother | undefined>(undefined);
-  const [backForth,setBackForth] = useState<Brother | undefined>(undefined);
-  const [eliminatedParticipant,setEliminatedParticipant] = useState<Brother | undefined>(undefined);
-  const [eliminationPercentage,setEliminationPercentage] = useState<number | undefined>(undefined);
-  const [activeWeek,setActiveWeek] = useState<Week | undefined>(returnActiveWeek(weeks));
-  const [activeBet,setActiveBet] = useState<Bet | undefined>(returnActiveBet(activeWeek));
-
+  const [leader, setLeader] = useState<Brother | undefined>(undefined);
+  const [angel, setAngel] = useState<Brother | undefined>(undefined);
+  const [bigPhone, setBigPhone] = useState<Brother | undefined>(undefined);
+  const [angelImmunized, setAngelImmunized] = useState<Brother | undefined>(
+    undefined
+  );
+  const [firstIndicated, setFirstIndicated] = useState<Brother | undefined>(
+    undefined
+  );
+  const [secondIndicated, setSecondIndicated] = useState<Brother | undefined>(
+    undefined
+  );
+  const [thirdIndicated, setThirdIndicated] = useState<Brother | undefined>(
+    undefined
+  );
+  const [fourthIndicated, setFourthIndicated] = useState<Brother | undefined>(
+    undefined
+  );
+  const [fifthIndicated, setFifthIndicated] = useState<Brother | undefined>(
+    undefined
+  );
+  const [backForth, setBackForth] = useState<Brother | undefined>(undefined);
+  const [eliminatedParticipant, setEliminatedParticipant] = useState<
+    Brother | undefined
+  >(undefined);
+  const [eliminationPercentage, setEliminationPercentage] = useState<
+    number | undefined
+  >(undefined);
+  const [activeWeek, setActiveWeek] = useState<Week | undefined>(
+    returnActiveWeek(weeks)
+  );
+  const [activeBet, setActiveBet] = useState<Bet | undefined>(
+    returnActiveBet(activeWeek)
+  );
 
   const clearFields = () => {
     setLeader(undefined);
@@ -57,7 +83,7 @@ const BetPage = () => {
     setBackForth(undefined);
     setEliminatedParticipant(undefined);
     setEliminationPercentage(undefined);
-  }
+  };
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -73,177 +99,225 @@ const BetPage = () => {
       fourthIndicated: fourthIndicated?.id,
       fifthIndicated: fifthIndicated?.id,
       eliminatedParticipant: eliminatedParticipant?.id,
-      eliminationPercentage: eliminationPercentage
-    }
-    await UserService.addBet(user?.id, bet, activeWeek?.week);    
+      eliminationPercentage: eliminationPercentage,
+    };
+    await UserService.addBet(user?.id, bet, activeWeek?.week);
     setLoading(false);
     setOpenModal(true);
     clearFields();
-
   };
 
-  const [loading,setLoading] = useState<boolean>(false);
-  const [openModal,setOpenModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
-  useEffect(function () {
-  
-    async function setData(){
-      
+  useEffect(
+    function () {
+      async function setData() {
         setLoading(true);
-        dispatch(setUser((await Auth.currentAuthenticatedUser().then(user => user)).username));
+        dispatch(
+          setUser(
+            (await Auth.currentAuthenticatedUser().then((user) => user))
+              .username
+          )
+        );
         dispatch(await setListBetManager());
         dispatch(await setBrothers());
         dispatch(await setListUser());
         setLoading(false);
-    }
-    setData();
-  
-  }, [dispatch]);
+      }
+      setData();
+    },
+    [dispatch]
+  );
 
-  useEffect(function () {
+  useEffect(
+    function () {
       setActiveWeek(returnActiveWeek(weeks));
-    }, [weeks]);
+    },
+    [weeks]
+  );
 
-  useEffect(function () {
-      setActiveBet(returnActiveBet(activeWeek));  
-    }, [activeWeek]);
+  useEffect(
+    function () {
+      setActiveBet(returnActiveBet(activeWeek));
+    },
+    [activeWeek]
+  );
 
-  const onChangeEliminationPercentage = () => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEliminationPercentage(parseFloat(event.target.value.replace(',', '.')));
-  }
+  const onChangeEliminationPercentage =
+    () => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEliminationPercentage(
+        parseFloat(event.target.value.replace(",", "."))
+      );
+    };
 
   const closeModalHandler = (_?: any) => {
     setOpenModal(false);
-  }
+  };
 
   return (
     <>
-        <BetConclusionModal open={openModal} closeModal={closeModalHandler}/>
-        <Box
-          sx={{
-            marginTop: 5,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
-          <Typography component="h4" variant="h6">
-            {user?.firstName}, sua pontuação total é: {user?.totalPoints}
-          </Typography>
-          {activeBet ?
+      <BetConclusionModal open={openModal} closeModal={closeModalHandler} />
+      <Box
+        sx={{
+          marginTop: 5,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Typography component="h4" variant="h6">
+          {user?.firstName}, sua pontuação total é: {user?.totalPoints}
+        </Typography>
+        {activeBet ? (
           <>
-          <SimpleBackdrop open ={loading}/>
-          <Typography component="h1" variant="h6">
-            {returnDescriptionBet(activeWeek)} aposta da semana {activeWeek?.week}
-          </Typography>
-          <Box component="form" noValidate sx={{ 
-              mt: 1, 
-              width: '70%' }}>
-            {
-              activeBet?.leader &&
-              <AutocompleteBet
-              items={brothers}
-              label={questions.leader}
-              onChange={(item: Brother) => {setLeader(item)}}
-              />}
-            {
-              activeBet?.angel &&
-              <AutocompleteBet
-              items={brothers}
-              label={questions.angel}
-              onChange={(item: Brother) => {setAngel(item)}}
-              />}
-            {
-              activeBet?.bigPhone &&
-              <AutocompleteBet
-              items={brothers}
-              label={activeBet?.bigPhoneText || questions.bigPhone }
-              onChange={(item: Brother) => {setBigPhone(item)}}
-              />}
-            {
-              activeBet?.angelImmunized &&
-             <AutocompleteBet
-              items={brothers}
-              label={questions.angelImmunized}
-              onChange={(item: Brother) => {setAngelImmunized(item)}}
-              />}            
-            {
-              activeBet?.firstIndicated &&
-              <AutocompleteBet
-              items={brothers}
-              label={questions.firstIndicated}
-              onChange={(item: Brother) => {setFirstIndicated(item)}}
-              />}
-            {
-            activeBet?.secondIndicated &&
-             <AutocompleteBet
-              items={brothers}
-              label={activeBet?.secondIndicatedText || questions.secondIndicated}
-              onChange={(item: Brother) => {setSecondIndicated(item)}}
-              />}
-            {
-            activeBet?.thirdIndicated &&
-             <AutocompleteBet
-              items={brothers}
-              label={activeBet?.thirdIndicatedText || questions.thirdIndicated}
-              onChange={(item: Brother) => {setThirdIndicated(item)}}
-              />}
-            {
-            activeBet?.fourthIndicated &&
-             <AutocompleteBet
-              items={brothers}
-              label={activeBet?.fourthIndicatedText || questions.fourthIndicated}
-              onChange={(item: Brother) => {setFourthIndicated(item)}}
-              />}
-            {
-            activeBet?.fifthIndicated &&
-             <AutocompleteBet
-              items={brothers}
-              label={activeBet?.fifthIndicatedText || questions.fifthIndicated}
-              onChange={(item: Brother) => {setFifthIndicated(item)}}
-              />}
-            {
-            activeBet?.backForth &&
-             <AutocompleteBet
-              items={brothers}
-              label={questions.backForth}
-              onChange={(item: Brother) => {setBackForth(item)}}
-              />}
-            {
-            activeBet?.eliminatedParticipant &&
-             <AutocompleteBet
-              items={brothers}
-              label={questions.eliminatedParticipant}
-              onChange={(item: Brother) => {setEliminatedParticipant(item)}}
-              />}
-            {
-            activeBet?.eliminationPercentage &&
-              <TextField  
-                sx={{mt: 1}}
-                label={questions.eliminationPercentage} 
-                variant="outlined"
-                onChange={onChangeEliminationPercentage()}
-                 >
-                 </TextField>
-              }
-            
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ mt: 5, mb: 2 }}
-              onClick={handleSubmit}
+            <SimpleBackdrop open={loading} />
+            <Typography component="h1" variant="h6">
+              {returnDescriptionBet(activeWeek)} aposta da semana{" "}
+              {activeWeek?.week}
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              sx={{
+                mt: 1,
+                width: "70%",
+              }}
             >
-              Apostar
-            </Button>         
-          </Box>
-           </>
-           : 
+              {activeBet?.leader && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={questions.leader}
+                  onChange={(item: Brother) => {
+                    setLeader(item);
+                  }}
+                />
+              )}
+              {activeBet?.angel && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={questions.angel}
+                  onChange={(item: Brother) => {
+                    setAngel(item);
+                  }}
+                />
+              )}
+              {activeBet?.bigPhone && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={activeBet?.bigPhoneText || questions.bigPhone}
+                  onChange={(item: Brother) => {
+                    setBigPhone(item);
+                  }}
+                />
+              )}
+              {activeBet?.angelImmunized && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={questions.angelImmunized}
+                  onChange={(item: Brother) => {
+                    setAngelImmunized(item);
+                  }}
+                />
+              )}
+              {activeBet?.firstIndicated && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={questions.firstIndicated}
+                  onChange={(item: Brother) => {
+                    setFirstIndicated(item);
+                  }}
+                />
+              )}
+              {activeBet?.secondIndicated && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={
+                    activeBet?.secondIndicatedText || questions.secondIndicated
+                  }
+                  onChange={(item: Brother) => {
+                    setSecondIndicated(item);
+                  }}
+                />
+              )}
+              {activeBet?.thirdIndicated && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={
+                    activeBet?.thirdIndicatedText || questions.thirdIndicated
+                  }
+                  onChange={(item: Brother) => {
+                    setThirdIndicated(item);
+                  }}
+                />
+              )}
+              {activeBet?.fourthIndicated && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={
+                    activeBet?.fourthIndicatedText || questions.fourthIndicated
+                  }
+                  onChange={(item: Brother) => {
+                    setFourthIndicated(item);
+                  }}
+                />
+              )}
+              {activeBet?.fifthIndicated && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={
+                    activeBet?.fifthIndicatedText || questions.fifthIndicated
+                  }
+                  onChange={(item: Brother) => {
+                    setFifthIndicated(item);
+                  }}
+                />
+              )}
+              {activeBet?.backForth && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={questions.backForth}
+                  onChange={(item: Brother) => {
+                    setBackForth(item);
+                  }}
+                />
+              )}
+              {activeBet?.eliminatedParticipant && (
+                <AutocompleteBet
+                  items={brothers}
+                  label={questions.eliminatedParticipant}
+                  onChange={(item: Brother) => {
+                    setEliminatedParticipant(item);
+                  }}
+                />
+              )}
+              {activeBet?.eliminationPercentage && (
+                <TextField
+                  sx={{ mt: 1 }}
+                  label={questions.eliminationPercentage}
+                  variant="outlined"
+                  onChange={onChangeEliminationPercentage()}
+                ></TextField>
+              )}
+
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 5, mb: 2 }}
+                onClick={handleSubmit}
+              >
+                Apostar
+              </Button>
+            </Box>
+          </>
+        ) : (
           <Typography component="h1" variant="h6">
             Sem aposta aberta
-          </Typography>}
-        </Box>
-        </>
+          </Typography>
+        )}
+      </Box>
+    </>
   );
 };
 

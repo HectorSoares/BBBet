@@ -18,7 +18,7 @@ export const setBrothers = async (): Promise<AppThunk> => async (dispatch) => {
   try {
     var response: AxiosResponse = (await BrothersService.listBrothers());
     brothers = response.data.body.Items;
-    
+
   } catch (e) {
     //dispatch(showNotification(errorNotificationMessages.defaultError, notificationIcons.error));
     console.log('erro ao listar brothers');
@@ -38,7 +38,7 @@ export const setListBetManager = async (): Promise<AppThunk> => async (dispatch)
   try {
     var response: AxiosResponse = (await BetManagerService.listBetManager());
     weeks = response.data.body.Items;
-    
+
   } catch (e) {
     //dispatch(showNotification(errorNotificationMessages.defaultError, notificationIcons.error));
     console.log('erro ao listar weeks');

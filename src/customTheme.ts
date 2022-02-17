@@ -1,15 +1,17 @@
 export const customTheme = {
-    body: { fontFamily: '"Roboto","Helvetica","Arial",sans-serif'},
-  container: { paddingTop: "100px",
+  body: { fontFamily: '"Roboto","Helvetica","Arial",sans-serif' },
+  container: {
+    paddingTop: "100px",
     position: "absolute",
     left: "0%",
     right: "0%",
     top: "0%",
     bottom: "0%",
     background: "rgba(27, 130, 252, 0.05)",
-    borderRadius: "4px 4px 0px 0px" },
+    borderRadius: "4px 4px 0px 0px"
+  },
   form: { border: "3px solid #f1f1f1" },
-  header: {backgroundColor: "#000",},
+  header: { backgroundColor: "#000", },
   input: {
     width: "100%",
     padding: "12px 20px",
@@ -73,5 +75,5 @@ export const customTheme = {
     fontSize: "17px",
     whiteSpace: "nowrap"
   },
-  
+
 }
