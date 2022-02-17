@@ -138,7 +138,7 @@ const CompetitionPage = () => {
                 sx={{
                   padding: "6px",
                   paddingRight: "10px",
-                  width: "325px",
+                  width: "250px",
                   alignItems: "center",
                   backgroundColor: index <= 2 ? "#e5fdedb0" : "#fff",
                   border: item.id === user?.id ? "#00f8ff4d" : "none",
@@ -155,12 +155,9 @@ const CompetitionPage = () => {
                   <Avatar alt={item.id} src={returnImage(item.id)} />
                   <Typography>
                     {" "}
-                    {(
-                      (item.firstName === item.lastName
-                        ? item.firstName
-                        : item.firstName + " " + item.lastName) ||
-                      item.id ||
-                      "sem nome"
+                    {(item.useLastName
+                      ? item.lastName
+                      : item.firstName || item.id || "sem nome"
                     ).toUpperCase()}{" "}
                     {index === 0 && <Crown />}{" "}
                   </Typography>
