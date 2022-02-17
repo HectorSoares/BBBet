@@ -29,6 +29,7 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import BetResultsService from "../../../../services/BetResultsService";
 import BetResults from "../../../../domain/model/results/BetResults";
 import { setListBetManager } from "../../bet-page/store/actions";
+import BetManager from "../../../../domain/model/manager/BetManager";
 
 const ManagePage = () => {
   const dispatch = useDispatch();
@@ -94,9 +95,7 @@ const ManagePage = () => {
 
   useEffect(
     function () {
-      setHasBetOptionChecked(
-        Object.keys(bet).some((key: string) => bet[key] === true)
-      );
+      setHasBetOptionChecked(Object.keys(bet).some((key) => bet[key] === true));
     },
     [bet]
   );
