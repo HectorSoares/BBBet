@@ -14,9 +14,9 @@ const internalSetBrothers = (brothers?: Brother[]): BetPageActions => ({
 });
 
 export const setBrothers = async (): Promise<AppThunk> => async (dispatch) => {
-  var brothers: Brother[] = [];
+  let brothers: Brother[] = [];
   try {
-    var response: AxiosResponse = (await BrothersService.listBrothers());
+    const response: AxiosResponse = (await BrothersService.listBrothers());
     brothers = response.data.body.Items;
 
   } catch (e) {
@@ -34,9 +34,9 @@ const internalSetListBetManager = (weeks?: Week[]): BetPageActions => ({
 });
 
 export const setListBetManager = async (): Promise<AppThunk> => async (dispatch) => {
-  var weeks: Week[] = [];
+  let weeks: Week[] = [];
   try {
-    var response: AxiosResponse = (await BetManagerService.listBetManager());
+    const response: AxiosResponse = (await BetManagerService.listBetManager());
     weeks = response.data.body.Items;
 
   } catch (e) {

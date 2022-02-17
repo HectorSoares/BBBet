@@ -7,9 +7,7 @@ import AutocompleteBet from "../../../atoms/autocomplete";
 import TabPanel from "../../../organisms/tab-panel";
 import BetTable from "../../../molecules/bet-table";
 import BetInfo from "../../../organisms/bet-info";
-import Brother from "../../../../domain/model/Brother";
 import Week from "../../../../domain/model/manager/Week";
-import User from "../../../../domain/model/User";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/reducers";
 import { setUser } from "../../identificate-page/store/actions";
@@ -73,7 +71,7 @@ export default function ResultsPage() {
 
   const returnWeeks = (weeks?: Week[]) => {
     if (!weeks) return [];
-    var weeksId = weeks.map((week) => week.week);
+    const weeksId = weeks.map((week) => week.week);
     return weeksId.sort();
   };
 
