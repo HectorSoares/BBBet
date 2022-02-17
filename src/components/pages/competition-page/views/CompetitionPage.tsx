@@ -75,7 +75,7 @@ const CompetitionPage = () => {
       <SimpleBackdrop open={loading} />
       <Box
         sx={{
-          marginTop: 5,
+          marginTop: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -108,16 +108,36 @@ const CompetitionPage = () => {
                   border: item.id === user?.id ? "#00f8ff4d" : "none",
                   borderStyle: item.id === user?.id ? "solid" : "none",
                   borderWidth: "1px",
-                  margin: "5px",
+                  margin: "4px",
                 }}
               >
-                <Avatar alt="Remy Sharp" src={returnImage(item.id)} />
+                <Grid
+                  key={index}
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Typography
+                    sx={{
+                      alignItems: "center",
+                      margin: "10px",
+                    }}
+                  >
+                    {" "}
+                    {(relationPositionPoints?.find((r) => {
+                      return r?.p === item?.totalPoints;
+                    })?.i || 0) + 1}
+                    °{" "}
+                  </Typography>
+                </Grid>
               </Paper>
               <Paper
                 key={index}
                 elevation={3}
                 sx={{
-                  padding: "15px",
+                  padding: "6px",
+                  paddingRight: "10px",
                   width: "325px",
                   alignItems: "center",
                   backgroundColor: index <= 2 ? "#e5fdedb0" : "#fff",
@@ -132,14 +152,7 @@ const CompetitionPage = () => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography>
-                    {" "}
-                    {(relationPositionPoints?.find((r) => {
-                      return r?.p === item?.totalPoints;
-                    })).i + 1}
-                    °{" "}
-                  </Typography>
-
+                  <Avatar alt={item.id} src={returnImage(item.id)} />
                   <Typography>
                     {" "}
                     {(
