@@ -10,7 +10,7 @@ import Week from "../../../domain/model/manager/Week";
 import { Grid } from "@material-ui/core";
 
 interface BetInfoProps {
-  week: Week;
+  week?: Week;
 }
 
 interface DataProps {

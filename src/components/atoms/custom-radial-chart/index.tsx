@@ -72,7 +72,7 @@ export default function CustomRadialChart({
               })
               .map((d: any, index: any) => {
                 return (
-                  <Typography key={index} variant="caption text">
+                  <Typography key={index}>
                     {d.label} - {(percentage * d.angle).toFixed(2)}%
                   </Typography>
                 );
