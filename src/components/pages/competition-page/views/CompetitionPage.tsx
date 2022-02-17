@@ -1,5 +1,5 @@
 import { Box } from "@material-ui/core";
-import { Grid,   Typography } from "@mui/material";
+import { Avatar, Grid,   Typography } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ const CompetitionPage = () => {
   const returnRelationPositionPoints = () => {
     var points = users?.map(u => u.totalPoints);
     var uniquePoints = points?.filter(function(item, pos) {
-      return points?.indexOf(item) == pos;
+      return points?.indexOf(item) === pos;
       }).sort();
       return uniquePoints?.reverse().map((p, i) => {return {i,p}});
       
@@ -46,6 +46,19 @@ const CompetitionPage = () => {
     
     }, [dispatch]);
 
+  const returnImage = (id: string) => {
+    var img;
+    console.log('id', id);
+    try {
+        img = require(`../midia/${id}.jpg`);
+        return img;
+      } catch (e) {
+        console.log(e);
+        img = require(`../midia/default.jpg`);
+        return img;
+      }
+  }
+
 
 
   return (
@@ -67,26 +80,44 @@ const CompetitionPage = () => {
                   return 0;
               }).map((item, index) => {
           return (
-            <Paper key={index} elevation={3} sx={{mb: '5px',
+
+            <Grid container
+
+              direction="row"
+              justifyContent="center"
+              alignItems="center">
+                <Paper key={index} elevation={3} sx={{
+                padding: '5px',
+                  height: '53px',
+                  width: '53px',
+                  alignItems: 'center',
+                  backgroundColor: index <= 2 ? '#e5fdedb0' : '#fff',
+                  border: item.id === user?.id ? '#00f8ff4d' : 'none',
+                  borderStyle: item.id === user?.id ?'solid' : 'none',
+                  borderWidth: '1px',
+                  margin: '5px'}}>      
+            <Avatar alt="Remy Sharp" src={returnImage(item.id)} />
+            </Paper>
+            <Paper key={index} elevation={3} sx={{
              padding: '15px',
               width: '350px',
               alignItems: 'center',
               backgroundColor: index <= 2 ? '#e5fdedb0' : '#fff',
               border: item.id === user?.id ? '#00f8ff4d' : 'none',
               borderStyle: item.id === user?.id ?'solid' : 'none',
-              borderWidth: '1px'}}>
-
+              borderWidth: '1px'}}>              
               <Grid container
 
               direction="row"
               justifyContent="space-between"
               alignItems="center">
-                  <Typography> {(relationPositionPoints?.find(r => r.p == item.totalPoints)).i + 1 }°  </Typography>
-                  <Typography> {(item.firstName + ' ' + item.lastName || item.id || 'sem nome').toUpperCase()} {index === 0 && <Crown/>} </Typography>
+                  
+                  <Typography> {(relationPositionPoints?.find(r => r.p === item.totalPoints)).i + 1 }°  </Typography>                  
+                  <Typography> {(((item.firstName === item.lastName) ? item.firstName : item.firstName + ' ' + item.lastName) || item.id || 'sem nome').toUpperCase()} {index === 0 && <Crown/>} </Typography>
                   <Typography> {item.totalPoints}  </Typography>
-              </Grid>
-              
+              </Grid>              
             </Paper>
+            </Grid>
           );
         })}
 
