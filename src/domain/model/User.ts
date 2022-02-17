@@ -6,4 +6,5 @@ export default interface User {
     firstName: string;
     bets: any;
     admin: boolean;
+    useLastName: boolean;
 }
