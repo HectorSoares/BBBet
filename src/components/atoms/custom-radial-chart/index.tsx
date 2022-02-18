@@ -1,6 +1,5 @@
 import { Grid, Paper, Typography } from "@mui/material";
-import { useState } from "react";
-import { Hint, RadialChart } from "react-vis";
+import { RadialChart } from "react-vis";
 
 interface CustomRadialChartProps {
   data?: any;

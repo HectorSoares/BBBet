@@ -50,7 +50,6 @@ export default function Timeline() {
     for (let i = 1; i <= key; i++) {
       sum = sum + (user?.bets[i]?.points || 0);
     }
-    //console.log(`soma da ${(key+1)}° semana dx ${user.id}: ${sum}`);
     return sum;
   };
 
