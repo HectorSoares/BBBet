@@ -9,7 +9,7 @@ import {
 import "../../../../node_modules/react-vis/dist/style.css";
 
 interface CustomLineMarkChartProps {
-  data?: any;
+  data?: Array<{ x: number; y: number }>;
   label?: string;
 }
 
