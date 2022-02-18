@@ -69,8 +69,6 @@ export default function BetTable({ week }: BetsTableProps) {
     if (flag) style = { backgroundColor: green[200] };
 
     if (index && activeBet && activeBet[index]) style = {};
-
-    console.log(index, activeBet);
     return style;
   };
 
@@ -88,11 +86,17 @@ export default function BetTable({ week }: BetsTableProps) {
     return bet?.eliminationPercentage;
   };
 
+  function detectMob() {
+    return window.innerWidth <= 600;
+  }
+
+  console.log(detectMob());
+
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <Paper
         sx={{
-          width: "70%",
+          width: detectMob() ? "100%" : "70%",
           overflow: "hidden",
         }}
       >
