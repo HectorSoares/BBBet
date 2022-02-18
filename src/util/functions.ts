@@ -7,6 +7,8 @@ export const returnActiveBet: any = (week: Week | undefined) => week?.bets?.find
 
 export const returnLastBet: any = (week: Week | undefined) => week?.bets?.find((b: Bet) => b.last);
 
+export const detectMob: any = () => window.innerWidth <= 600;
+
 export const returnDescriptionBet = (week?: Week) => {
   switch (week?.bets?.length) {
     case 0: return "Primeira";
