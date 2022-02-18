@@ -29,7 +29,6 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import BetResultsService from "../../../../services/BetResultsService";
 import BetResults from "../../../../domain/model/results/BetResults";
 import { setListBetManager } from "../../bet-page/store/actions";
-import BetManager from "../../../../domain/model/manager/BetManager";
 
 const ManagePage = () => {
   const dispatch = useDispatch();

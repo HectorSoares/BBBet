@@ -151,7 +151,7 @@ const BetPage = () => {
       );
     };
 
-  const closeModalHandler = (_?: any) => {
+  const closeModalHandler = () => {
     setOpenModal(false);
   };
 

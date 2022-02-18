@@ -1,9 +1,4 @@
-type BetProps = {
-  color?: string;
-  size?: number;
-};
-
-const Bet = ({ color, size }: BetProps) => (
+const Bet = () => (
   <svg
     width="23"
     height="23"

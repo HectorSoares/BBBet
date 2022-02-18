@@ -1,9 +1,4 @@
-type CrownProps = {
-  color?: string;
-  size?: number;
-};
-
-const Crown = ({ color, size }: CrownProps) => (
+const Crown = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     color="rgba(200, 200, 0, 0.54)"

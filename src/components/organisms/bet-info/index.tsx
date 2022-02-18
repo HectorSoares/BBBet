@@ -5,7 +5,7 @@ import CustomRadialChart from "../../atoms/custom-radial-chart";
 import Brother from "../../../domain/model/Brother";
 import { questions } from "../../../util/constants";
 import { useEffect, useState } from "react";
-import { returnActiveBet, returnActiveWeek } from "../../../util/functions";
+import { returnActiveBet } from "../../../util/functions";
 import Week from "../../../domain/model/manager/Week";
 import { Grid } from "@material-ui/core";
 
@@ -115,41 +115,41 @@ export default function BetInfo({ week }: BetInfoProps) {
         setDataFifthIndicated(undefined);
         setDataEliminatedParticipant(undefined);
         if (weekId) {
-          users?.forEach((user) => {
+          users?.forEach((currentUser) => {
             currentDataLeader = addData(
-              user.bets[weekId]?.leader,
+              currentUser.bets[weekId]?.leader,
               currentDataLeader
             );
             currentDataAngel = addData(
-              user.bets[weekId]?.angel,
+              currentUser.bets[weekId]?.angel,
               currentDataAngel
             );
             currentDataBigPhone = addData(
-              user.bets[weekId]?.bigPhone,
+              currentUser.bets[weekId]?.bigPhone,
               currentDataBigPhone
             );
             currentDataFirstIndicated = addData(
-              user.bets[weekId]?.firstIndicated,
+              currentUser.bets[weekId]?.firstIndicated,
               currentDataFirstIndicated
             );
             currentDataSecondIndicated = addData(
-              user.bets[weekId]?.secondIndicated,
+              currentUser.bets[weekId]?.secondIndicated,
               currentDataSecondIndicated
             );
             currentDataThirdIndicated = addData(
-              user.bets[weekId]?.thirdIndicated,
+              currentUser.bets[weekId]?.thirdIndicated,
               currentDataThirdIndicated
             );
             currentDataFourthIndicated = addData(
-              user.bets[weekId]?.fourthIndicated,
+              currentUser.bets[weekId]?.fourthIndicated,
               currentDataFourthIndicated
             );
             currentDataFifthIndicated = addData(
-              user.bets[weekId]?.fifthIndicated,
+              currentUser.bets[weekId]?.fifthIndicated,
               currentDataFifthIndicated
             );
             currentDataEliminatedParticipant = addData(
-              user.bets[weekId]?.eliminatedParticipant,
+              currentUser.bets[weekId]?.eliminatedParticipant,
               currentDataEliminatedParticipant
             );
           });

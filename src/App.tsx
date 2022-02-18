@@ -1,11 +1,10 @@
 import Amplify from "aws-amplify";
-import { withAuthenticator } from "aws-amplify-react";
+import { withAuthenticator, AmplifyTheme } from "aws-amplify-react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Router from "./Router";
 import store from "./store/index";
-import { AmplifyTheme } from "aws-amplify-react";
 import { customTheme } from "./customTheme";
 import MenuBar from "./components/organisms/menu-bar";
 import { amplifyConfigure } from "./aws_credencials";

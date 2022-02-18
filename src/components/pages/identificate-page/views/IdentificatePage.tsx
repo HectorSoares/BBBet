@@ -1,12 +1,5 @@
-
-import LoginBox from '../../../organisms/login-box';
-
 const IdentificatePage = () => {
-
-
-  return (
-    <LoginBox/>
-  );
+  return <></>;
 };
 
 export default IdentificatePage;
