@@ -3,6 +3,7 @@ import Brother from "../../../domain/model/Brother";
 import Bet from "../../../domain/model/manager/Bet";
 import BetResults from "../../../domain/model/results/BetResults";
 import { questions } from "../../../util/constants";
+import { detectMob } from "../../../util/functions";
 import SelectMultiple from "../../atoms/select-multiple";
 
 interface ResultsFormProps {
@@ -60,7 +61,7 @@ const ResultsForm = ({ lastBet, brothers, setBet }: ResultsFormProps) => {
       component="form"
       sx={{
         mt: 1,
-        width: "100%",
+        width: detectMob() ? "100%" : "70%",
       }}
     >
       {lastBet?.leader && (

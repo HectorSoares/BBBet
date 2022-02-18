@@ -15,7 +15,7 @@ import Brother from "../../../domain/model/Brother";
 import { Grid } from "@material-ui/core";
 import Week from "../../../domain/model/manager/Week";
 import BetResults from "../../../domain/model/results/BetResults";
-import { returnActiveBet } from "../../../util/functions";
+import { detectMob, returnActiveBet } from "../../../util/functions";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -85,12 +85,6 @@ export default function BetTable({ week }: BetsTableProps) {
       return "-";
     return bet?.eliminationPercentage;
   };
-
-  function detectMob() {
-    return window.innerWidth <= 600;
-  }
-
-  console.log(detectMob());
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
