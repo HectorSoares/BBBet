@@ -3,4 +3,5 @@ export default interface Brother {
     nickname: string;
     eliminated: boolean;
     id: string;
+    bigWall: boolean;
 }

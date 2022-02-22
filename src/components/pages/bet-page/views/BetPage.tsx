@@ -285,7 +285,7 @@ const BetPage = () => {
               )}
               {activeBet?.eliminatedParticipant && (
                 <AutocompleteBet
-                  items={brothers}
+                  items={brothers?.filter((b) => b?.bigWall)}
                   label={questions.eliminatedParticipant}
                   onChange={(item: Brother) => {
                     setEliminatedParticipant(item);

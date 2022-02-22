@@ -59,7 +59,6 @@ const CompetitionPage = () => {
 
   const returnImage = (id: string) => {
     let img;
-    console.log("id", id);
     try {
       img = require(`../midia/${id}.jpg`);
       return img;
