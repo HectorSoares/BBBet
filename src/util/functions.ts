@@ -9,6 +9,13 @@ export const returnLastBet: any = (week: Week | undefined) => week?.bets?.find((
 
 export const detectMob: any = () => window.innerWidth <= 600;
 
+export const returnPixelsByPercentage: any = (value: number) => {
+  console.log('px:', (window.innerWidth * value) / 100);
+  return (window.innerWidth * value) / 100;
+
+
+};
+
 export const returnDescriptionBet = (week?: Week) => {
   switch (week?.bets?.length) {
     case 0: return "Primeira";

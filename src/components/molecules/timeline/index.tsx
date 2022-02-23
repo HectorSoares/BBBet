@@ -44,6 +44,7 @@ export default function Timeline() {
   );
 
   const [graphData, setGraphData] = useState<any | undefined>([]);
+  const [currentRow, setCurrentRow] = useState<any | undefined>(undefined);
   const arrayRank: any = [];
 
   const returnSumPointsUtilWeek = (key: number, user: any) => {
@@ -87,6 +88,7 @@ export default function Timeline() {
 
   const onCellClickTable = (row: any) => {
     setGraphData(returnDataGraph(row));
+    setCurrentRow(row);
   };
 
   return (
@@ -162,7 +164,10 @@ export default function Timeline() {
           </Table>
         </TableContainer>
       </Paper>
-      <CustomLineMarkChart label={"Pontuação por semana"} data={graphData} />
+      <CustomLineMarkChart
+        label={`Pontuação por semana - ${currentRow?.id || ""}`}
+        data={graphData}
+      />
     </Grid>
   );
 }
