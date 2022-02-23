@@ -13,6 +13,7 @@ import { Grid } from "@material-ui/core";
 import Week from "../../../domain/model/manager/Week";
 import CustomLineMarkChart from "../../atoms/custom-line-mark-chart";
 import { useState } from "react";
+import { detectMob } from "../../../util/functions";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -92,7 +93,7 @@ export default function Timeline() {
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <Paper
         sx={{
-          width: "70%",
+          width: detectMob() ? "100%" : "70%",
           overflow: "hidden",
         }}
       >
