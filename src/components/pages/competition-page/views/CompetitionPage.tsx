@@ -28,7 +28,11 @@ const CompetitionPage = () => {
       ?.filter(function (item, pos) {
         return points?.indexOf(item) === pos;
       })
-      .sort();
+      .sort(function compare(a, b) {
+        if (a > b) return 1;
+        if (a < b) return -1;
+        return 0;
+      });
     return uniquePoints?.reverse().map((p, i) => {
       return { i, p };
     });
@@ -36,6 +40,8 @@ const CompetitionPage = () => {
 
   const relationPositionPoints: Array<{ i: number; p: number }> =
     returnRelationPositionPoints() || [];
+
+  console.log("pontos e posiçao:", relationPositionPoints);
 
   useEffect(
     function () {
