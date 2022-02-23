@@ -22,6 +22,7 @@ const BetConclusionModal = ({ open, closeModal }: BetConclusionModalProps) => {
         width="250"
         height="250"
       />
+      <br />
       <Typography variant="caption">Você pode apostar novamente!</Typography>
       <br />
       <Typography variant="caption">A aposta será sobrescrita.</Typography>
