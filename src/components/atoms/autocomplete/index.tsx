@@ -4,6 +4,7 @@ interface AutocompleteBetProps {
   items?: any;
   label: string;
   value?: any;
+  defaultValue?: any;
   onChange: (value: any) => void;
 }
 
@@ -11,13 +12,15 @@ const AutocompleteBet = ({
   items,
   label,
   value,
+  defaultValue,
   onChange,
 }: AutocompleteBetProps) => {
   return (
     <Autocomplete
       options={items || []}
       fullWidth
-      defaultValue={value || null}
+      defaultValue={defaultValue || value || null}
+      value={value}
       getOptionLabel={(option: any) => option?.name || option.id || option}
       renderInput={(params) => (
         <>

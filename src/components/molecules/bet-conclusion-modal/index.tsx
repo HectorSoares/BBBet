@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import CustomDialog from "../../atoms/dialog";
 
 interface BetConclusionModalProps {
@@ -18,9 +19,12 @@ const BetConclusionModal = ({ open, closeModal }: BetConclusionModalProps) => {
       <img
         src={require("./JoaoChupaBola-bet.png")}
         alt="JoaoChupaBola-bet.png"
-        width="300"
-        height="300"
+        width="250"
+        height="250"
       />
+      <Typography variant="caption">Você pode apostar novamente!</Typography>
+      <br />
+      <Typography variant="caption">A aposta será sobrescrita.</Typography>
     </CustomDialog>
   );
 };
