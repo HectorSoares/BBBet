@@ -13,9 +13,17 @@ import { RootState } from "../../../store/reducers";
 import User from "../../../domain/model/User";
 import Brother from "../../../domain/model/Brother";
 import { Grid } from "@material-ui/core";
+import TableSortLabel from "@mui/material/TableSortLabel";
 import Week from "../../../domain/model/manager/Week";
 import BetResults from "../../../domain/model/results/BetResults";
-import { detectMob, returnActiveBet } from "../../../util/functions";
+import {
+  detectMob,
+  getComparator,
+  returnActiveBet,
+  stableSort,
+} from "../../../util/functions";
+import HeadCell from "../../../domain/model/HeadCell";
+import { useEffect, useState } from "react";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,6 +50,8 @@ interface BetsTableProps {
 }
 
 export default function BetTable({ week }: BetsTableProps) {
+  const [order, setOrder] = useState<any>("asc");
+  const [orderBy, setOrderBy] = useState<any>("id");
   const weekId = week?.week;
   const activeBet = returnActiveBet(week);
   const user: User | undefined = useSelector(
@@ -52,6 +62,10 @@ export default function BetTable({ week }: BetsTableProps) {
   );
   const brothers: Brother[] | undefined = useSelector(
     (state: RootState) => state.betPage.brothers
+  );
+
+  const [headCells, setHeadCells] = useState<Array<HeadCell> | undefined>(
+    undefined
   );
 
   const returnCellStyle = (
@@ -86,85 +100,179 @@ export default function BetTable({ week }: BetsTableProps) {
     return bet?.eliminationPercentage;
   };
 
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: any
+  ) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const createSortHandler =
+    (property: any) => (event: React.MouseEvent<unknown>) => {
+      handleRequestSort(event, property);
+    };
+
+  useEffect(
+    function () {
+      const setHeadCellsFunction = async () => {
+        if (week) {
+          setHeadCells([
+            {
+              id: "id",
+              numeric: false,
+              orderly: true,
+              disablePadding: true,
+              isVisible: true,
+              label: "Nome",
+            },
+            {
+              id: "leader",
+              numeric: false,
+              orderly: false,
+              disablePadding: true,
+              isVisible: !!week?.bets.find((b) => b.leader),
+              label: simpleQuestions.leader,
+            },
+            {
+              id: "angel",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.angel),
+              label: simpleQuestions.angel,
+            },
+            {
+              id: "bigPhone",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.bigPhone),
+              label: simpleQuestions.bigPhone,
+            },
+            {
+              id: "angelImmunized",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.angelImmunized),
+              label: simpleQuestions.angelImmunized,
+            },
+            {
+              id: "firstIndicated",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.firstIndicated),
+              label: simpleQuestions.firstIndicated,
+            },
+            {
+              id: "secondIndicated",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.secondIndicated),
+              label: simpleQuestions.secondIndicated,
+            },
+            {
+              id: "thirdIndicated",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.thirdIndicated),
+              label: simpleQuestions.thirdIndicated,
+            },
+            {
+              id: "fourthIndicated",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.fourthIndicated),
+              label: simpleQuestions.fourthIndicated,
+            },
+            {
+              id: "fifthIndicated",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.fifthIndicated),
+              label: simpleQuestions.fifthIndicated,
+            },
+            {
+              id: "eliminatedParticipant",
+              numeric: false,
+              orderly: false,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.eliminatedParticipant),
+              label: simpleQuestions.eliminatedParticipant,
+            },
+            {
+              id: "eliminationPercentage",
+              numeric: true,
+              orderly: true,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.eliminationPercentage),
+              label: simpleQuestions.eliminationPercentage,
+            },
+          ]);
+        }
+      };
+      setHeadCellsFunction();
+    },
+    [week]
+  );
+
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Paper
-        sx={{
-          width: detectMob() ? "100%" : "70%",
-          overflow: "hidden",
-        }}
+      <TableContainer
+        component={Paper}
+        sx={{ maxHeight: 500, width: detectMob() ? "100%" : "70%" }}
       >
-        <TableContainer
-          component={Paper}
-          sx={{ maxHeight: 500, width: "100%" }}
+        <Table
+          stickyHeader
+          sx={{ width: "100%" }}
+          aria-label="customized table"
         >
-          <Table
-            stickyHeader
-            sx={{ width: "100%" }}
-            aria-label="customized table"
-          >
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Nome</StyledTableCell>
-                {week?.bets.find((b) => b.leader) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.leader}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.angel) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.angel}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.bigPhone) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.bigPhone}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.angelImmunized) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.angelImmunized}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.firstIndicated) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.firstIndicated}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.secondIndicated) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.secondIndicated}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.thirdIndicated) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.thirdIndicated}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.fourthIndicated) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.fourthIndicated}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.fifthIndicated) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.fifthIndicated}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.eliminatedParticipant) && (
-                  <StyledTableCell align="left">
-                    {simpleQuestions.eliminatedParticipant}
-                  </StyledTableCell>
-                )}
-                {week?.bets.find((b) => b.eliminationPercentage) && (
-                  <StyledTableCell align="right">
-                    {simpleQuestions.eliminationPercentage}
-                  </StyledTableCell>
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users?.map((row) => (
+          <TableHead>
+            <TableRow>
+              {headCells?.map((headCell) => (
+                <>
+                  {headCell.isVisible && (
+                    <>
+                      {headCell.orderly ? (
+                        <StyledTableCell key={headCell.id}>
+                          <TableSortLabel
+                            active={orderBy === headCell.id}
+                            direction={orderBy === headCell.id ? order : "asc"}
+                            onClick={createSortHandler(headCell.id)}
+                          >
+                            {headCell.label}
+                          </TableSortLabel>
+                        </StyledTableCell>
+                      ) : (
+                        <StyledTableCell key={headCell.id}>
+                          {headCell.label}
+                        </StyledTableCell>
+                      )}
+                    </>
+                  )}
+                </>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users &&
+              stableSort(
+                users.map((u) => {
+                  return {
+                    eliminationPercentage:
+                      u.bets[weekId]?.eliminationPercentage,
+                    ...u,
+                  };
+                }),
+                getComparator(order, orderBy)
+              ).map((row) => (
                 <StyledTableRow key={row.firstName}>
                   <StyledTableCell
                     style={{ zIndex: 900 }}
@@ -330,10 +438,9 @@ export default function BetTable({ week }: BetsTableProps) {
                   )}
                 </StyledTableRow>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Grid>
   );
 }
