@@ -3,14 +3,21 @@ import { Autocomplete, Divider, TextField } from "@mui/material";
 interface AutocompleteBetProps {
   items?: any;
   label: string;
+  value?: any;
   onChange: (value: any) => void;
 }
 
-const AutocompleteBet = ({ items, label, onChange }: AutocompleteBetProps) => {
+const AutocompleteBet = ({
+  items,
+  label,
+  value,
+  onChange,
+}: AutocompleteBetProps) => {
   return (
     <Autocomplete
       options={items || []}
       fullWidth
+      defaultValue={value || null}
       getOptionLabel={(option: any) => option?.name || option.id || option}
       renderInput={(params) => (
         <>

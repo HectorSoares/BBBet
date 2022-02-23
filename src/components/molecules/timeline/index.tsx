@@ -108,7 +108,16 @@ export default function Timeline() {
           >
             <TableHead>
               <TableRow>
-                <StyledTableCell align="left">Nome</StyledTableCell>
+                <StyledTableCell
+                  align="left"
+                  style={{
+                    position: "sticky",
+                    left: 0,
+                    zIndex: 900,
+                  }}
+                >
+                  Nome
+                </StyledTableCell>
                 {weeks?.map((row, index) => (
                   <StyledTableCell key={index} align="left">
                     {index + 1}° Rodada
@@ -118,10 +127,14 @@ export default function Timeline() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users?.map((row) => (
+              {users?.map((row, index) => (
                 <StyledTableRow key={row.firstName}>
                   <StyledTableCell
-                    style={{ zIndex: 900 }}
+                    style={{
+                      position: "sticky",
+                      left: 0,
+                      backgroundColor: index % 2 == 0 ? "#f5f5f5" : "white",
+                    }}
                     component="th"
                     scope="row"
                     onClick={() => onCellClickTable(row)}

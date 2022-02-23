@@ -241,7 +241,15 @@ export default function BetTable({ week }: BetsTableProps) {
                   {headCell.isVisible && (
                     <>
                       {headCell.orderly ? (
-                        <StyledTableCell key={headCell.id}>
+                        <StyledTableCell
+                          key={headCell.id}
+                          style={{
+                            position:
+                              headCell.id == "id" ? "sticky" : undefined,
+                            left: 0,
+                            zIndex: 900,
+                          }}
+                        >
                           <TableSortLabel
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : "asc"}
@@ -275,7 +283,11 @@ export default function BetTable({ week }: BetsTableProps) {
               ).map((row) => (
                 <StyledTableRow key={row.firstName}>
                   <StyledTableCell
-                    style={{ zIndex: 900 }}
+                    style={{
+                      position: "sticky",
+                      left: 0,
+                      backgroundColor: "white",
+                    }}
                     component="th"
                     scope="row"
                   >
