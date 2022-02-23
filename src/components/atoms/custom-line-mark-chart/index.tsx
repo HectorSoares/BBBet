@@ -7,6 +7,7 @@ import {
   YAxis,
 } from "react-vis";
 import "../../../../node_modules/react-vis/dist/style.css";
+import { detectMob, returnPixelsByPercentage } from "../../../util/functions";
 
 interface CustomLineMarkChartProps {
   data?: Array<{ x: number; y: number }>;
@@ -25,12 +26,19 @@ export default function CustomLineMarkChart({
         justifyContent="center"
         alignItems="stretch"
       >
-        <Paper elevation={4} sx={{ margin: "3px", padding: "10px" }}>
+        <Paper
+          elevation={4}
+          sx={{
+            margin: "3px",
+            padding: "10px",
+            width: detectMob() ? "100%" : "70%",
+          }}
+        >
           <Typography variant="overline">{label}</Typography>
 
           <XYPlot
-            height={300}
-            width={600}
+            height={200}
+            width={returnPixelsByPercentage(detectMob() ? 100 : 70) - 50}
             margin={{ left: 45, right: 20, top: 10, bottom: 45 }}
             axisEnd={{ x: 19, y: 50 }}
             axisStart={{ x: 10, y: 0 }}

@@ -173,10 +173,7 @@ const BetPage = () => {
         {activeBet ? (
           <>
             <SimpleBackdrop open={loading} />
-            <Typography component="h1" variant="h6">
-              {returnDescriptionBet(activeWeek)} aposta da semana{" "}
-              {activeWeek?.week}
-            </Typography>
+            <Typography component="h1" variant="h6"></Typography>
             <Box
               component="form"
               noValidate

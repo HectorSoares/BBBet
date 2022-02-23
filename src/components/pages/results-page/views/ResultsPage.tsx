@@ -95,6 +95,7 @@ export default function ResultsPage() {
         <Grid sx={{ width: "200px" }}>
           <AutocompleteBet
             items={returnWeeks(weeks)}
+            value={weekId}
             label={"Semana"}
             onChange={setWeek}
           />
