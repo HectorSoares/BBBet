@@ -223,6 +223,9 @@ export default function BetTable({ week }: BetsTableProps) {
     [week]
   );
 
+  const returnDirection = (headCell: HeadCell) =>
+    orderBy === headCell.id ? order : "asc";
+
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <TableContainer
@@ -252,7 +255,7 @@ export default function BetTable({ week }: BetsTableProps) {
                         >
                           <TableSortLabel
                             active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : "asc"}
+                            direction={returnDirection(headCell)}
                             onClick={createSortHandler(headCell.id)}
                           >
                             {headCell.label}

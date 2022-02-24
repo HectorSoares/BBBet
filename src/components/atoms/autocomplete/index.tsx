@@ -28,7 +28,7 @@ const AutocompleteBet = ({
           <Divider />
         </>
       )}
-      onChange={(_, value: any) => onChange(value)}
+      onChange={(_, v: any) => onChange(v)}
       sx={{ mt: 1 }}
     />
   );

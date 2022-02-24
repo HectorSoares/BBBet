@@ -45,7 +45,7 @@ export default function Timeline() {
 
   const [graphData, setGraphData] = useState<any | undefined>([]);
   const [currentRow, setCurrentRow] = useState<any | undefined>(undefined);
-  const arrayRank: any = [];
+  const arrayRank = [];
 
   const returnSumPointsUtilWeek = (key: number, user: any) => {
     let sum = 0;
@@ -143,13 +143,13 @@ export default function Timeline() {
                   >
                     {row.id}
                   </StyledTableCell>
-                  {weeks?.map((rowWeek, index) => (
+                  {weeks?.map((_rowWeek, i) => (
                     <StyledTableCell
-                      key={index}
+                      key={i}
                       align="left"
                       onClick={() => onCellClickTable(row)}
                     >
-                      {row?.bets[index + 1]?.points || 0}
+                      {row?.bets[i + 1]?.points || 0}
                     </StyledTableCell>
                   ))}
                   <StyledTableCell
