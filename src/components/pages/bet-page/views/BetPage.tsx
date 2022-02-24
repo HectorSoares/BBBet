@@ -9,11 +9,7 @@ import User from "../../../../domain/model/User";
 import UserService from "../../../../services/UserService";
 import { RootState } from "../../../../store/reducers";
 import { questions } from "../../../../util/constants";
-import {
-  returnActiveBet,
-  returnActiveWeek,
-  returnDescriptionBet,
-} from "../../../../util/functions";
+import { returnActiveBet, returnActiveWeek } from "../../../../util/functions";
 import AutocompleteBet from "../../../atoms/autocomplete";
 import SimpleBackdrop from "../../../atoms/backdrop";
 import BetConclusionModal from "../../../molecules/bet-conclusion-modal";
