@@ -9,12 +9,12 @@ const axiosInstance = getAxiosInstance(process.env.REACT_APP_BETRESULTS_API || '
 
 class BetResultsService {
   async listBetResults(): Promise<AxiosResponse<Bet[]>> {
-    return await axiosInstance.get('/listbetresults');
+    return axiosInstance.get('/listbetresults');
   }
 
   async addResult(activeWeek?: Week, bet?: BetResults): Promise<AxiosResponse<any>> {
     const request = { week: activeWeek?.week, ...bet };
-    return await axiosInstance.post('/createbetresults', request);
+    return axiosInstance.post('/createbetresults', request);
 
   }
 }
