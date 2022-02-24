@@ -5,12 +5,10 @@ const header = {
 
 const getAxiosInstance = (url: string): AxiosInstance => {
 
-  const axiosInstance = axios.create({
+  return axios.create({
     headers: header,
     baseURL: url,
   });
-
-  return axiosInstance;
 };
 
 export default getAxiosInstance;

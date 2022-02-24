@@ -7,23 +7,19 @@ const axiosInstance = getAxiosInstance(process.env.REACT_APP_BETMANAGER_API || '
 
 class BetManagerService {
   async listBetManager(): Promise<AxiosResponse<User[]>> {
-    const response = await axiosInstance.get('/listbetmanager');
-    return response
+    return await axiosInstance.get('/listbetmanager');
   }
 
   async createBetManager(bet: Bet): Promise<AxiosResponse<any>> {
-    const response = await axiosInstance.post('/createbetmanager', bet);
-    return response
+    return await axiosInstance.post('/createbetmanager', bet);
   }
 
   async closeBet(id?: string): Promise<AxiosResponse<any>> {
-    const response = await axiosInstance.post('/closebet', { id });
-    return response
+    return await axiosInstance.post('/closebet', { id });
   }
 
   async closeWeek(id?: string): Promise<AxiosResponse<any>> {
-    const response = await axiosInstance.post('/closeweek', { id });
-    return response
+    return await axiosInstance.post('/closeweek', { id });
   }
 }
 
