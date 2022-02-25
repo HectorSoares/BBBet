@@ -12,6 +12,7 @@ import { questions } from "../../../../util/constants";
 import { returnActiveBet, returnActiveWeek } from "../../../../util/functions";
 import AutocompleteBet from "../../../atoms/autocomplete";
 import SimpleBackdrop from "../../../atoms/backdrop";
+import CustomizedSnackbar from "../../../atoms/customized-snackbar";
 import BetConclusionModal from "../../../molecules/bet-conclusion-modal";
 import { setListUser } from "../../competition-page/store/actions";
 import { setUser } from "../../identificate-page/store/actions";
@@ -97,14 +98,26 @@ const BetPage = () => {
       eliminatedParticipant: eliminatedParticipant?.id,
       eliminationPercentage: eliminationPercentage,
     };
-    await UserService.addBet(user?.id, bet, activeWeek?.week);
+    const response = await UserService.addBet(user?.id, bet, activeWeek?.week);
+    console.log("resposta: ", response);
+    if (response.data.status != 200) {
+      setOpenSnackBar(true);
+      setSnackBarType("error");
+      setSnackBarLabel("Não existe aposta aberta!");
+    } else {
+      setOpenModal(true);
+      clearFields();
+    }
     setLoading(false);
-    setOpenModal(true);
-    clearFields();
   };
 
   const [loading, setLoading] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
+  const [snackBarType, setSnackBarType] = useState<
+    "error" | "warning" | "info" | "success"
+  >("info");
+  const [snackBarLabel, setSnackBarLabel] = useState<string>("");
 
   useEffect(
     function () {
@@ -153,6 +166,12 @@ const BetPage = () => {
 
   return (
     <>
+      <CustomizedSnackbar
+        open={openSnackBar}
+        type={snackBarType}
+        setOpen={setOpenSnackBar}
+        label={snackBarLabel}
+      />
       <BetConclusionModal open={openModal} closeModal={closeModalHandler} />
       <Box
         sx={{
