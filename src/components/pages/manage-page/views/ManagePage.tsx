@@ -29,6 +29,7 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import BetResultsService from "../../../../services/BetResultsService";
 import BetResults from "../../../../domain/model/results/BetResults";
 import { setListBetManager } from "../../bet-page/store/actions";
+import CustomizedSnackbar from "../../../atoms/customized-snackbar";
 
 const ManagePage = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,11 @@ const ManagePage = () => {
   const [lastBet, setLastBet] = useState<Bet | undefined>(
     returnLastBet(activeWeek)
   );
+  const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
+  const [snackBarType, setSnackBarType] = useState<
+    "error" | "warning" | "info" | "success"
+  >("info");
+  const [snackBarLabel, setSnackBarLabel] = useState<string>("");
 
   const [hasBetOptionChecked, setHasBetOptionChecked] =
     useState<boolean>(false);
@@ -172,7 +178,17 @@ const ManagePage = () => {
 
   const createNewBet = async () => {
     setLoading(true);
-    await BetManagerService.createBetManager(bet);
+    const response = await BetManagerService.createBetManager(bet);
+
+    if (response.data.statusCode != 200) {
+      setOpenSnackBar(true);
+      setSnackBarType("error");
+      setSnackBarLabel("Erro ao abrir aposta!");
+    } else {
+      setOpenSnackBar(true);
+      setSnackBarType("success");
+      setSnackBarLabel("Aposta aberta com sucesso!");
+    }
     setActiveBet(bet);
     setDefaultOption({ sunday: false, thursday: false, tuesday: false });
     dispatch(await setListBetManager());
@@ -182,14 +198,34 @@ const ManagePage = () => {
 
   const closeWeek = async () => {
     setLoading(true);
-    await BetManagerService.closeWeek(activeWeek?.week);
+    const response = await BetManagerService.closeWeek(activeWeek?.week);
+
+    if (response.data.statusCode != 200) {
+      setOpenSnackBar(true);
+      setSnackBarType("error");
+      setSnackBarLabel("Erro ao fechar a semana!");
+    } else {
+      setOpenSnackBar(true);
+      setSnackBarType("success");
+      setSnackBarLabel("Semana fechada com sucesso!");
+    }
     dispatch(await setListBetManager());
     setLoading(false);
   };
 
   const closeBet = async () => {
     setLoading(true);
-    await BetManagerService.closeBet(activeWeek?.week);
+    const response = await BetManagerService.closeBet(activeWeek?.week);
+
+    if (response.data.statusCode != 200) {
+      setOpenSnackBar(true);
+      setSnackBarType("error");
+      setSnackBarLabel("Erro ao fechar a aposta!");
+    } else {
+      setOpenSnackBar(true);
+      setSnackBarType("success");
+      setSnackBarLabel("Aposta fechada com sucesso!");
+    }
     dispatch(await setListBetManager());
     setLoading(false);
   };
@@ -200,7 +236,17 @@ const ManagePage = () => {
   const confirmAddResult = async (bet: BetResults) => {
     setLoading(true);
     setOpenDialogResult(false);
-    await BetResultsService.addResult(activeWeek, bet);
+    const response = await BetResultsService.addResult(activeWeek, bet);
+
+    if (response.data.statusCode != 200) {
+      setOpenSnackBar(true);
+      setSnackBarType("error");
+      setSnackBarLabel("Erro ao fechar a aposta!");
+    } else {
+      setOpenSnackBar(true);
+      setSnackBarType("success");
+      setSnackBarLabel("Aposta fechada com sucesso!");
+    }
     dispatch(await setListBetManager());
     setLoading(false);
   };
@@ -211,6 +257,12 @@ const ManagePage = () => {
 
   return (
     <>
+      <CustomizedSnackbar
+        open={openSnackBar}
+        type={snackBarType}
+        setOpen={setOpenSnackBar}
+        label={snackBarLabel}
+      />
       <SimpleBackdrop open={loading} />
       <Box
         sx={{
