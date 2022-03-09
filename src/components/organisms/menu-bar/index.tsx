@@ -16,15 +16,16 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Bet from "../../../icons/Bet";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import MilitaryTechOutlinedIcon from "@mui/icons-material/MilitaryTechOutlined";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import User from "../../../domain/model/User";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/reducers";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Grid } from "@material-ui/core";
 import EasterEgg from "../../../icons/EasterEgg";
 import UserService from "../../../services/UserService";
+import { setIsLogged, setUser } from "../../pages/login-page/store/actions";
 
 const drawerWidth = 240;
 
@@ -35,6 +36,7 @@ interface Props {
 export default function MenuBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const user: User | undefined = useSelector(
     (state: RootState) => state.user.user
@@ -147,7 +149,11 @@ export default function MenuBar(props: Props) {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={() => Auth.signOut()}
+              onClick={() => {
+                Auth.signOut();
+                dispatch(setUser(undefined));
+                dispatch(setIsLogged(false));
+              }}
               color="inherit"
             >
               <LogoutIcon />
