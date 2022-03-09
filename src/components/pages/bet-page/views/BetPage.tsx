@@ -15,7 +15,7 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import CustomizedSnackbar from "../../../atoms/customized-snackbar";
 import BetConclusionModal from "../../../molecules/bet-conclusion-modal";
 import { setListUser } from "../../competition-page/store/actions";
-import { setUser } from "../../identificate-page/store/actions";
+import { setUser } from "../../login-page/store/actions";
 import { setBrothers, setListBetManager } from "../store/actions";
 
 const BetPage = () => {

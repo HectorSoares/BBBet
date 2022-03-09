@@ -1,7 +1,7 @@
-import Amplify from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import { withAuthenticator, AmplifyTheme } from "aws-amplify-react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import "./App.css";
 import Router from "./Router";
 import store from "./store/index";
@@ -9,6 +9,10 @@ import { customTheme } from "./customTheme";
 import MenuBar from "./components/organisms/menu-bar";
 import { amplifyConfigure } from "./aws_credencials";
 import "@aws-amplify/ui/dist/style.css";
+import LoginPage from "./components/pages/login-page/views/LoginPage";
+import { useEffect, useState } from "react";
+import { RootState } from "./store/reducers";
+import { setIsLogged } from "./components/pages/login-page/store/actions";
 
 const authTheme = {
   ...AmplifyTheme,
@@ -60,21 +64,43 @@ const signUpConfig = {
 Amplify.configure(amplifyConfigure);
 
 const App = () => {
+  const loggedIn: boolean | undefined = useSelector(
+    (state: RootState) => state.user.isLogged
+  );
+  const dispatch = useDispatch();
+
+  const assessLoggedInState = () => {
+    Auth.currentAuthenticatedUser()
+      .then((sess) => {
+        console.log("logged in");
+        dispatch(setIsLogged(true));
+      })
+      .catch(() => {
+        console.log("not logged in");
+        dispatch(setIsLogged(false));
+      });
+  };
+
+  useEffect(() => {
+    assessLoggedInState();
+  }, []);
+
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <MenuBar />
-        <Router />
+        {loggedIn ? (
+          <>
+            <MenuBar />
+            <Router />
+          </>
+        ) : (
+          <>
+            <LoginPage />
+          </>
+        )}
       </Provider>
     </BrowserRouter>
   );
 };
 
-export default withAuthenticator(
-  App,
-  false,
-  undefined,
-  null,
-  authTheme,
-  signUpConfig
-);
+export default App;

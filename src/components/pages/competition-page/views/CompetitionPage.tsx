@@ -8,7 +8,7 @@ import User from "../../../../domain/model/User";
 import Crown from "../../../../icons/Crown";
 import { RootState } from "../../../../store/reducers";
 import SimpleBackdrop from "../../../atoms/backdrop";
-import { setUser } from "../../identificate-page/store/actions";
+import { setUser } from "../../login-page/store/actions";
 import { setListUser } from "../store/actions";
 
 const CompetitionPage = () => {

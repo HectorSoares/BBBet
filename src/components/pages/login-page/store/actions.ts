@@ -1,9 +1,9 @@
 import User from "../../../../domain/model/User";
 import UserService from "../../../../services/UserService";
 import { AppThunk } from "../../../../store";
-import { IdentificationPageActions, SET_USER } from "./types";
+import { LoginPageActions, SET_ISLOGGED, SET_USER } from "./types";
 
-const internalSetUser = (user?: User): IdentificationPageActions => ({
+const internalSetUser = (user?: User): LoginPageActions => ({
   type: SET_USER,
   payload: {
     user,
@@ -19,5 +19,19 @@ export const setUser = (id?: string): AppThunk => async (dispatch) => {
     console.log('erro so buscar usuario');
     //dispatch(showNotification(errorNotificationMessages.defaultError, notificationIcons.error));
   }
+  console.log('-----------', user)
   dispatch(internalSetUser(user));
+};
+
+
+const internalSetLogged = (logged?: boolean): LoginPageActions => ({
+  type: SET_ISLOGGED,
+  payload: {
+    isLogged: logged,
+  },
+});
+
+export const setIsLogged = (logged?: boolean): AppThunk => async (dispatch) => {
+
+  dispatch(internalSetLogged(logged));
 };

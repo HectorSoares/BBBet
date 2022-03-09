@@ -10,7 +10,7 @@ import BetInfo from "../../../organisms/bet-info";
 import Week from "../../../../domain/model/manager/Week";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/reducers";
-import { setUser } from "../../identificate-page/store/actions";
+import { setUser } from "../../login-page/store/actions";
 import { setBrothers, setListBetManager } from "../../bet-page/store/actions";
 import { setListUser } from "../../competition-page/store/actions";
 import { Auth } from "aws-amplify";
