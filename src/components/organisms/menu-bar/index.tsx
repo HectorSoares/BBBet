@@ -150,7 +150,6 @@ export default function MenuBar(props: Props) {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={() => {
-                console.log("sair");
                 Auth.signOut();
                 dispatch(setUser(undefined));
                 dispatch(setIsLogged(false));

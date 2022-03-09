@@ -18,6 +18,8 @@ import { useHistory } from "react-router-dom";
 import SimpleBackdrop from "../../../atoms/backdrop";
 import { setIsLogged, setUser } from "../store/actions";
 import { useDispatch } from "react-redux";
+import CustomizedSnackbar from "../../../atoms/customized-snackbar";
+import { AnyAaaaRecord } from "dns";
 
 const theme = createTheme();
 
@@ -39,9 +41,12 @@ export default function SignIn() {
       dispatch(setUser(user.username));
       dispatch(setIsLogged(true));
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
+      setSnackBarType("error");
+      setOpenSnackBar(true);
+      console.log(error);
+      setSnackBarLabel(error?.message || "Erro!");
       setLoading(false);
-      console.log("erro");
     }
 
     console.log({
@@ -50,8 +55,20 @@ export default function SignIn() {
     });
   };
 
+  const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
+  const [snackBarType, setSnackBarType] = useState<
+    "error" | "warning" | "info" | "success"
+  >("info");
+  const [snackBarLabel, setSnackBarLabel] = useState<string>("");
+
   return (
     <>
+      <CustomizedSnackbar
+        open={openSnackBar}
+        type={snackBarType}
+        setOpen={setOpenSnackBar}
+        label={snackBarLabel}
+      />
       <SimpleBackdrop open={loading} />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -108,14 +125,10 @@ export default function SignIn() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Esqueceu a senha?
-                  </Link>
+                  <Link href="#" variant="body2"></Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Criar conta"}
-                  </Link>
+                  <Link href="#" variant="body2"></Link>
                 </Grid>
               </Grid>
             </Box>

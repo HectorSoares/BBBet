@@ -19,7 +19,6 @@ export const setUser = (id?: string): AppThunk => async (dispatch) => {
     console.log('erro so buscar usuario');
     //dispatch(showNotification(errorNotificationMessages.defaultError, notificationIcons.error));
   }
-  console.log('-----------', user)
   dispatch(internalSetUser(user));
 };
 
