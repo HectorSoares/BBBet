@@ -18,6 +18,7 @@ const authTheme = {
   ...AmplifyTheme,
   ...customTheme,
 };
+//
 
 const signUpConfig = {
   header: "Sign Up",
