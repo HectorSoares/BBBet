@@ -19,14 +19,16 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import { setIsLogged, setUser } from "../store/actions";
 import { useDispatch } from "react-redux";
 import CustomizedSnackbar from "../../../atoms/customized-snackbar";
-import { AnyAaaaRecord } from "dns";
+import ForgetPasswordPage from "./ForgetPasswordPage";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [forgetPasswordVisibility, setForgetPasswordVisibility] =
+    useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -70,71 +72,86 @@ export default function SignIn() {
         label={snackBarLabel}
       />
       <SimpleBackdrop open={loading} />
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Login
-            </Typography>
+      {!forgetPasswordVisibility ? (
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
             <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                onChange={(event) => setUsername(event?.target.value)}
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Senha"
-                onChange={(event) => setPassword(event?.target.value)}
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+              <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Login
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}
               >
-                Entrar
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2"></Link>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Login"
+                  onChange={(event) => setUsername(event?.target.value)}
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Senha"
+                  onChange={(event) => setPassword(event?.target.value)}
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Entrar
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Button
+                      variant="text"
+                      size="small"
+                      sx={{ mt: 0, mb: 2 }}
+                      onClick={() => {
+                        setForgetPasswordVisibility(true);
+                      }}
+                    >
+                      Esqueci a senha
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Link href="#" variant="body2"></Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2"></Link>
-                </Grid>
-              </Grid>
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
+          </Container>
+        </ThemeProvider>
+      ) : (
+        <ForgetPasswordPage
+          setForgetPasswordVisibility={setForgetPasswordVisibility}
+        />
+      )}
     </>
   );
 }
