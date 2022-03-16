@@ -50,11 +50,6 @@ export default function LoginPage() {
       setSnackBarLabel(error?.message || "Erro!");
       setLoading(false);
     }
-
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
