@@ -65,7 +65,7 @@ const App = () => {
         <Provider store={store}>
           {loggedIn ? (
             <>
-              {false && <SimpleBackdrop open={loading} />}
+              {loading && <SimpleBackdrop open={loading} />}
               <MenuBar />
               <Router />
             </>
