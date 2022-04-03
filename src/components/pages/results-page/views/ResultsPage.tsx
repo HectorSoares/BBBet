@@ -17,12 +17,20 @@ import { Auth } from "aws-amplify";
 import { returnActiveWeek } from "../../../../util/functions";
 import SimpleBackdrop from "../../../atoms/backdrop";
 import Timeline from "../../../molecules/timeline";
+import User from "../../../../domain/model/User";
 
 export default function ResultsPage() {
   const dispatch = useDispatch();
 
   const weeks: Week[] | undefined = useSelector(
     (state: RootState) => state.betPage.weeks
+  );
+
+  const user: User | undefined = useSelector(
+    (state: RootState) => state.user.user
+  );
+  const users: User[] | undefined = useSelector(
+    (state: RootState) => state.listUser.users
   );
 
   const [value, setValue] = useState<number>(0);
@@ -52,17 +60,19 @@ export default function ResultsPage() {
   useEffect(
     function () {
       async function setData() {
-        setLoading(true);
-        dispatch(
-          setUser(
-            (await Auth.currentAuthenticatedUser().then((user) => user))
-              .username
-          )
-        );
-        dispatch(await setListBetManager());
-        dispatch(await setBrothers());
-        dispatch(await setListUser());
-        setLoading(false);
+        if (!users || !user) {
+          setLoading(true);
+          dispatch(
+            setUser(
+              (await Auth.currentAuthenticatedUser().then((user) => user))
+                .username
+            )
+          );
+          dispatch(await setListBetManager());
+          dispatch(await setBrothers());
+          dispatch(await setListUser());
+          setLoading(false);
+        }
       }
       setData();
     },
@@ -71,7 +81,8 @@ export default function ResultsPage() {
 
   const returnWeeks = (weeks?: Week[]) => {
     if (!weeks) return [];
-    const weeksId = weeks.map((week) => week.week);
+    let weeksId: any = weeks.map((week) => parseInt(week.week));
+    weeksId = weeksId.map((w: any) => w.toString());
     return weeksId.sort();
   };
 

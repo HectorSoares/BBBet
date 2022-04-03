@@ -125,8 +125,8 @@ const BetPage = () => {
   useEffect(
     function () {
       async function setData() {
-        setLoading(true);
         if (!users || !user) {
+          setLoading(true);
           dispatch(
             setUser(
               (await Auth.currentAuthenticatedUser().then((user) => user))
