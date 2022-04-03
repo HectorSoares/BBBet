@@ -2,10 +2,8 @@ import Amplify, { Auth } from "aws-amplify";
 import { withAuthenticator, AmplifyTheme } from "aws-amplify-react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
-import "./App.css";
 import Router from "./Router";
 import store from "./store/index";
-import { customTheme } from "./customTheme";
 import MenuBar from "./components/organisms/menu-bar";
 import { amplifyConfigure } from "./aws_credencials";
 import "@aws-amplify/ui/dist/style.css";
@@ -13,53 +11,18 @@ import LoginPage from "./components/pages/login-page/views/LoginPage";
 import { useEffect, useState } from "react";
 import { RootState } from "./store/reducers";
 import { setIsLogged } from "./components/pages/login-page/store/actions";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { green } from "@material-ui/core/colors";
+import Week from "./domain/model/manager/Week";
+import SimpleBackdrop from "./components/atoms/backdrop";
 
-const authTheme = {
-  ...AmplifyTheme,
-  ...customTheme,
-};
-
-const signUpConfig = {
-  header: "Sign Up",
-  hideAllDefaults: true,
-  signUpFields: [
-    {
-      label: "First Name",
-      key: "name",
-      required: true,
-      displayOrder: 1,
-      type: "string",
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: green[500],
     },
-    {
-      label: "Last Name",
-      key: "middle_name",
-      required: true,
-      displayOrder: 2,
-      type: "string",
-    },
-    {
-      label: "Email",
-      key: "email",
-      required: true,
-      displayOrder: 3,
-      type: "string",
-    },
-    {
-      label: "Username",
-      key: "username",
-      required: true,
-      displayOrder: 4,
-      type: "string",
-    },
-    {
-      label: "Password",
-      key: "password",
-      required: true,
-      displayOrder: 5,
-      type: "password",
-    },
-  ],
-};
+  },
+});
 
 Amplify.configure(amplifyConfigure);
 
@@ -72,11 +35,9 @@ const App = () => {
   const assessLoggedInState = () => {
     Auth.currentAuthenticatedUser()
       .then((sess) => {
-        console.log("logged in");
         dispatch(setIsLogged(true));
       })
       .catch(() => {
-        console.log("not logged in");
         dispatch(setIsLogged(false));
       });
   };
@@ -85,21 +46,37 @@ const App = () => {
     assessLoggedInState();
   }, []);
 
+  const weeks: Week[] | undefined = useSelector(
+    (state: RootState) => state.betPage.weeks
+  );
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(
+    function () {
+      setLoading(!weeks);
+    },
+    [weeks]
+  );
+
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        {loggedIn ? (
-          <>
-            <MenuBar />
-            <Router />
-          </>
-        ) : (
-          <>
-            <LoginPage />
-          </>
-        )}
-      </Provider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Provider store={store}>
+          {loggedIn ? (
+            <>
+              {loading && <SimpleBackdrop open={loading} />}
+              <MenuBar />
+              <Router />
+            </>
+          ) : (
+            <>
+              <LoginPage />
+            </>
+          )}
+        </Provider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

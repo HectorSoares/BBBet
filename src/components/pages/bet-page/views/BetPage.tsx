@@ -66,6 +66,9 @@ const BetPage = () => {
   const [activeBet, setActiveBet] = useState<Bet | undefined>(
     returnActiveBet(activeWeek)
   );
+  const users: User[] | undefined = useSelector(
+    (state: RootState) => state.listUser.users
+  );
 
   const clearFields = () => {
     setLeader(undefined);
@@ -122,17 +125,19 @@ const BetPage = () => {
   useEffect(
     function () {
       async function setData() {
-        setLoading(true);
-        dispatch(
-          setUser(
-            (await Auth.currentAuthenticatedUser().then((user) => user))
-              .username
-          )
-        );
-        dispatch(await setListBetManager());
-        dispatch(await setBrothers());
-        dispatch(await setListUser());
-        setLoading(false);
+        if (!users || !user) {
+          setLoading(true);
+          dispatch(
+            setUser(
+              (await Auth.currentAuthenticatedUser().then((user) => user))
+                .username
+            )
+          );
+          dispatch(await setListBetManager());
+          dispatch(await setBrothers());
+          dispatch(await setListUser());
+          setLoading(false);
+        }
       }
       setData();
     },
@@ -236,7 +241,9 @@ const BetPage = () => {
               {activeBet?.firstIndicated && (
                 <AutocompleteBet
                   items={brothers}
-                  label={questions.firstIndicated}
+                  label={
+                    activeBet?.firstIndicatedText || questions.secondIndicated
+                  }
                   onChange={(item: Brother) => {
                     setFirstIndicated(item);
                   }}

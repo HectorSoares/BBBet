@@ -8,6 +8,7 @@ export default interface Bet {
    backForth?: boolean,
    angelImmunized?: boolean,
    firstIndicated?: boolean,
+   firstIndicatedText?: string,
    secondIndicated?: boolean,
    secondIndicatedText?: string,
    thirdIndicated?: boolean,
