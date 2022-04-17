@@ -242,7 +242,7 @@ const BetPage = () => {
                 <AutocompleteBet
                   items={brothers}
                   label={
-                    activeBet?.firstIndicatedText || questions.secondIndicated
+                    activeBet?.firstIndicatedText || questions.firstIndicated
                   }
                   onChange={(item: Brother) => {
                     setFirstIndicated(item);
