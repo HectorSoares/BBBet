@@ -63,6 +63,7 @@ const ManagePage = () => {
     backForth: false,
     angelImmunized: false,
     firstIndicated: false,
+    firstIndicatedText: questions.firstIndicated,
     secondIndicated: false,
     secondIndicatedText: questions.secondIndicated,
     thirdIndicated: false,
@@ -396,6 +397,15 @@ const ManagePage = () => {
                       />
                     }
                     label={questions.firstIndicated}
+                  />
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    defaultValue={questions.firstIndicated}
+                    disabled={!bet.firstIndicated}
+                    value={bet.firstIndicatedText}
+                    name="firstIndicatedText"
+                    onChange={handleChangeText}
                   />
                   <FormControlLabel
                     control={
