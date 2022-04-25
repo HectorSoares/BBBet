@@ -42,7 +42,7 @@ const CompetitionPage = () => {
 
   const range = (n: any) => [...new Array(n)];
 
-  range(6).map((a, i) => {
+  range(2).map((a, i) => {
     console.log(Math.random());
     fx({
       x: Math.random() * window.innerWidth + window.innerWidth / 4,
@@ -55,7 +55,7 @@ const CompetitionPage = () => {
       bubbleSizeMaximum: 5,
       bubbleSpeedMinimum: 5,
       bubbleSpeedMaximum: 7,
-      //particleTimeout: 4000,
+      particleTimeout: 2000,
       colors:
         i % 2 == 0
           ? ["#cc3333", "#4CAF50", "#81C784"]
