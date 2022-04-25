@@ -60,6 +60,12 @@ const BetPage = () => {
   const [eliminationPercentage, setEliminationPercentage] = useState<
     number | undefined
   >(undefined);
+  const [secondPlacePercentage, setSecondPlacePercentage] = useState<
+    number | undefined
+  >(undefined);
+  const [thirdPlacePercentage, setThirdPlacePercentage] = useState<
+    number | undefined
+  >(undefined);
   const [activeWeek, setActiveWeek] = useState<Week | undefined>(
     returnActiveWeek(weeks)
   );
@@ -83,6 +89,8 @@ const BetPage = () => {
     setBackForth(undefined);
     setEliminatedParticipant(undefined);
     setEliminationPercentage(undefined);
+    setSecondPlacePercentage(undefined);
+    setThirdPlacePercentage(undefined);
   };
 
   const handleSubmit = async () => {
@@ -100,6 +108,8 @@ const BetPage = () => {
       fifthIndicated: fifthIndicated?.id,
       eliminatedParticipant: eliminatedParticipant?.id,
       eliminationPercentage: eliminationPercentage,
+      thirdPlacePercentage: thirdPlacePercentage,
+      secondPlacePercentage: secondPlacePercentage,
     };
     const response = await UserService.addBet(user?.id, bet, activeWeek?.week);
     console.log("resposta: ", response);
@@ -163,6 +173,16 @@ const BetPage = () => {
       setEliminationPercentage(
         parseFloat(event.target.value.replace(",", "."))
       );
+    };
+  const onChangeSecondPlacePercentage =
+    () => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSecondPlacePercentage(
+        parseFloat(event.target.value.replace(",", "."))
+      );
+    };
+  const onChangePlacePercentage =
+    () => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setThirdPlacePercentage(parseFloat(event.target.value.replace(",", ".")));
     };
 
   const closeModalHandler = () => {
@@ -260,6 +280,12 @@ const BetPage = () => {
                   }}
                 />
               )}
+              <TextField
+                sx={{ mt: 1 }}
+                label="Porcentagem do segundo colocado"
+                variant="outlined"
+                onChange={onChangeSecondPlacePercentage()}
+              ></TextField>
               {activeBet?.thirdIndicated && (
                 <AutocompleteBet
                   items={brothers}
@@ -271,6 +297,12 @@ const BetPage = () => {
                   }}
                 />
               )}
+              <TextField
+                sx={{ mt: 1 }}
+                label="Porcentagem do terceiro colocado"
+                variant="outlined"
+                onChange={onChangePlacePercentage()}
+              ></TextField>
               {activeBet?.fourthIndicated && (
                 <AutocompleteBet
                   items={brothers}

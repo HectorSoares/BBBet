@@ -20,6 +20,7 @@
     "axios": "^0.25.0",
     "connected-react-router": "^6.9.2",
     "dotenv": "^14.3.0",
+    "fireworks": "^2.2.7",
     "history": "^5.2.0",
     "import": "0.0.6",
     "react": "^16.13.1",

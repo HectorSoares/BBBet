@@ -13,5 +13,7 @@ export default interface BetResults {
     fifthIndicated?: Array<number>,
     backForth?: Array<number>,
     eliminatedParticipant?: Array<number>,
-    eliminationPercentage?: number 
+    eliminationPercentage?: number,
+    thirdPlacePercentage?: number,
+    secondPlacePercentage?: number
 }

@@ -18,8 +18,8 @@ export const questions = {
   fourthIndicated: "Quarto emparedado",
   fifthIndicated: "Quinto emparedado",
   backForth: "Ganhador do bate e volta",
-  eliminatedParticipant: "Participante eliminado",
-  eliminationPercentage: "% de eliminação (xx.xx)",
+  eliminatedParticipant: "Campeão",
+  eliminationPercentage: "% do campeão (xx.xx)",
 
 };
 
@@ -33,7 +33,7 @@ export const simpleQuestions = {
   thirdIndicated: "3º emp.",
   fourthIndicated: "4° emp.",
   fifthIndicated: "5° emp.",
-  eliminatedParticipant: "Eliminado",
+  eliminatedParticipant: "Campeão",
   eliminationPercentage: "%",
 
 };

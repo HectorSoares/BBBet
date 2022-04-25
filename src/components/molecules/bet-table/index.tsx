@@ -100,6 +100,20 @@ export default function BetTable({ week }: BetsTableProps) {
     return bet?.eliminationPercentage;
   };
 
+  const returnThirdPlacePercentage = (bet: BetResults) => {
+    if (activeBet?.thirdPlacePercentage && !user?.admin) return "?";
+    if (!bet?.thirdPlacePercentage || bet?.thirdPlacePercentage === 101)
+      return "-";
+    return bet?.thirdPlacePercentage;
+  };
+
+  const returnSecondPlacePercentage = (bet: BetResults) => {
+    if (activeBet?.secondPlacePercentage && !user?.admin) return "?";
+    if (!bet?.secondPlacePercentage || bet?.secondPlacePercentage === 101)
+      return "-";
+    return bet?.secondPlacePercentage;
+  };
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: any
@@ -118,6 +132,7 @@ export default function BetTable({ week }: BetsTableProps) {
     function () {
       const setHeadCellsFunction = async () => {
         if (week) {
+          console.log("Week: ", week);
           setHeadCells([
             {
               id: "id",
@@ -176,12 +191,29 @@ export default function BetTable({ week }: BetsTableProps) {
               label: simpleQuestions.secondIndicated,
             },
             {
+              id: "secondPlacePercentage",
+              numeric: true,
+              orderly: true,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.secondPlacePercentage),
+              label: "% do 2° colocado",
+            },
+            {
               id: "thirdIndicated",
               numeric: false,
               orderly: false,
               disablePadding: false,
               isVisible: !!week?.bets.find((b) => b.thirdIndicated),
               label: simpleQuestions.thirdIndicated,
+            },
+
+            {
+              id: "thirdPlacePercentage",
+              numeric: true,
+              orderly: true,
+              disablePadding: false,
+              isVisible: !!week?.bets.find((b) => b.thirdPlacePercentage),
+              label: "% do 3° colocado",
             },
             {
               id: "fourthIndicated",
@@ -378,6 +410,17 @@ export default function BetTable({ week }: BetsTableProps) {
                       )}
                     </StyledTableCell>
                   )}
+                  {week?.bets.find((b) => b.secondPlacePercentage) && (
+                    <StyledTableCell
+                      align="right"
+                      sx={returnCellStyle(
+                        row?.bets[weekId]?.correctSecondPlacePercentage ||
+                          row?.bets[weekId]?.closerPercentage2
+                      )}
+                    >
+                      {returnSecondPlacePercentage(row?.bets[weekId])}
+                    </StyledTableCell>
+                  )}
                   {week?.bets.find((b) => b.thirdIndicated) && (
                     <StyledTableCell
                       align="left"
@@ -392,6 +435,17 @@ export default function BetTable({ week }: BetsTableProps) {
                         row?.bets[weekId]?.thirdIndicated,
                         "thirdIndicated"
                       )}
+                    </StyledTableCell>
+                  )}
+                  {week?.bets.find((b) => b.thirdPlacePercentage) && (
+                    <StyledTableCell
+                      align="right"
+                      sx={returnCellStyle(
+                        row?.bets[weekId]?.correctThirdPlacePercentage ||
+                          row?.bets[weekId]?.closerPercentage3
+                      )}
+                    >
+                      {returnThirdPlacePercentage(row?.bets[weekId])}
                     </StyledTableCell>
                   )}
                   {week?.bets.find((b) => b.fourthIndicated) && (

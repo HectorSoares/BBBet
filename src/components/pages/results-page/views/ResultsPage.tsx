@@ -82,8 +82,11 @@ export default function ResultsPage() {
   const returnWeeks = (weeks?: Week[]) => {
     if (!weeks) return [];
     let weeksId: any = weeks.map((week) => parseInt(week.week));
+    weeksId = weeksId.sort(function (a: number, b: number) {
+      return a - b;
+    });
     weeksId = weeksId.map((w: any) => w.toString());
-    return weeksId.sort();
+    return weeksId;
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
