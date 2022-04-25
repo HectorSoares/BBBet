@@ -11,6 +11,7 @@ import SimpleBackdrop from "../../../atoms/backdrop";
 import { setBrothers, setListBetManager } from "../../bet-page/store/actions";
 import { setUser } from "../../login-page/store/actions";
 import { setListUser } from "../store/actions";
+import fx from "fireworks";
 
 const CompetitionPage = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,29 @@ const CompetitionPage = () => {
       return { i, p };
     });
   };
+
+  const range = (n: any) => [...new Array(n)];
+
+  range(6).map((a, i) => {
+    console.log(Math.random());
+    fx({
+      x: Math.random() * window.innerWidth + window.innerWidth / 4,
+      y: Math.random() * window.innerHeight + window.innerHeight / 4,
+      canvasWidth: window.innerWidth,
+      canvasHeight: window.innerHeight,
+      //canvasTopOffset: 200,
+      //canvasLeftOffset: 200,
+      bubbleSizeMinimum: 2,
+      bubbleSizeMaximum: 5,
+      bubbleSpeedMinimum: 5,
+      bubbleSpeedMaximum: 7,
+      //particleTimeout: 4000,
+      colors:
+        i % 2 == 0
+          ? ["#cc3333", "#4CAF50", "#81C784"]
+          : ["#F3B61F", "#080357", "#38A700"],
+    });
+  });
 
   const relationPositionPoints: Array<{ i: number; p: number }> =
     returnRelationPositionPoints() || [];

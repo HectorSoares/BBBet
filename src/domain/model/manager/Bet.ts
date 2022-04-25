@@ -10,7 +10,9 @@ export default interface Bet {
    firstIndicated?: boolean,
    firstIndicatedText?: string,
    secondIndicated?: boolean,
+   secondPlacePercentage?: any,
    secondIndicatedText?: string,
+   thirdPlacePercentage?: any,
    thirdIndicated?: boolean,
    thirdIndicatedText?: string,
    fourthIndicated?: boolean,
@@ -18,5 +20,5 @@ export default interface Bet {
    fifthIndicated?: boolean,
    fifthIndicatedText?: string,
    eliminatedParticipant?: boolean,
-   eliminationPercentage?: boolean
+   eliminationPercentage?: any
 }
