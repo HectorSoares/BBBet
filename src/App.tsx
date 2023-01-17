@@ -57,7 +57,6 @@ const signUpConfig = {
     },
   ],
 };
-console.log(amplifyConfigure);
 Amplify.configure(amplifyConfigure);
 
 const App = () => {
